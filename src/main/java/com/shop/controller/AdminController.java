@@ -15,9 +15,14 @@ public class AdminController {
 		return "admin/indexView";
 	}
 	
-	@RequestMapping("/adminVoucher")
-	public String adminUser() {
-		return "adminCRUD/voucher";
+	@RequestMapping("/adminThongke")
+	public String adminThongke() {
+		return "adminCRUD/Thongke";
+	}
+	
+	@RequestMapping("/adminOrder")
+	public String adminOrder() {
+		return "adminCRUD/order";
 	}
 	
 	@RequestMapping("/adminRole")
@@ -30,8 +35,27 @@ public class AdminController {
 		return "adminCRUD/productBrand";
 	}
 	
+	
 	@RequestMapping("/adminVoucherData")
 	public String adminVouData() {
 		return "adminCRUD/voucherData";
+	}
+	
+	@RequestMapping("/adminProduct")
+	public String adminProduct() {
+		return "adminCRUD/product";
+	}
+	@RequestMapping("/adminOrderDetails")
+	public String adminOrderDetails() {
+		return "adminCRUD/OrderDetails";
+	}
+	@RequestMapping("/adminVoucher")
+	public String adminVoucher() {
+		return "adminCRUD/voucher";
+	}
+	
+	@RequestMapping("/adminUser")
+	public String adminUser() {
+		return "adminCRUD/user";
 	}
 }

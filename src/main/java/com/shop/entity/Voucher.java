@@ -18,8 +18,6 @@ import lombok.Data;
 @Table(name = "Voucher")
 public class Voucher {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer voucher_id;
 	String voucher_name;
 	String voucher_desc;
 	Boolean voucher_isdelete;
@@ -27,4 +25,8 @@ public class Voucher {
 	@JsonIgnore
 	@OneToMany(mappedBy = "voucher")
 	List<Voucher_Data> voucher_datas;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "voucher_")
+	List<Order_Details> vouchers;
 }

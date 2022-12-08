@@ -5,38 +5,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<main>
+	<main >
+		<th:block th:object="${order}">
 		<h1>Chi tiết đơn hàng</h1>
-		<table class="table">
+		<table class="table" >
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">User ID</th>
+		      <th scope="col">Tên người nhận</th>
 		      <th scope="col">Địa chỉ</th>
 		      <th scope="col">Ngày Đặt Hàng</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
+		    <tr >
 		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>Larry</td>
-		      <td>the Bird</td>
-		      <td>@twitter</td>
+		      <td th:text="*{order_id}"></td>
+		      <td th:text="*{order_fullname}"></td>
+		      <td th:text="*{order_address}"></td>
+		      <td th:text="*{order_createdate}"></td>
 		    </tr>
 		  </tbody>
 		</table>
+		<h1 style="margin-bottom: 10px;">Các sản phẩm trong đơn hàng</h1>
 		<table class="table">
 		  <thead>
 		    <tr>
@@ -48,28 +40,15 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>Larry</td>
-		      <td>the Bird</td>
-		      <td>@twitter</td>
-		      <td>@mdo</td>
+		    <tr th:each="detail: *{order_details}">
+		      <th scope="row">[[${index}]]</th>
+		      <td>[[${detail.ordetail_id}]]</td>
+		      <td>[[${detail.product_.product_name}]]</td>
+		      <td>[[${detail.ordetail_quantity}]]</td>
+		      <td th:text="${#numbers.formatInteger(detail.ordetail_price,3,'POINT')}">[[${detail.ordetail_price}]]</td>
 		    </tr>
 		  </tbody>
 		</table>
+		</th:block>
 	</main>
 </body>

@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Order")
+@Table(name = "[Order]")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,9 @@ public class Order {
 	@Temporal(TemporalType.DATE)
 	Date order_createdate = new Date();
 	Boolean order_isdelete;
-	String status;
+	String order_status;
+	String order_fullname;
+	String order_email;
 	
 	@ManyToOne @JoinColumn(name = "order_usernameid")
 	Users user;

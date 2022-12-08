@@ -1,129 +1,127 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index :: dynamic(~{::main},'User')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index :: dynamic(~{::main},'Người dùng')}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>	
 	<main>
+	<div ng-controller="user_ctrl">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 		  <li class="nav-item">
-		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">LIST</a>
+		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Danh sách</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SET</a>
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Cài đặt</a>
 		  </li>
-		  
+		  <form class="form-inline ml-3">
+	      <div class="input-group input-group-sm">
+	        <input class="form-control form-control-navbar" ng-model="filterBy" ng-keyup="search()" ng-required='true' type="search" placeholder="Search" aria-label="Search">
+	        <div class="input-group-append">
+	          <a class="btn btn-navbar" ng-click="search()" type="submit">
+	            <i class="fas fa-search"></i>
+	          </a>
+	        </div>
+	      </div>
+	    </form>
 		</ul>
+		 
 		<div class="tab-content" id="myTabContent">
 		  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-				<table class="table table-hover">
+		  <div style="height: 420px;">
+				<table class="table table-hover" >
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Username</th>
-				      <th scope="col">Fullname</th>
-				      <th scope="col">Password</th>
-				      <th scope="col">Image</th>
+				      <th scope="col">Tài khoản</th>
+				      <th scope="col">Họ và tên</th>
+				      <th scope="col">Hình</th>
 				      <th scope="col">Email</th>
-				      <th scope="col">Phone</th>
-				      <th scope="col">Role ID</th>
-				      <th scope="col">Delete</th>
+				      <th scope="col">Số điện thoại</th>
+				      <th scope="col">Quyền</th>
+				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>False</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				    </tr>
+				     <tr ng-repeat="stu in items | orderBy:'user_fullname'|limitTo:pt:start">
+			            <td>{{stu.user_username}}</td>
+			            <td>{{stu.user_fullname}}</td>
+			            <td>{{stu.user_img}}</td>
+			            <td>{{stu.user_mail}}</td>
+			            <td>{{stu.user_phone}}</td>
+			            <td>{{stu.role.role_name}}</td>
+			            <td>
+			                <a ng-click="edit(stu.user_username)"><i class="fa-solid fa-square-pen"></i></a>
+			                <a ng-click="delete(stu.user_username)"><i class="fa-solid fa-trash-can"></i></a>
+			            </td>
+			        </tr>
+				     
 				  </tbody>
 				</table>
+				</div>
+			 	<div class="m-auto col-sm-4">
+	            	<button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+		            <button ng-click="truoc()" class="btn btn-outline-primary border-1 me-2"> < </button>
+		            <a ng-repeat="i in trang">
+		             <button ng-click="loadtrang(i)" class="btn btn-outline-primary numberPage">{{i}}</button>
+		             </a>
+		            <button ng-click="tiep()" class="btn btn-outline-primary border-1"> > </button>
+	            	<button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+		         </div>
 		  </div>
 		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-				<form>
+				<form name="myForm">
 				  <div class="form-group">
-				    <label for="idUser">ID</label>
-				    <input type="text" class="form-control" id="idUser" readonly="readonly">
+				    <label for="usernameUser">Tài khoản</label>
+					<span ng-show="myForm.user.$touched && myForm.user.$invalid" style="color: red;">   Vui lòng nhập Tài khoản.</span>
+				    <input ng-model="form.user_username" type="text" name="user" class="form-control" id="usernameUser" required>
 				  </div>
 				  <div class="form-group">
-				    <label for="usernameUser">Username</label>
-				    <input type="text" class="form-control" id="usernameUser">
+				    <label for="fullnameUser">Họ và tên</label>
+					<span ng-show="myForm.fullname.$touched && myForm.fullname.$invalid" style="color: red;">Vui lòng nhập Họ và tên.</span>
+				    <input ng-model="form.user_fullname" type="text" name="fullname" class="form-control" id="fullnameUser" required>
 				  </div>
 				  <div class="form-group">
-				    <label for="fullnameUser">Fullname</label>
-				    <input type="text" class="form-control" id="fullnameUser">
+				    <label for="passwordUser">Mật khẩu</label>
+					<span ng-show="myForm.pass.$touched && myForm.pass.$invalid" style="color: red;">Mật khẩu tối thiểu phải 6 ký tự.</span>
+				    <input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
 				  </div>
-				  <div class="form-group">
-				    <label for="passwordUser">Password</label>
-				    <input type="password" class="form-control" id="passwordUser">
-				  </div>
+				  <div>
+					</div>
 				  <div class="form-group">
 				    <div class="form-group">
-					    <label for="exampleFormControlFile1">Image</label>
-					    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+					    <label for="exampleFormControlFile1">Hình   ({{form.user_img}})</label>		  
+					    <input ng-model="form.user_img" type="file" accept="image/*" class="form-control-file" 
+					    id="exampleFormControlFile1" onchange="angular.element(this).scope().imageChanged(this.files)">
 					  </div>
 				  </div>
 				  <div class="form-group">
 				    <label for="emailUser">Email</label>
-				    <input type="email" class="form-control" id="emailUser">
+					<span ng-show="myForm.email.$touched && myForm.email.$invalid" style="color: red;">Vui lòng nhập đúng định dạng Email.</span>
+				    <input ng-model="form.user_mail" type="email" name="email" class="form-control" id="emailUser" required>
 				  </div>
 				  <div class="form-group">
-				    <label for="phoneUser">Phone</label>
-				    <input type="text" class="form-control" id="phoneUser">
+				    <label for="phoneUser">Số điện thoại</label>
+					<span ng-show="myForm.sdt.$touched && myForm.sdt.$invalid" style="color: red;">Vui lòng nhập Số điện thoại.</span>
+				    <input ng-model="form.user_phone" type="text" name="sdt" class="form-control" id="phoneUser" required>
 				  </div>
 				  <div class="form-group">
-				    <label for="exampleFormControlSelect2">Role ID</label>
-				    <select class="form-control" id="exampleFormControlSelect2">
-				      <option>1</option>
-				      <option>2</option>
-				      <option>3</option>
-				      <option>4</option>
-				      <option>5</option>
+				    <label for="roleid">Quyền</label>
+				    <select ng-model="form.role.role_id" class="form-control" id="roleid">				      
+				      <option ng-repeat="r in role" value="{{r.role_id}}">{{r.role_name}}</option>
 				    </select>
 				  </div>
-				  Trạng Thái: 
-				  <div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-					  <label class="form-check-label" for="inlineRadio1">Đã xóa</label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-					  <label class="form-check-label" for="inlineRadio2">Chưa xóa</label>
-					</div>
-				  
-				  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+				  <button type="submit" ng-click="create()"  class="btn btn-primary mt-2">Submit</button>
+				  <button ng-click="delete(form.user_username)" type="submit" class="btn btn-primary mt-2">Delete</button>
+				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>
+		</div>
+		
+	<Script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"> </script>
+   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+   
 	</main>
 </body>
 </html>

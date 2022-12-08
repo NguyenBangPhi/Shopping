@@ -33,4 +33,7 @@ public class Order_Details {
 	
 	@ManyToOne @JoinColumn(name = "ordetail_productid")
 	Product product_;
+	
+	@ManyToOne @JoinColumn(name = "ordetail_vouchername")
+	Voucher voucher_;
 }

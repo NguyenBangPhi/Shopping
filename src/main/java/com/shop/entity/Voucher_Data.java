@@ -30,6 +30,6 @@ public class Voucher_Data {
 	@ManyToOne @JoinColumn(name = "product_id")
 	Product product;
 	
-	@ManyToOne @JoinColumn(name = "voucher_id")
+	@ManyToOne @JoinColumn(name = "voucher_name")
 	Voucher voucher;
 }

@@ -1,22 +1,41 @@
 package com.shop.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.shop.entity.Order;
+import com.shop.entity.Users;
+import com.shop.service.OrdersService;
+import com.shop.service.UsersService;
 
 @Controller
 public class OrderController {
 	
+	@Autowired
+	OrdersService orderService;
 	
+	@Autowired 
+	UsersService userService;
+	
+	@Autowired
+	HttpServletRequest req;
 	
 	@RequestMapping("/order/list")
-	public String orderList() {
-		
+	public String orderList(Model model) {
+		Users u = userService.findById(req.getRemoteUser());
+		model.addAttribute("userLogin",u);
 		return "order/order";
 	}
 	
 	@RequestMapping("/order/detail/{id}")
-	public String orderDetails() {
-		
+	public String orderDetails(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("order",orderService.findById(id));
+		//System.out.println(orderService.findById(id).getOrder_address());
 		return "order/details";
 	}
 }

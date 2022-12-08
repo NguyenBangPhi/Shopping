@@ -31,7 +31,7 @@ public class ProductController {
 		}else {
 			model.addAttribute("listSP", proService.findAll());
 		}
-		model.addAttribute("listDM", proBrandService.findAll());
+		//model.addAttribute("listDM", proBrandService.findAll());
 		
 		return "product/index";
 	}
@@ -40,13 +40,13 @@ public class ProductController {
 	public String productDetails(Model model, @PathVariable("id") Integer id) {
 		Product item = proService.findById(id);
 		model.addAttribute("item", item);
-		model.addAttribute("listDM", proBrandService.findAll());
+		//model.addAttribute("listDM", proBrandService.findAll());
 		return "product/productDetails";
 	}
 	
 	@RequestMapping("/productsBrand/{id}")
 	public String productBrand(Model model, @PathVariable("id") Integer id) {
-		model.addAttribute("listDM", proBrandService.findAll());
+		//model.addAttribute("listDM", proBrandService.findAll());
 		return "product/productBrand";
 	}
 	

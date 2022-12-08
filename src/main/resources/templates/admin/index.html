@@ -19,6 +19,14 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+	 <!--Router-->
+	
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
+	 <!--Data-table library-->
+	
+	
 </head>
 <style type="text/css">
 .home-blog {
@@ -251,7 +259,7 @@
 	background: #eeeef2;
 }
 </style>
-<body>
+<body ng-app="app">
 	<div class="wrapper">
 		<div th:replace="admin/navandmainside"></div>
 		<!-- Main Sidebar Container -->
@@ -300,8 +308,9 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery <script src="../plugins/jquery/jquery.min.js"></script> -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- Bootstrap -->
 	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
@@ -313,8 +322,17 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="../dist/js/demo.js"></script>
 	<!-- Filterizr-->
-	<script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+	
 	<!-- Page specific script -->
+	<script src="/js/admin/Role_ctrl.js"></script>
+	<script src="/js/admin/Brand_ctrl.js"></script>
+	<script src="/js/admin/User_ctrl.js"></script>
+	<script src="/js/admin/Order_ctrl.js"></script>
+	<script src="/js/admin/Product_ctrl.js"></script>
+	<script src="/js/admin/OrderDetails_ctrl.js"></script>
+	<script src="/js/admin/Voucher_crtl.js"></script>
+	<script src="/js/admin/VoucherData_crtl.js"></script>
+	<script src="/js/admin/Thongke_crtl.js"></script>
 	<script>
 		$(function() {
 			$(document).on('click', '[data-toggle="lightbox"]',
@@ -325,9 +343,7 @@
 						});
 					});
 
-			$('.filter-container').filterizr({
-				gutterPixels : 3
-			});
+			
 			$('.btn[data-filter]').on('click', function() {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');

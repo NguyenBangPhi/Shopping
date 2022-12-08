@@ -1,110 +1,112 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index :: dynamic(~{::main},'Product')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index :: dynamic(~{::main},'Sản phẩm')}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body>	
 	<main>
+	<div ng-controller="product_ctrl">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 		  <li class="nav-item">
-		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">LIST</a>
+		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Danh Sách</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SET</a>
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Cài đặt</a>
 		  </li>
-		  
+		  <form class="form-inline ml-3">
+			<div class="input-group input-group-sm">
+				<input class="form-control form-control-navbar" ng-model="filterBy" ng-keyup="search()"
+					ng-required='true' type="search" placeholder="Search" aria-label="Search">
+				<div class="input-group-append">
+					<a class="btn btn-navbar" ng-click="search()" type="submit">
+						<i class="fas fa-search"></i>
+					</a>
+				</div>
+			</div>
+		</form>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 		  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+			<div style="height: 420px;">
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
 				      <th scope="col">ID</th>
-				      <th scope="col">Name</th>
-				      <th scope="col">Price</th>
-				      <th scope="col">Product Brand ID</th>
-				      <th scope="col">Product Image</th>
-				      <th scope="col">Desc</th>
-				      <th scope="col">Quantity</th>
-				      <th scope="col">Delete</th>
+				      <th scope="col">Tên </th>
+				      <th scope="col">Giá</th>
+				      <th scope="col">Ảnh</th>
+				      <th scope="col">Mô tả</th>
+				      <th scope="col">Số lượng</th>
+				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>False</td>
-				      <td>Mark</td>
-				      <td>Mark</td>
-				      <td>True</td>
-				    </tr>
+				  <tbody>			
+				     <tr ng-repeat="stu in items | orderBy:'product_id'|limitTo:pt:start">
+			            <td>{{stu.product_id}}</td>
+			            <td>{{stu.product_name}}</td>
+			            <td>{{stu.product_price | currency:'':0}}</td>
+			            <td>{{stu.product_img}}</td>
+			            <td>{{stu.product_desc}}</td>
+			            <td>{{stu.product_quantity}}</td>			          
+			            <td>
+			                <a ng-click="edit(stu.product_id)"><i class="fa-solid fa-square-pen"></i></a>
+			                <a ng-click="delete(stu.product_id)"><i class="fa-solid fa-trash-can"></i></a>
+			            </td>
+			        </tr>				     
 				  </tbody>
 				</table>
+			</div>
+			 <div class="m-auto col-sm-4">
+	            <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+	            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
+	             <button ng-click="loadtrang(trang-1); test(1)" class="btn btn-outline-primary numberPage">{{trang-1}}</button>
+	             <button ng-click="loadtrang(trang)" class="btn btn-outline-primary numberPage">{{trang}}</button>
+	             <button ng-click="loadtrang(trang+1); test(3)" class="btn btn-outline-primary numberPage">{{trang+1}}</button>
+	            <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
+	            <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+	         </div>
 		  </div>
 		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-				<form>
+				<form name="myForm">
 				  <div class="form-group">
 				    <label for="idProduct">ID</label>
-				    <input type="text" class="form-control" id="idProduct" readonly="readonly">
+				    <input ng-model="form.product_id" type="text" class="form-control" id="idUser" readonly="readonly">
 				  </div>
 				  <div class="form-group">
-				    <label for="nameProduct">Product Name</label>
-				    <input type="text" class="form-control" id="nameOrderDe">
+				    <label for="nameProduct">Tên sản phẩm</label>
+				    <span ng-show="myForm.tensp.$touched && myForm.tensp.$invalid" style="color: red;">Vui lòng nhập tên sản phẩm.</span>
+				    <input ng-model="form.product_name" type="text" class="form-control" name="tensp" id="nameProduct" required>
 				  </div>
 				  <div class="form-group">
-				    <label for="priceProduct">Product Price</label>
-				    <input type="text" class="form-control" id="priceProduct">
+				    <label for="priceProduct">Giá sản phẩm</label>
+				    <span ng-show="myForm.giasp.$touched && myForm.giasp.$invalid" style="color: red;">Vui lòng nhập giá sản phẩm.</span>
+				    <input ng-model="form.product_price" type="text" class="form-control" name="giasp" id="priceProduct" required>
 				  </div>
+				  <div>
+					</div>
 				  <div class="form-group">
 				    <div class="form-group">
-					    <label for="exampleFormControlFile1">Product Image</label>
-					    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+					    <label for="exampleFormControlFile1">Ảnh({{form.product_img}})</label>		  
+					    <input ng-model="form.product_img" type="file" accept="image/*" class="form-control-file" 
+					    id="exampleFormControlFile1" onchange="angular.element(this).scope().imageChanged(this.files)">
 					  </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="descProduct">Desc</label>
-				    <input type="text" class="form-control" id="descProduct">
+				    <label for="descProduct">Mô tả</label>
+				    <input ng-model="form.product_desc" type="text" class="form-control" id="descProduct">
 				  </div>
 				  <div class="form-group">
-				    <label for="quantityProduct">Product Quantity</label>
-				    <input type="text" class="form-control" id="quantityProduct">
+				    <label for="quantityProduct">Số lượng</label>
+				    <span ng-show="myForm.slsp.$touched && myForm.slsp.$invalid" style="color: red;">Vui lòng nhập số lượng.</span>
+				    <input ng-model="form.product_quantity" type="text" class="form-control" name="slsp" id="quantityProduct" required>
 				  </div>
-				  Trạng Thái: 
-				  <div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-					  <label class="form-check-label" for="inlineRadio1">Đã xóa</label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-					  <label class="form-check-label" for="inlineRadio2">Chưa xóa</label>
-					</div>
-				  
-				  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+				  <button ng-click="create()" type="submit" class="btn btn-primary mt-2">Submit</button>
+				  <button ng-click="delete(form.product_id)" type="submit" class="btn btn-primary mt-2">Delete</button>
+				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
+		</div>
 		</div>
 	</main>
 </body>

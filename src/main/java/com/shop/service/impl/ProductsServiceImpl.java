@@ -38,4 +38,40 @@ public class ProductsServiceImpl implements ProductsService{
 		// TODO Auto-generated method stub
 		return pdao.findByProbrandId(id);
 	}
+	
+	@Override
+	public void delete(Integer product_id) {
+		pdao.deleteById(product_id);
+		
+	}
+
+	@Override
+	public Product create(Product product) {
+		// TODO Auto-generated method stub
+		return pdao.save(product);
+	}
+
+	@Override
+	public Product update(Product product) {
+		// TODO Auto-generated method stub
+		return pdao.save(product);
+	}
+
+	@Override
+	public List<Product> findBySearch(String search) {
+		// TODO Auto-generated method stub
+		return pdao.findBySearch(search);
+	}
+
+	@Override
+	public List<Product> findAll2() {
+		// TODO Auto-generated method stub
+		return pdao.findAll2();
+	}
+
+	@Override
+	public List<Object[]> numberOfProductSoldByType() {
+		// TODO Auto-generated method stub
+		return pdao.numberOfProductSoldByType();
+	}
 }
