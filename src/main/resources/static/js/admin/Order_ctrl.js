@@ -29,6 +29,7 @@ app.controller("order_ctrl", function($scope, $http){
             $scope.itemdelete = resp.data;
 			$scope.form.order_fullname = $scope.itemdelete.user_fullname;
 			$scope.form.order_email = $scope.itemdelete.user_mail;
+			$scope.form.order_phone = $scope.itemdelete.user_phone;
         }).catch(error => {
             console.log("Error1", error)
         });
@@ -123,13 +124,15 @@ app.controller("order_ctrl", function($scope, $http){
 		  	element.classList.remove('active');
 		  	elementt.classList.remove('active','show');
 		  	element.ariaSelected = "true";
+		  	
 	}
 	
      $scope.edit = function(order_id){
         var url = `${host}/order/${order_id}`;
         $http.get(url).then(resp => {
             $scope.form = resp.data;
-            console.log("Success", resp);
+            console.log("Success", $scope.form);
+            //document.getElementById("exampleFormControlSelect2").value = $scope.form.user.user_id;
            	$scope.setedit();
         }).catch(error => {
             console.log("Error", error)
@@ -159,12 +162,13 @@ app.controller("order_ctrl", function($scope, $http){
     $scope.create = function(){
 		if($scope.validate()==true){
 	        var item = angular.copy($scope.form);
-	        var url = `${host}/order/create`;
+	        item.order_createdate = document.querySelector('input[type="date"]').value;
+	        console.log("check",item)
+	        var url = `${host}/order`;
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
 	            $scope.reset();
 	            console.log("Success", resp)
-	            $scope.load_all();
 	        }).catch(error => {
 	            console.log("Error", error)
 	        });

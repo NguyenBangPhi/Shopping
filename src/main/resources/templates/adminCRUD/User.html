@@ -51,8 +51,8 @@
 			            <td>{{stu.user_phone}}</td>
 			            <td>{{stu.role.role_name}}</td>
 			            <td>
-			                <a ng-click="edit(stu.user_username)"><i class="fa-solid fa-square-pen"></i></a>
-			                <a ng-click="delete(stu.user_username)"><i class="fa-solid fa-trash-can"></i></a>
+							<button class="btn btn-sm btn-warning" ng-click="edit(stu.user_username)"><i class="fa-solid fa-square-pen"></i></button>
+			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.user_username)"><i class="fa-solid fa-trash-can"></i></button>
 			            </td>
 			        </tr>
 				     
@@ -73,18 +73,15 @@
 				<form name="myForm">
 				  <div class="form-group">
 				    <label for="usernameUser">Tài khoản</label>
-					<span ng-show="myForm.user.$touched && myForm.user.$invalid" style="color: red;">   Vui lòng nhập Tài khoản.</span>
-				    <input ng-model="form.user_username" type="text" name="user" class="form-control" id="usernameUser" required>
+					<input ng-model="form.user_username" type="text" name="user" class="form-control" id="usernameUser" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="fullnameUser">Họ và tên</label>
-					<span ng-show="myForm.fullname.$touched && myForm.fullname.$invalid" style="color: red;">Vui lòng nhập Họ và tên.</span>
-				    <input ng-model="form.user_fullname" type="text" name="fullname" class="form-control" id="fullnameUser" required>
+					<input ng-model="form.user_fullname" type="text" name="fullname" class="form-control" id="fullnameUser" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="passwordUser">Mật khẩu</label>
-					<span ng-show="myForm.pass.$touched && myForm.pass.$invalid" style="color: red;">Mật khẩu tối thiểu phải 6 ký tự.</span>
-				    <input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
+					<input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
 				  </div>
 				  <div>
 					</div>
@@ -97,23 +94,21 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="emailUser">Email</label>
-					<span ng-show="myForm.email.$touched && myForm.email.$invalid" style="color: red;">Vui lòng nhập đúng định dạng Email.</span>
-				    <input ng-model="form.user_mail" type="email" name="email" class="form-control" id="emailUser" required>
+					<input ng-model="form.user_mail" type="email" name="email" class="form-control" id="emailUser" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="phoneUser">Số điện thoại</label>
-					<span ng-show="myForm.sdt.$touched && myForm.sdt.$invalid" style="color: red;">Vui lòng nhập Số điện thoại.</span>
-				    <input ng-model="form.user_phone" type="text" name="sdt" class="form-control" id="phoneUser" required>
+					<input ng-model="form.user_phone" type="text" name="sdt" class="form-control" id="phoneUser" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="roleid">Quyền</label>
-				    <select ng-model="form.role.role_id" class="form-control" id="roleid">				      
+				    <select ng-model="form.role.role_id" class="form-control" id="roleid" required>				      
 				      <option ng-repeat="r in role" value="{{r.role_id}}">{{r.role_name}}</option>
 				    </select>
 				  </div>
 				  <button type="submit" ng-click="create()"  class="btn btn-primary mt-2">Submit</button>
 				  <button ng-click="delete(form.user_username)" type="submit" class="btn btn-primary mt-2">Delete</button>
-				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
+				  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>

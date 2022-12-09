@@ -115,13 +115,15 @@ app.controller("voucherdata_ctrl", function($scope, $http){
     }
     
     $scope.reset = function(){
-		var a = new Date();
-        $scope.form = {voucher_isdelete: false, 'voucher_createdate': a};
+		var today = new Date();
+		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        $scope.form = {voucher_isdelete: false, voucher_createdate: date};
         $scope.load_all();
     }
     
     $scope.create = function(){
         var item = angular.copy($scope.form);
+        item.voucher_createdate = document.querySelector('input[type="date"]').value;
         var url = `${host}/voucher_data`;
         $http.post(url, item).then(resp => {
             $scope.items.push(item);

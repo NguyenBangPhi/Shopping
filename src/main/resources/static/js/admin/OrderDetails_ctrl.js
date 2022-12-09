@@ -2,6 +2,7 @@ app.controller("details_ctrl", function($scope, $http){
     $scope.form = {}
 	$scope.items = []
 	$scope.pro = []
+	$scope.or = []
 	$scope.voucherr = []
     $scope.start = 0;
     $scope.pt = 7;
@@ -45,6 +46,15 @@ app.controller("details_ctrl", function($scope, $http){
         var url = `${host}/product/list`;
         $http.get(url).then(resp => {
             $scope.pro = resp.data;
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    
+    $scope.load_all4 = function(){
+        var url = `${host}/order`;
+        $http.get(url).then(resp => {
+            $scope.or = resp.data;
         }).catch(error => {
             console.log("Error", error)
         });
@@ -144,7 +154,8 @@ app.controller("details_ctrl", function($scope, $http){
     
     $scope.validate = function(){
 		 let a = document.forms["myForm"]["quantity"].value.length;
-		if (a > 0) {
+		 let b = document.forms["myForm"]["price"].value.length;
+		if (a > 0 && b > 0) {
 		 	return true;
         }else{
 			return false;
@@ -165,8 +176,11 @@ app.controller("details_ctrl", function($scope, $http){
     }
     
     $scope.create = function(){
+       var item = angular.copy($scope.form);
+	   let mahd = document.forms["myForm"]["mahd"].value.length;
+       console.log(mahd)
 		if($scope.validate()==true){
-	        var item = angular.copy($scope.form);
+	        item.ordetail_createdate = document.querySelector('input[type="date"]').value;
 	        var url = `${host}/order_details`;
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
@@ -203,5 +217,6 @@ app.controller("details_ctrl", function($scope, $http){
     $scope.load_all();
     $scope.load_all2();
     $scope.load_all3();
+    $scope.load_all4();
     $scope.reset();
 });

@@ -49,9 +49,9 @@
 			            <td>{{stu.product_img}}</td>
 			            <td>{{stu.product_desc}}</td>
 			            <td>{{stu.product_quantity}}</td>			          
-			            <td>
-			                <a ng-click="edit(stu.product_id)"><i class="fa-solid fa-square-pen"></i></a>
-			                <a ng-click="delete(stu.product_id)"><i class="fa-solid fa-trash-can"></i></a>
+			            <td class="col-1">
+							<button class="btn btn-sm btn-warning" ng-click="edit(stu.product_id)"><i class="fa-solid fa-square-pen"></i></button>
+			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.product_id)"><i class="fa-solid fa-trash-can"></i></button>
 			            </td>
 			        </tr>				     
 				  </tbody>
@@ -75,12 +75,10 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="nameProduct">Tên sản phẩm</label>
-				    <span ng-show="myForm.tensp.$touched && myForm.tensp.$invalid" style="color: red;">Vui lòng nhập tên sản phẩm.</span>
 				    <input ng-model="form.product_name" type="text" class="form-control" name="tensp" id="nameProduct" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="priceProduct">Giá sản phẩm</label>
-				    <span ng-show="myForm.giasp.$touched && myForm.giasp.$invalid" style="color: red;">Vui lòng nhập giá sản phẩm.</span>
 				    <input ng-model="form.product_price" type="text" class="form-control" name="giasp" id="priceProduct" required>
 				  </div>
 				  <div>
@@ -98,12 +96,11 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="quantityProduct">Số lượng</label>
-				    <span ng-show="myForm.slsp.$touched && myForm.slsp.$invalid" style="color: red;">Vui lòng nhập số lượng.</span>
 				    <input ng-model="form.product_quantity" type="text" class="form-control" name="slsp" id="quantityProduct" required>
 				  </div>
 				  <button ng-click="create()" type="submit" class="btn btn-primary mt-2">Submit</button>
 				  <button ng-click="delete(form.product_id)" type="submit" class="btn btn-primary mt-2">Delete</button>
-				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
+				  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>

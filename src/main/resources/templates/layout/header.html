@@ -80,6 +80,7 @@
 						<a href="/contact" class="nav-item nav-link">Liên hệ</a>
 						<th:block th:unless="${#request.remoteUser}">
 							<a th:href="@{/security/login/form}" class="nav-item nav-link">Đăng nhập</a>
+							<a th:href="@{/regis}" class="nav-item nav-link">Đăng Kí</a>
 						</th:block>
 						<th:block th:if="${#request.remoteUser}">
 							<a th:href="@{/security/logoff}" class="nav-item nav-link">Đăng xuất</a>
@@ -90,11 +91,11 @@
 						
 					</div>
 					<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-						<a href="" class="btn px-0"> <i
+						<!--  <a href="" class="btn px-0"> <i
 							class="fas fa-heart text-primary"></i> <span
 							class="badge text-secondary border border-secondary rounded-circle"
 							style="padding-bottom: 2px;">0</span>
-						</a>
+						</a>-->
 						<button href="" class="btn px-0 ml-3" data-toggle="modal"
 							data-target="#exampleModal">
 							<i class="fas fa-shopping-cart text-primary"></i> <span

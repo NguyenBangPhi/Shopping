@@ -32,6 +32,7 @@ public class Order {
 	String order_status;
 	String order_fullname;
 	String order_email;
+	String order_phone;
 	
 	@ManyToOne @JoinColumn(name = "order_usernameid")
 	Users user;

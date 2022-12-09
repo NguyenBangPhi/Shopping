@@ -48,8 +48,8 @@
 			            <td>{{stu.voucher.voucher_desc}}%</td>
 			            <td>{{stu.voucher_createdate | date : "dd/MM/yyyy"}}</td>
 			            <td>
-			                <a ng-click="edit(stu.vdata_id)"><i class="fa-solid fa-square-pen"></i></a>
-			                <a ng-click="delete(stu.vdata_id)"><i class="fa-solid fa-trash-can"></i></a>
+			                <button class="btn btn-sm btn-warning" ng-click="edit(stu.vdata_id)"><i class="fa-solid fa-square-pen"></i></button>
+			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.vdata_id)"><i class="fa-solid fa-trash-can"></i></button>
 			            </td>
 			        </tr>
 				  </tbody>
@@ -85,11 +85,11 @@
 				  </div>
 				  <div class="form-group">
 				    <label>Ngày hết hạn</label>
-				    <input type="date" ng-model="form.voucher_createdate" value="{{form.voucher_createdate}}" required>
+				    <input type="date" ng-value="form.voucher_createdate" required>
 				  </div>
 				  <button ng-click="create()" type="submit" class="btn btn-primary mt-2">Submit</button>
 				  <button ng-click="delete(form.vdata_id)" type="submit" class="btn btn-primary mt-2">Delete</button>
-				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
+				  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>

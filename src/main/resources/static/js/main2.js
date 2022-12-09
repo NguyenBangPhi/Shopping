@@ -74,6 +74,76 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
       var json = localStorage.getItem("cart");
       this.items = json ? JSON.parse(json) : [];
     },
+    ghn(orders,cart) {
+      
+      let urlGHN = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create";
+      let datas = {
+        "payment_type_id": 2,
+        "note": "Tintest 123",
+        "from_name":"Poly Shop",
+        "from_phone":"0368114073",
+        "from_address": "123 Đường 3/2",
+        "from_ward_name":"Phường 5",
+        "from_district_name":"Quận 12",
+        "from_province_name":"TP Hồ Chí Minh",
+        "required_note": "KHONGCHOXEMHANG",
+        "return_name": "Poly Shop",
+        "return_phone": "0368114073",
+        "return_address": "123 Đường 3/2",
+        "return_ward_name": "Phường 5",
+        "return_district_name": "Quận 11",
+        "return_province_name":"TP Hồ Chí Minh",
+        "client_order_code": "",
+        "to_name": orders.order_fullname,
+        "to_phone": orders.order_phone,
+        "to_address": orders.order_address,
+        "to_ward_name":"Phường 14",
+        "to_district_name":"Quận 10",
+        "to_province_name":"TP Hồ Chí Minh",
+        "cod_amount": 30000,
+        "content": "Poly Shop, giao hàng siêu nhanh !",
+        "weight": 200,
+        "length": 1,
+        "width": 19,
+        "height": 10,
+        "pick_station_id": 1444,
+        "deliver_station_id": null,
+        "insurance_value": 5000000,
+        "service_id": 0,
+        "service_type_id":2,
+        "coupon":null,
+        "pick_shift":null,
+        "pickup_time": 1665272576,
+        "items": [
+             {
+                 "name": "Điện thoại",
+                 "code":"Poly Shop Phone",
+                 "quantity": orders.order_details.length,
+                 "price": cart.amount,
+                 "length": 12,
+                 "width": 12,
+                 "height": 12,
+                 "category": 
+                 {
+                     "level1":"Điện Thoại"
+                 }
+             }
+             
+         ]
+      };
+      $http.post(urlGHN,datas ,{
+        headers: {'Content-Type': 'application/json'},
+        headers: {'ShopId': '120960'},
+        headers: {'Token': '5cd3fbdc-76f4-11ed-a83f-5a63c54f968d'}
+      }).then(resp => {
+        alert("Đơn vị vận chuyện đang đợi Admin xác nhận !");
+        console.log(resp.data);
+      }).catch(error => {
+        alert("Đặt hàng lỗi !");
+        console.log(error);
+      })
+      alert(orders,cart)
+    }
   };
   //$scope.cart.clear();
   $scope.cart.loadFromLocalStorage();
@@ -89,7 +159,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
 		order_fullname: '',
 
     order_email: '',
-    order_sdt: '',
+    order_phone: '',
 
     order_voucher: '',
 
@@ -108,25 +178,102 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
 				}
 			);
 		},
-		purchase() {
+		async purchase() {
 			var order = angular.copy(this);
       var usertemp = {};
+      var idtemp;
 			// Thực hiện đặt hàng
-
+      let urlGHN = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create";
       		console.log(order)
         if(order.user.user_username != '') {
           var ordertemp = {order_address: order.order_address, 
             order_createdate: order.order_createdate, order_isdelete: false, 
-            order_status: "Chờ xác nhận",order_fullname: $("#hoten").text(), order_email: $("#emaill").text(), 
+            order_status: "Đang xác nhận",order_fullname: $("#hoten").text(), order_email: $("#emaill").text(), order_phone: order.order_phone,
             user: {user_username: order.user.user_username}, order_details: order.order_details};
-            $http.post("/rest/order",ordertemp).then(resp => {
+            
+              let datas = {
+                "payment_type_id": 2,
+                "note": "Điện thoại giá rẻ",
+                "from_name":"Poly Shop",
+                "from_phone":"0368114073",
+                "from_address":"123 Đường 3/2",
+                "from_ward_name":"Phường 5",
+                "from_district_name":"Quận 11",
+                "from_province_name":"TP Hồ Chí Minh",
+                "required_note": "KHONGCHOXEMHANG",
+                "return_name": "Poly Shop",
+                "return_phone": "0368114073",
+                "return_address": "123 Đường 3/2",
+                "return_ward_name": "Phường 5",
+                "return_district_name": "Quận 11",
+                "return_province_name":"TP Hồ Chí Minh",
+                "client_order_code": "",
+                "to_name": ordertemp.order_fullname,
+                "to_phone": ordertemp.order_phone,
+                "to_address": ordertemp.order_address,
+                "to_ward_name":"Phường 14",
+                "to_district_name":"Quận 10",
+                "to_province_name":"TP Hồ Chí Minh",
+                "cod_amount": 30000,
+                "content": "Điện thoại Poly Shop",
+                "weight": 200,
+                "length": 1,
+                "width": 19,
+                "height": 10,
+                "pick_station_id": 1444,
+                "deliver_station_id": null,
+                "insurance_value": 5000000,
+                "service_id": 0,
+                "service_type_id":2,
+                "coupon":null,
+                "pick_shift":null,
+                "pickup_time": 1665272576,
+                "items": [
+                     {
+                         "name":"Điện thoại",
+                         "code":"Poly Pro",
+                         "quantity": 1,
+                         "price": $scope.cart.amount,
+                         "length": 12,
+                         "width": 12,
+                         "height": 12,
+                         "category": 
+                         {
+                             "level1":"Điện Thoại"
+                         }
+                     }
+                     
+                 ]
+            };
+            
+            await $http.post("/rest/order",ordertemp).then(resp => {
+              idtemp = resp.data.order_id;
+              console.log(idtemp);
               alert("Đặt hàng thành công !");
-              $scope.cart.clear();
-              location.href= "/order/detail/" + resp.data.order_id;
+              
+              
+              //$scope.cart.ghn(ordertemp,$scope.cart);
+              //$scope.cart.clear();
+              //location.href= "/order/detail/" + resp.data.order_id;
             }).catch(error => {
               alert("Đặt hàng lỗi !");
               console.log(error);
+              return;
             })
+            await $http.post(urlGHN,datas ,{
+              headers: {'Content-Type': 'application/json'},
+              headers: {'ShopId': '120960'},
+              headers: {'Token': '5cd3fbdc-76f4-11ed-a83f-5a63c54f968d'}
+            }).then(resp => {
+              alert("Đơn vị vận chuyển đang đợi Admin xác nhận !");
+              $scope.cart.clear();
+              console.log(resp.data);
+            }).catch(error => {
+              alert("Đặt hàng lỗi GHN!");
+              console.log(error);
+            })
+            //window.location = "http://localhost:8080/order/detail/" + idtemp;
+            location.href= "/order/detail/" + idtemp ;
         }else {
           var textRandom = "CUS" + makeid(4);
           usertemp = {user_username: textRandom, user_fullname: order.order_fullname, 
@@ -134,17 +281,18 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
              user_phone: order.order_sdt, role: {role_id: "003"}, user_isdelete: false};
             console.log(usertemp);
             
-            $http.post("/rest/user", usertemp).then(resp => {
+            await $http.post("/rest/user", usertemp).then(resp => {
                 console.log("Success", resp);
                 usertemp.user_username = resp.data.user_username;
                 var ordertemp2 = {order_address: order.order_address, 
                   order_createdate: order.order_createdate, order_isdelete: false, 
-                  order_status: "Chờ xác nhận",order_fullname: order.order_fullname, order_email: order.order_email, 
+                  order_status: "Đang xác nhận",order_fullname: order.order_fullname, order_email: order.order_email, order_phone: order.order_phone,
                   user: {user_username: resp.data.user_username}, order_details: order.order_details};
                 $http.post("/rest/order",ordertemp2).then(resp => {
                   alert("Đặt hàng thành công !");
                   $scope.cart.clear();
-                  location.href= "/order/detail/" + resp.data.order_id;
+                  idtemp = resp.data.order_id;
+                  //location.href= "/order/detail/" + resp.data.order_id;
                 }).catch(error => {
                   alert("Đặt hàng lỗi !");
                   console.log(error);
@@ -153,7 +301,76 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
             }).catch(error => {
                 console.log("Error", error)
             });
+            let datas = {
+              "payment_type_id": 2,
+              "note": "Điện thoại giá rẻ",
+              "from_name":"Poly Shop",
+              "from_phone":"0368114073",
+              "from_address":"123 Đường 3/2",
+              "from_ward_name":"Phường 5",
+              "from_district_name":"Quận 11",
+              "from_province_name":"TP Hồ Chí Minh",
+              "required_note": "KHONGCHOXEMHANG",
+              "return_name": "Poly Shop",
+              "return_phone": "0368114073",
+              "return_address": "123 Đường 3/2",
+              "return_ward_name": "Phường 5",
+              "return_district_name": "Quận 11",
+              "return_province_name":"TP Hồ Chí Minh",
+              "client_order_code": "",
+              "to_name": order.order_fullname,
+              "to_phone": order.order_phone,
+              "to_address": order.order_address,
+              "to_ward_name":"Phường 14",
+              "to_district_name":"Quận 10",
+              "to_province_name":"TP Hồ Chí Minh",
+              "cod_amount": 30000,
+              "content": "Điện thoại Poly Shop",
+              "weight": 200,
+              "length": 1,
+              "width": 19,
+              "height": 10,
+              "pick_station_id": 1444,
+              "deliver_station_id": null,
+              "insurance_value": 5000000,
+              "service_id": 0,
+              "service_type_id":2,
+              "coupon":null,
+              "pick_shift":null,
+              "pickup_time": 1665272576,
+              "items": [
+                   {
+                       "name":"Điện thoại",
+                       "code":"Poly Pro",
+                       "quantity": 1,
+                       "price": $scope.cart.amount,
+                       "length": 12,
+                       "width": 12,
+                       "height": 12,
+                       "category": 
+                       {
+                           "level1":"Điện Thoại"
+                       }
+                   }
+                   
+               ]
+          };
+          await $http.post(urlGHN,datas ,{
+            headers: {'Content-Type': 'application/json'},
+            headers: {'ShopId': '120960'},
+            headers: {'Token': '5cd3fbdc-76f4-11ed-a83f-5a63c54f968d'}
+          }).then(resp => {
+            alert("Đơn vị vận chuyển đang đợi Admin xác nhận !");
+            $scope.cart.clear();
+            console.log(resp.data);
+          }).catch(error => {
+            alert("Đặt hàng lỗi GHN!");
+            console.log(error);
+          })
+          //window.location = "http://localhost:8080/order/detail/" + idtemp;
+          location.href= "/order/detail/" + idtemp ;
         }
+        //location.href= "/order/detail/" + idtemp ;
 
 			// $http.post("/rest/order",order).then(resp => {
 			// 	alert("Đặt hàng thành công !");
@@ -194,7 +411,78 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
         }).catch(error => {
             console.log("Error", error)
         });
+    },
+    ghn() {
+      
+      let urlGHN = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create";
+      let datas = {
+        "payment_type_id": 2,
+        "note": "Tintest 123",
+        "from_name":"Tin",
+        "from_phone":"0909999999",
+        "from_address":"123 Đường 3/2",
+        "from_ward_name":"Phường 5",
+        "from_district_name":"Quận 11",
+        "from_province_name":"TP Hồ Chí Minh",
+        "required_note": "KHONGCHOXEMHANG",
+        "return_name": "Tin",
+        "return_phone": "0909999999",
+        "return_address": "123 Đường 3/2",
+        "return_ward_name": "Phường 5",
+        "return_district_name": "Quận 11",
+        "return_province_name":"TP Hồ Chí Minh",
+        "client_order_code": "",
+        "to_name": "Độ Mixi",
+        "to_phone": "0909998877",
+        "to_address": "Streaming houseee",
+        "to_ward_name":"Phường 14",
+        "to_district_name":"Quận 10",
+        "to_province_name":"TP Hồ Chí Minh",
+        "cod_amount": 200000,
+        "content": "Theo New York Times",
+        "weight": 200,
+        "length": 1,
+        "width": 19,
+        "height": 10,
+        "pick_station_id": 1444,
+        "deliver_station_id": null,
+        "insurance_value": 5000000,
+        "service_id": 0,
+        "service_type_id":2,
+        "coupon":null,
+        "pick_shift":null,
+        "pickup_time": 1665272576,
+        "items": [
+             {
+                 "name":"Áo Polo",
+                 "code":"Polo123",
+                 "quantity": 1,
+                 "price": 200000,
+                 "length": 12,
+                 "width": 12,
+                 "height": 12,
+                 "category": 
+                 {
+                     "level1":"Áo"
+                 }
+             }
+             
+         ]
+    };
+      $http.post(urlGHN,datas ,{
+        headers: {'Content-Type': 'application/json'},
+        headers: {'ShopId': '120960'},
+        headers: {'Token': '5cd3fbdc-76f4-11ed-a83f-5a63c54f968d'}
+      }).then(resp => {
+        alert("Đơn vị vận chuyện đang đợi Admin xác nhận !");
+        console.log(resp.data);
+      }).catch(error => {
+        alert("Đặt hàng lỗi !");
+        console.log(error);
+      })
     }
+    
+    
 		
 	}
 

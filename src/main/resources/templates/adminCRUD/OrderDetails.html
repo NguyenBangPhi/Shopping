@@ -33,13 +33,14 @@
 				  <thead class="thead-dark">
 				    <tr>
 				      <th scope="col">ID</th>
+				      <th scope="col">Mã hoá đơn</th>
 				      <th scope="col">Mã sản phẩm</th>
 				      <th scope="col">Tên sản phẩm</th>
 				      <th scope="col">Số lượng</th>
 				      <th scope="col">Giảm giá</th>
 				      <th scope="col">Giá</th>
 				      <th scope="col">Ngày</th>
-				      <th scope="col">Trạng thái đặt hàng</th>
+				      <th scope="col">Trạng thái</th>
 				      <th scope="col">Tổng tiền</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
@@ -47,6 +48,7 @@
 				  <tbody>
 				     <tr ng-repeat="stu in items | orderBy:'ordetail_id'|limitTo:pt:start">
 			            <td>{{stu.ordetail_id}}</td>
+			            <td>{{stu.order.order_id}}</td>
 			            <td>{{stu.product_.product_id}}</td>
 			            <td>{{stu.product_.product_name}}</td>
 			            <td>{{stu.ordetail_quantity}}</td>
@@ -54,13 +56,13 @@
 			            <td>{{stu.ordetail_price | currency:'':0}}</td>
 			            <td>{{stu.ordetail_createdate | date : "dd/MM/yyyy"}}</td>
 			            <td>{{stu.ordetail_status}}</td>
-			            <td>{{(tongtien + (stu.ordetail_price * 
-			            ( stu.ordetail_quantity - (stu.ordetail_quantity / 100 * (stu.voucher_.voucher_desc?stu.voucher_.voucher_desc:'0') ))))| currency:'':0}} VNĐ</td>
+			            <td>{{(tongtien + 
+			            (stu.ordetail_price * stu.ordetail_quantity)*(1-(stu.voucher_.voucher_desc?stu.voucher_.voucher_desc:'0')/100)) | currency:'':0 }} VNĐ</td>			            
 			            <td>
-			                <a ng-click="edit(stu.ordetail_id)"><i class="fa-solid fa-square-pen"></i></a>
-			                <a ng-click="delete(stu.ordetail_id)"><i class="fa-solid fa-trash-can"></i></a>
+							<button class="btn btn-sm btn-warning" ng-click="edit(stu.ordetail_id)"><i class="fa-solid fa-square-pen"></i></button>
+			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.ordetail_id)"><i class="fa-solid fa-trash-can"></i></button>
 			            </td>
-			        </tr>
+        </tr>
 				  </tbody>
 				</table>
 			</div>
@@ -81,9 +83,14 @@
 				    <input ng-model="form.ordetail_id" type="text" class="form-control" id="idOrderDetails" readonly="readonly">
 				  </div>
 				  <div class="form-group">
+					<label for="odetailoder">Mã hoá đơn</label>
+					<select class="form-control" ng-model="form.order.order_id" ng-value="form.order.order_id" name="mahd" id="odetailoder">
+						<option ng-repeat="o in or" value="{{o.order_id}}" >{{o.order_id}}</option>
+					</select>
+				  </div>
+				  <div class="form-group">
 					<label for="exampleFormControlSelect2">Mã sản phẩm</label>
-					<span ng-show="myForm.price.$touched && myForm.price.$invalid" style="color: red;">Vui lòng chọn sản phẩm.</span>
-					<select class="form-control" ng-model="form.product_.product_id" ng-value="form.product_.product_id"  ng-click="loadgia()" id="exampleFormControlSelect2">
+					<select class="form-control" ng-model="form.product_.product_id" ng-value="form.product_.product_id"  ng-click="loadgia()" name="masp" id="exampleFormControlSelect2">
 						<option ng-repeat="u in pro" value="{{u.product_id}}" >{{u.product_id}}</option>
 					</select>
 				  </div>
@@ -111,13 +118,13 @@
 				  </div>
 				  <div class="form-group">
 				    <label>Ngày</label>
-				    <input type="date" ng-model="form.ordetail_createdate" name="createdate" value="{{form.ordetail_createdate }}" required>
+				    <input type="date" ng-value="form.ordetail_createdate" name="createdate" required>
 					 </div>
 				 
 				  </br>
 				  <button ng-click="create()" type="submit" class="btn btn-primary mt-2">Submit</button>
 				  <button ng-click="delete(form.order_id)" type="submit" class="btn btn-primary mt-2">Delete</button>
-				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
+				  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>

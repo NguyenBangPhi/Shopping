@@ -41,8 +41,8 @@
 			            <td>{{stu.probrand_id}}</td>
 			            <td>{{stu.probrand_name}}</td>
 			            <td>
-			                <a ng-click="edit(stu.probrand_id)"><i class="fa-solid fa-square-pen"></i></a>
-			                <a ng-click="delete(stu.probrand_id)"><i class="fa-solid fa-trash-can"></i></a>
+							<button class="btn btn-sm btn-warning" ng-click="edit(stu.probrand_id)"><i class="fa-solid fa-square-pen"></i></button>
+			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.probrand_id)"><i class="fa-solid fa-trash-can"></i></button>
 			            </td>
 			        </tr>
 				  </tbody>
@@ -66,12 +66,11 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="nameProBrand">Tên</label>
-					<span ng-show="myForm.rolename2.$touched && myForm.rolename2.$invalid" style="color: red;">Vui lòng nhập Tên Role.</span>
-				    <input ng-model="form.probrand_name" type="text" name="rolename2" class="form-control" id="nameProBrand" required>
+					<input ng-model="form.probrand_name" type="text" name="rolename2" class="form-control" id="nameProBrand" required>
 				  </div>
 				  <button ng-click="create()" type="submit" class="btn btn-primary mt-2">Submit</button>
 				  <button ng-click="delete(form.probrand_id)" type="submit" class="btn btn-primary mt-2">Delete</button>
-				  <button ng-click="reset()" type="submit" class="btn btn-primary mt-2">Reset</button>
+				  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
 				</form>
 		  </div>
 		</div>

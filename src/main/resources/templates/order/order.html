@@ -31,7 +31,7 @@
 							  </th:block>
 							<div class="mb-3">
 							  <label for="sdt" class="form-label" style="color: black;" >Số điện thoại</label>
-							  <input type="text" class="form-control" id="sdt" ng-model="order.order_sdt">
+							  <input type="text" class="form-control" id="sdt" ng-model="order.order_phone">
 							</div>
 							<div class="mb-3">
 							  <label for="email" class="form-label" style="color: black;" >Email</label>
@@ -55,10 +55,11 @@
 							</div>
 						  <div class="row">
 							<button ng-click="order.purchase()" class="btn btn-primary rounded-pill m-auto" style="width: 70%;">Đặt hàng</button>
+							<button ng-click="order.ghn()" class="btn btn-primary rounded-pill m-auto" style="width: 70%;display: none;" id="test">Test GHN</button>
+						</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
+					<div class="col-md-6">
 					<!--  
 					<div class="m-2 shadow-lg p-3 bg-body rounded">
 						<h2>Order Total</h2>
@@ -135,8 +136,10 @@
 					    </tr>
 					  </tbody>
 					</table>
-					
+					<div>Thành tiền: {{cart.amount | number :0}} VND</div>
 				</div>
+				</div>
+				
 			</div>
 		</div>
 	</main>

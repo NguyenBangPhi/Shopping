@@ -40,4 +40,9 @@ public class IndexController {
 		//model.addAttribute("listDM", proBrandService.findAll());
 		return "user/login";
 	}
+	
+	@RequestMapping("/regis")
+	public String regis(Model model) {
+		return "user/regis";
+	}
 }
