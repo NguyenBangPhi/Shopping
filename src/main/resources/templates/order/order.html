@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
 	<main>
-		<div class="container">
+		<div class="container mb-5">
 			<div class="row">
 				<div class="col-md-6 mb-4">
 					<div class="m-2 shadow-lg p-3 bg-body rounded">
@@ -16,50 +18,56 @@
 								<div style="color: black;">Tài Khoản</div>
 								<div class="form-control" id="username">[[${#request.remoteUser}]]</div>
 							</div>
-							
+
 							<th:block th:unless="${#request.remoteUser}">
-								  <div class="mb-3">
-									  <label for="hoten" class="form-label" style="color: black;" >Họ tên</label>
-									  <input type="text" class="form-control" id="hoten" aria-describedby="emailHelp" ng-model="order.order_fullname">
-									</div>
-							  </th:block>
-							  <th:block th:if="${#request.remoteUser}">
-								  <div class="mb-3">
-								  <label for="hoten" class="form-label" style="color: black;" >Họ tên</label>
-								  <div id="hoten" class="form-control" th:text="${userLogin.user_fullname}"></div>
+								<div class="mb-3">
+									<label for="hoten" class="form-label" style="color: black;">Họ tên</label>
+									<input type="text" class="form-control" id="hoten" aria-describedby="emailHelp"
+										ng-model="order.order_fullname">
 								</div>
-							  </th:block>
+							</th:block>
+							<th:block th:if="${#request.remoteUser}">
+								<div class="mb-3">
+									<label for="hoten" class="form-label" style="color: black;">Họ tên</label>
+									<div id="hoten" class="form-control" th:text="${userLogin.user_fullname}"></div>
+								</div>
+							</th:block>
 							<div class="mb-3">
-							  <label for="sdt" class="form-label" style="color: black;" >Số điện thoại</label>
-							  <input type="text" class="form-control" id="sdt" ng-model="order.order_phone">
+								<label for="sdt" class="form-label" style="color: black;">Số điện thoại</label>
+								<input type="text" class="form-control" id="sdt" ng-model="order.order_phone">
 							</div>
 							<div class="mb-3">
-							  <label for="email" class="form-label" style="color: black;" >Email</label>
-							  <th:block th:unless="${#request.remoteUser}">
-								  <input type="email" class="form-control" id="emaill" ng-model="order.order_email">
-							  </th:block>
-							  <th:block th:if="${#request.remoteUser}">
-							  		<div id="emaill" class="form-control" th:text="${userLogin.user_mail}"></div>
-							  </th:block>
+								<label for="email" class="form-label" style="color: black;">Email</label>
+								<th:block th:unless="${#request.remoteUser}">
+									<input type="email" class="form-control" id="emaill" ng-model="order.order_email">
+								</th:block>
+								<th:block th:if="${#request.remoteUser}">
+									<div id="emaill" class="form-control" th:text="${userLogin.user_mail}"></div>
+								</th:block>
 							</div>
-							  <div class="mb-3">
+							<div class="mb-3">
 								<label for="diachi" class="form-label" style="color: black;">Địa chỉ</label>
 								<input type="text" class="form-control" id="diachi" ng-model="order.order_address">
-							  </div>
-						  </form>
-						  <div class="input-group mb-3">
-							  <input type="text" class="form-control" placeholder="Nhập vào đây mã giảm giá" aria-label="Recipient's username" aria-describedby="button-addon2" ng-model="order.order_voucher">
-							  <div class="input-group-append">
-							    <button style="background: #3000ffa1;color: yellow;" class="btn btn-outline-secondary" type="button" id="button-addon2" ng-click="order.checkVou()">Check</button>
-							  </div>
 							</div>
-						  <div class="row">
-							<button ng-click="order.purchase()" class="btn btn-primary rounded-pill m-auto" style="width: 70%;">Đặt hàng</button>
-							<button ng-click="order.ghn()" class="btn btn-primary rounded-pill m-auto" style="width: 70%;display: none;" id="test">Test GHN</button>
+						</form>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Nhập vào đây mã giảm giá"
+								aria-label="Recipient's username" aria-describedby="button-addon2"
+								ng-model="order.order_voucher">
+							<div class="input-group-append">
+								<button style="background: #3000ffa1;color: yellow;" class="btn btn-outline-secondary"
+									type="button" id="button-addon2" ng-click="order.checkVou()">Check</button>
+							</div>
 						</div>
+						<div class="row">
+							<button ng-click="order.purchase()" class="btn btn-primary rounded-pill m-auto"
+								style="width: 70%;">Đặt hàng</button>
+							<button ng-click="order.ghn()" class="btn btn-primary rounded-pill m-auto"
+								style="width: 70%;display: none;" id="test">Test GHN</button>
 						</div>
 					</div>
-					<div class="col-md-6">
+				</div>
+				<div class="col-md-6">
 					<!--  
 					<div class="m-2 shadow-lg p-3 bg-body rounded">
 						<h2>Order Total</h2>
@@ -119,29 +127,28 @@
 					</div>
 					-->
 					<table class="table m-2">
-					  <thead>
-					    <tr>
-					      <th scope="col">#</th>
-					      <th scope="col">Tên sản phẩm</th>
-					      <th scope="col">Số lượng</th>
-					      <th scope="col">Tổng tiền</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr ng-repeat="item in cart.items">
-					      <th scope="row">{{$index + 1}}</th>
-					      <td>{{item.product_name}}</td>
-					      <td>{{item.qty}}</td>
-					      <td>{{item.product_price * item.qty | number : 0}} đ</td>
-					    </tr>
-					  </tbody>
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Tên sản phẩm</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Tổng tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in cart.items">
+								<th scope="row">{{$index + 1}}</th>
+								<td>{{item.product_name}}</td>
+								<td>{{item.qty}}</td>
+								<td>{{item.product_price * item.qty | number : 0}} đ</td>
+							</tr>
+						</tbody>
 					</table>
 					<div>Thành tiền: {{cart.amount | number :0}} VND</div>
 				</div>
-				</div>
-				
 			</div>
 		</div>
 	</main>
 </body>
+
 </html>

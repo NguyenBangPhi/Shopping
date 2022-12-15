@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="container shadow p-3 mb-5 bg-white rounded">
+		<h1 style="margin-bottom: 15px;">Đơn hàng của bạn</h1>
+			<div class="row">
+				<div class="col-sm-12">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">Order ID</th>
+					      <th scope="col">Địa chỉ</th>
+					      <th scope="col">Ngày đặt</th>
+					      <th scope="col">Trạng Thái</th>
+					      <th scope="col">Tổng tiền</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="p :${listOrder}">
+					      <th scope="row"><a th:href="@{|/order/show/${p[0]}|}" th:text="${p[0]}"></a></th>
+					      <td th:text="${p[1]}"></td>
+					      <td th:text="${#dates.format(p[2], 'dd/MMM/yyyy')}"></td>
+					      <td th:text="${p[3]}"></td>
+					      <td th:text="${#numbers.formatInteger(p[4],3,'POINT')}"></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		
+		</div>
+	</main>
+
+
+</body>

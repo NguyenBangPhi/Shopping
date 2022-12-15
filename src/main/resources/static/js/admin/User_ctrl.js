@@ -4,8 +4,9 @@ app.controller("user_ctrl", function($scope, $http){
     $scope.order = []
     $scope.role = []
     $scope.start = 0;
-    $scope.pt = 7;
-    $scope.trang = []
+    $scope.pt = 6;
+    $scope.trang = 1;
+    $scope.sizetrang = 0;
     
     $scope.load_all = function(){
         var url = `${host}/user`;
@@ -13,7 +14,10 @@ app.controller("user_ctrl", function($scope, $http){
             $scope.items = resp.data;
             let a = $scope.items.length / $scope.pt;
             for (let i = 0; i <a; i++) {
-			  $scope.trang[i] = i+1;
+			  $scope.sizetrang = i+1;
+			  document.getElementById("trang1").classList.add('bg-primary');
+			   document.getElementById("trang2").classList.remove('bg-primary');
+			   document.getElementById("trang3").classList.remove('bg-primary');
 			}
             console.log("user", resp)
         }).catch(error => {
@@ -21,12 +25,93 @@ app.controller("user_ctrl", function($scope, $http){
         });
     }
     
+    $scope.showtrang1 = function(){
+		if($scope.sizetrang>1){
+			return true;
+		}
+		return false;
+	}
+	$scope.showtrang2 = function(){
+		if($scope.sizetrang>2){
+			return true;
+		}
+		return false;
+	}
+	
+	$scope.test = function(t){
+		if(t==1){
+			if($scope.trang == $scope.sizetrang-2 && $scope.trang*$scope.pt == $scope.start){
+            	$scope.bachgroup();
+			}else if($scope.trang == 1){
+				console.log("Start")
+				document.getElementById("trang1").classList.add('bg-primary');
+				document.getElementById("trang2").classList.remove('bg-primary');
+				document.getElementById("trang3").classList.remove('bg-primary');
+			}else {
+				$scope.trang -= 1;
+            	$scope.bachgroup();
+			}
+		}else{
+			if($scope.trang == 1 && $scope.start == $scope.pt){
+        		$scope.bachgroup();
+			}else if($scope.trang+2 == $scope.sizetrang){
+				document.getElementById("trang3").classList.add('bg-primary');
+				document.getElementById("trang2").classList.remove('bg-primary');
+				document.getElementById("trang1").classList.remove('bg-primary');
+				console.log("End")
+			}else{
+				$scope.trang += 1;
+            	$scope.bachgroup();
+			}
+		}
+	}
+    
     $scope.end = function (t) {
         if (t==1) {
            $scope.start = 0;
+           $scope.trang = 1;
+		   document.getElementById("trang1").classList.add('bg-primary');
+		   document.getElementById("trang2").classList.remove('bg-primary');
+		   document.getElementById("trang3").classList.remove('bg-primary');
         } else {
-			var a = $scope.items.length % $scope.pt;
+		   var a = $scope.items.length % $scope.pt;
+		   if(a == 0){
+			   a = $scope.pt;
+		   }
            $scope.start = $scope.items.length -a;
+           if($scope.sizetrang>2){
+           		$scope.trang = $scope.sizetrang-2;
+			    document.getElementById("trang3").classList.add('bg-primary');
+			    document.getElementById("trang2").classList.remove('bg-primary');
+		   }else{
+			   	$scope.trang = 1;
+		   		document.getElementById("trang2").classList.add('bg-primary');
+		   		document.getElementById("trang3").classList.remove('bg-primary');
+		   }
+		   document.getElementById("trang1").classList.remove('bg-primary');
+        }
+     }
+     
+     $scope.bachgroup = function(){
+		document.getElementById("trang2").classList.add('bg-primary');
+		document.getElementById("trang1").classList.remove('bg-primary');
+		document.getElementById("trang3").classList.remove('bg-primary');
+	 }
+     
+     $scope.tiep = function () {
+        if (($scope.start+$scope.pt) > $scope.items.length-1) {
+           //$scope.start = 0;
+        } else {
+           $scope.start += $scope.pt;
+        }
+        console.log($scope.start)
+     }
+     $scope.truoc = function () {
+		var a = $scope.items.length % $scope.pt;
+        if ($scope.start == 0) {
+			
+        } else {
+           	$scope.start -= $scope.pt;
         }
      }
     
@@ -81,26 +166,7 @@ app.controller("user_ctrl", function($scope, $http){
 		}
     }
     
-    $scope.tiep = function () {
-        if (($scope.start+$scope.pt) > $scope.items.length-1) {
-           $scope.start = 0;
-        } else {
-           $scope.start += $scope.pt;
-        }
-        console.log($scope.start)
-     }
-     $scope.truoc = function () {
-		var a = $scope.items.length % $scope.pt;
-        if ($scope.start == 0) {
-        	if(a==0){
-           		$scope.start = $scope.items.length - $scope.pt;
-			}else{
-           		$scope.start = $scope.items.length - a;
-			}
-        } else {
-           	$scope.start -= $scope.pt;
-        }
-     }
+    
      
      $scope.loadtrang = function(tr){
 		 if(tr==null){
@@ -136,7 +202,7 @@ app.controller("user_ctrl", function($scope, $http){
     }
     
     $scope.reset = function(){
-		$scope.form = {user_isdelete: false};
+		$scope.form = {user_isdelete: false, role_id: '003'};
 		document.getElementById("exampleFormControlFile1").value = "";
         $scope.load_all();
         $scope.loadtrang();

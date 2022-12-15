@@ -116,4 +116,16 @@ public class OrdersServiceImpl implements OrdersService{
 		// TODO Auto-generated method stub
 		return dao.getRevenueLast7Days();
 	}
+
+	@Override
+	public List<Order> loadAllwhereUser(String user) {
+		// TODO Auto-generated method stub
+		return dao.getAllWhereUser(user);
+	}
+
+	@Override
+	public List<Object[]> getAllOrderByUsername(String username) {
+		// TODO Auto-generated method stub
+		return dao.getAllOrderByUsername(username);
+	}
 }

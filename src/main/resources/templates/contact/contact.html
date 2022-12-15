@@ -16,7 +16,7 @@
 		<div class="fish" id="fish"></div>
 		<div class="fish" id="fish2"></div>
 		
-		<form id="waterform" method="post">
+		<form id="waterform" method="post" action="/mailer/demo">
 		
 		<div class="formgroup" id="name-form">
 		    <label for="name" class="label">Your name*</label>
@@ -32,8 +32,12 @@
 		    <label for="message" class="label">Your message</label>
 		    <textarea id="message" name="message" class="inputt"></textarea>
 		</div>
+		<span class="badge badge-secondary" style="border-radius: 5px;" th:text="${mes}"></span>
 		
-		  <input type="submit" value="Send your message!" class="inputt" />
+		  <!--  <input type="submit" value="Send your message!" class="inputt" formaction="/mailer/demo"/>
+		  
+		  -->
+		  <button class="inputt" type="submit" style="display: block;background: #ffd333;text-align: center;text-decoration: none;margin-bottom: 20px;margin-top: 10px;">Send your message!</button>
 		</form>
 		</div>
 		

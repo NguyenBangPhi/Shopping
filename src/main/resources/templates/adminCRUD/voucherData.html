@@ -55,15 +55,15 @@
 				  </tbody>
 				</table>
 			</div>
-			 <div class="m-auto col-sm-4">
-	            <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
-	            <button ng-click="truoc()" class="btn btn-outline-primary border-1 me-2"> < </button>
-	            <a ng-repeat="i in trang">
-	             <button ng-click="loadtrang(i)" class="btn btn-outline-primary numberPage">{{i}}</button>
-	             </a>
-	            <button ng-click="tiep()" class="btn btn-outline-primary border-1"> > </button>
-	            <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
-	         </div>
+			<div class="m-auto col-sm-4">
+		         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+			            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
+			            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
+			            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
+			            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
+			           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
+			           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+			       </div>
 		  </div>
 		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				<form>

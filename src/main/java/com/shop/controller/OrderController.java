@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.entity.Order;
+import com.shop.entity.Order_Details;
 import com.shop.entity.Users;
+import com.shop.service.Order_DetailsService;
 import com.shop.service.OrdersService;
 import com.shop.service.UsersService;
 
@@ -18,6 +22,9 @@ public class OrderController {
 	
 	@Autowired
 	OrdersService orderService;
+	
+	@Autowired
+	Order_DetailsService orderDetailService;
 	
 	@Autowired 
 	UsersService userService;
@@ -38,4 +45,20 @@ public class OrderController {
 		//System.out.println(orderService.findById(id).getOrder_address());
 		return "order/details";
 	}
+	
+	@RequestMapping("/order/show")
+	public String orderShow(Model model) {
+		Users u = userService.findById(req.getRemoteUser());
+		List<Object[]> listOrder = orderService.getAllOrderByUsername(u.getUser_username());
+		model.addAttribute("listOrder", listOrder);
+		return "order/showOrder";
+	}
+	
+	@RequestMapping("/order/show/{id}")
+	public String orderShow2(Model model, @PathVariable("id") Integer id) {
+		List<Order_Details> or = orderDetailService.getOrderByOrderId(id);
+		model.addAttribute("listOrderDetail", or);
+		return "order/showOrderDetail";
+	}
+	
 }

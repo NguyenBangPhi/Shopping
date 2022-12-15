@@ -45,4 +45,9 @@ public class IndexController {
 	public String regis(Model model) {
 		return "user/regis";
 	}
+	
+	@RequestMapping("/voucher")
+	public String voucher(Model model) {
+		return "voucher/voucher";
+	}
 }

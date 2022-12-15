@@ -74,7 +74,7 @@
 								class="fa fa-angle-down mt-1"></i></a>
 							<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 								<a href="cart.html" class="dropdown-item">Giờ vàng</a> <a
-									href="checkout.html" class="dropdown-item">Voucher</a>
+									href="/voucher" class="dropdown-item">Voucher</a>
 							</div>
 						</div>
 						<a href="/contact" class="nav-item nav-link">Liên hệ</a>
@@ -84,7 +84,7 @@
 						</th:block>
 						<th:block th:if="${#request.remoteUser}">
 							<a th:href="@{/security/logoff}" class="nav-item nav-link">Đăng xuất</a>
-							<a th:href="@{/order/list}" class="nav-item nav-link">Đơn hàng</a>
+							<a th:href="@{/order/show}" class="nav-item nav-link">Đơn hàng</a>
 							<a th:href="@{/admin}" class="nav-item nav-link" 
 								th:if="${#request.isUserInRole('admin') or #request.isUserInRole('sale')}">Admin</a>
 						</th:block>

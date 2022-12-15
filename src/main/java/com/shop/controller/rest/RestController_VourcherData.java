@@ -52,4 +52,9 @@ public class RestController_VourcherData {
 	public Voucher_Data update(@RequestBody Voucher_Data voucher_datas,@PathVariable("vdata_id")Integer vdata_id) {
 		return dao.update(voucher_datas);
 	}
+	
+	@GetMapping("/name/{nameid}")
+	public List<String> getName(@PathVariable("nameid") String nameid) {
+		return dao.selectName(nameid);
+	}
 }

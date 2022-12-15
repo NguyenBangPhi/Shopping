@@ -29,5 +29,7 @@ public interface OrdersService {
 	Object get7day(String ngay1, String ngay2);
 	List<Object[]> gettopuser(String ngay1, String ngay2);
 	List<Object[]> getRevenueLast7Days();
-
+	List<Order> loadAllwhereUser(String user);
+	
+	List<Object[]> getAllOrderByUsername(String username);
 }

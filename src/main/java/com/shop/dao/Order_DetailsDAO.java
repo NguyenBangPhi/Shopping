@@ -26,8 +26,12 @@ public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 	@Query(value= "Select SUM(ordetail_quantity) from order_details where Ordetail_createdate BETWEEN  ?1  and ?2", nativeQuery = true)
 	Long gettongsp7ngay(String ngay1, String ngay2);
 	
-	@Query(value= "Select COUNT(*) from order_details where Ordetail_createdate BETWEEN  ?1  and ?2", nativeQuery = true)
-	Long getsp7ngay(String ngay1, String ngay2);
+	@Query(value= "select  Product_name, sum(OrDetail_quantity) "
+			+ "from order_details INNER JOIN Product on Product_id = OrDetail_productid "
+			+ "where OrDetail_createDate BETWEEN  ?1  and ?2 "
+			+ "group by Product_name "
+			+ "ORDER BY sum(OrDetail_quantity) desc ", nativeQuery = true)
+	List<Object[]> getsp7ngay(String ngay1, String ngay2);
 	
 	@Query(value= "select sum(od.Ordetail_quantity * (od.ordetail_price - (od.ordetail_price/100*v.voucher_desc) )) "
 			+ "from order_details od inner join voucher v on v.voucher_name = od.ordetail_vouchername "
@@ -40,4 +44,8 @@ public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 			+ "group by od.ordetail_vouchername "
 			+ "ORDER BY COUNT(od.ordetail_vouchername) DESC ", nativeQuery = true)
 	List<Object[]> getodvoucher(String ngay1, String ngay2);
+	
+	
+	@Query(value = "SELECT * FROM order_details WHERE OrDetail_orderid=?1 and OrDetail_isDelete='false'", nativeQuery = true)
+	List<Order_Details> getOrderByOrderId(Integer orderID);
 }

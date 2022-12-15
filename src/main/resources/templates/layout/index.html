@@ -51,10 +51,14 @@
 	}
   </style>
 </head>
-<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl" style="overflow-x:hidden;">
-	<div th:replace="/layout/header"></div>
-	<div th:replace="${main}"></div>
-	<div th:replace="/layout/footer"></div>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl" style="overflow-x:hidden;position: relative;">
+	<div id="container" style="width: 100%;height: 100%">
+		<div th:replace="/layout/header"></div>
+		<div th:replace="${main}"></div>
+		<div th:replace="/layout/footer"></div>
+	
+        <div class="snow"></div>
+    </div>
 	
 	
 	
@@ -78,6 +82,7 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/main2.js"></script>
+    <script src="/js/regis.js"></script>
     <script src="/script.js"></script>
     <script src="/dirPagination.js"></script>
 </body>

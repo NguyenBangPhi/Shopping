@@ -21,4 +21,6 @@ public interface Vouchers_DatasService {
 	List<Voucher_Data> findBySearch(String search);
 
 	List<Voucher_Data> findAll2();
+	
+	List<String> selectName(String name);
 }

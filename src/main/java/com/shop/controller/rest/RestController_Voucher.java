@@ -73,8 +73,8 @@ public class RestController_Voucher {
 	}
 	
 	@PostMapping
-	public Voucher create(@RequestBody Voucher voucher_id) {
-		return dao.create(voucher_id);
+	public Voucher create(@RequestBody Voucher voucher) {
+		return dao.create(voucher);
 	}
 	
 	@PutMapping("{voucher_id}")

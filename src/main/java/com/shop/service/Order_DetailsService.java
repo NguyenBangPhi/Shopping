@@ -28,4 +28,6 @@ public interface Order_DetailsService {
 	List<Object[]> getodvoucher(String ngay1, String ngay2);
 
 	Object gettong7ngay(String ngay1, String ngay2);
+	
+	List<Order_Details> getOrderByOrderId(Integer orderID);
 }

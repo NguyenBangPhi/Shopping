@@ -33,6 +33,11 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
       }
     },
 
+	muaHangNhanh(id) {
+		$scope.cart.add(id);
+		location.href= "/order/list";
+	},
+
     //Xoá sản phẩm khỏi giỏ hàng
     remove(id) {
       var index = this.items.findIndex((item) => item.product_id == id);
@@ -575,6 +580,45 @@ myApp.controller("OtherController", function ($scope) {
     console.log("going to page " + num);
   };
 });
+myApp.controller("voucher", function ($scope,$http) {
+	$scope.itemm = [];
+	$scope.loadAll = function () {
+		$http.get(`${host}/voucher`)
+		.then(resp => {
+			$scope.itemm = resp.data;
+			console.log(resp.data)
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
+	
+	$scope.gift = function (voucher) {
+		voucher.voucher_isdelete = true;
+		var tempList = [];
+		$http.get(`${host}/voucher_data/name/${voucher.voucher_name}`)
+		.then(resp => {
+			tempList = resp.data;
+			console.log(resp.data)
+		})
+		.catch(err => {
+			console.log(err)
+		})
+		
+		$http.post(`${host}/voucher`,voucher)
+		.then(resp => {
+			$scope.loadAll();
+			alert("Mã voucher là: " + voucher.voucher_name + ";\nSẽ áp dụng cho các sản phẩm: " + tempList.join(', '));
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
+	
+	$scope.loadAll();
+
+});
+
 function makeid(l)
   {
   var text = "";

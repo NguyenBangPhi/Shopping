@@ -58,4 +58,16 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 			+ "left join Order_Details dt on  t1.Order_id = dt.OrDetail_orderid "
 			+ "Group by cast(t.last7Days as Date)", nativeQuery = true)
 	List<Object[]> getRevenueLast7Days();
+	
+	@Query(value = "SELECT * FROM [order] WHERE order_isdelete='false' and Order_usernameid=?1",nativeQuery = true)
+	List<Order> getAllWhereUser(String username);
+	
+	@Query(value = "select ord.Order_id, ord.Order_address, ord.Order_createDate, ord.Order_status, a.Gia from [Order] ord " + 
+			"join ( " + 
+			"SELECT OrDetail_orderid as 'OrID',SUM(od.OrDetail_quantity * (OrDetail_price - (od.OrDetail_price *  ISNULL(v.Voucher_desc,0) /100 ))) as 'Gia' " + 
+			"FROM Order_Details od " + 
+			"left join Voucher v on v.Voucher_name = od.OrDetail_voucherName	" + 
+			"GROUP BY OrDetail_orderid ) a on a.OrID = ord.Order_id "
+			+ "WHERE ord.Order_usernameid=?1", nativeQuery = true)
+	List<Object[]> getAllOrderByUsername(String username);
 }

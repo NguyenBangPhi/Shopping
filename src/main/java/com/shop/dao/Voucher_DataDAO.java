@@ -21,4 +21,9 @@ public interface Voucher_DataDAO extends JpaRepository<Voucher_Data, Integer>{
     
     @Query(value= "SELECT * FROM Voucher_Data WHERE voucher_isdelete = 'false'", nativeQuery = true)
 	List<Voucher_Data> findAll2();
+	
+	@Query(value =  "select p.Product_name from Voucher_Data vd " + 
+			"inner join Product p on p.Product_id = vd.Product_id " + 
+			"where vd.Voucher_name=?1 ",nativeQuery = true)
+	List<String> selectNameByIdVoucher(String IdVou);
 }

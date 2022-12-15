@@ -84,4 +84,10 @@ public class Order_DetailsServiceImpl implements Order_DetailsService{
 		return dao.gettong7ngay(ngay1, ngay2);
 	}
 
+	@Override
+	public List<Order_Details> getOrderByOrderId(Integer orderID) {
+		// TODO Auto-generated method stub
+		return dao.getOrderByOrderId(orderID);
+	}
+
 }

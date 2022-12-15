@@ -9,43 +9,58 @@
 <body>
 	<main>
 		<div ng-controller="thongke-ctrl">
-		<div class="form-group">
-		    <label>Ngày bắt đầu</label>
-		    <input type="date" ng-model="ngay1" value="{{ngay1}}" ng-change="load_all()" id="ngay1" class="mr-3" required>		 
-		    <label>Ngày kết thúc</label>
-		    <input type="date" ng-model="ngay2" value="{{ngay2}}" ng-change="load_all()" id="ngay2" required>
-		 </div>
-			<table class="table table-hover">
-				  <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">Số lượng đơn hàng</th>
-				      <th scope="col">Người mua hàng nhiều nhất</th>
-				      <th scope="col">Loại sản phẩm đã bán</th>
-				      <th scope="col">Tổng số lượng sản phẩm</th>
-				      <th scope="col">Mã giảm giá</th>
-				      <th scope="col">Số lần sử dụng</th>
-				      <th scope="col">Doanh thu</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				     <tr>
-			            <td>{{items.order7day}}</td>
-			            <td>{{items.ordertopuser[0][0]}} ( {{items.ordertopuser[0][1]}} )</td>
-			            <td>{{items.ordetailslsp7day}}</td>
-			            <td>{{items.ordetailtong7day}}</td>
-			            <td>{{items.ordetailvoucher[0][1]}}</td>
-			            <td>{{items.ordetailvoucher[0][0]}}</td>
-			            <td>{{items.ordetailtong}}</td>
-			        </tr>
-				  </tbody>
+			<div class="form-group">
+				<label>Ngày bắt đầu</label>
+				<input type="date" ng-model="ngay1" value="{{ngay1}}" ng-change="load_all()" id="ngay1" class="mr-3"
+					required>
+				<label>Ngày kết thúc</label>
+				<input type="date" ng-model="ngay2" value="{{ngay2}}" ng-change="load_all()" id="ngay2" required>
+			</div>
+			 <h3 class="mb-2 color-Primary">Doanh Thu: {{items.ordetailtong?items.ordetailtong:'0' | currency:'':0}} VNĐ</h3>
+			<div class="d-flex justify-content-between" style="max-height: 300px">
+				<table class="table table-hover col-4 mr-2 ">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Top người dùng</th>
+							<th scope="col" ng-click="test()">Số lần mua</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in items.ordertopuser | orderBy:'u[1]'|limitTo:5">
+							<td>{{u[0]}} </td>
+							<td>{{u[1]}} </td>
+					</tbody>
+				</table>
+
+				<table class="table table-hover col-4 mr-2">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Sản phẩm bán nhiều nhất</th>
+							<th scope="col">Số lượng</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in items.ordetailslsp7day | orderBy:'u[1]'|limitTo:5">
+							<td>{{u[0]}} </td>
+							<td>{{u[1]}} </td>
+					</tbody>
 				</table>
 				
+				<table class="table table-hover col-4">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Mã giám giá đã được sử dụng</th>
+							<th scope="col">Số lượng</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in items.ordetailvoucher | orderBy:'u[0]'|limitTo:5">
+							<td>{{u[1]}} </td>
+							<td>{{u[0]}} </td>
+					</tbody>
+				</table>
+			</div>
 		</div>
-		<!-- <div>
-			<div class="card-body">
-                 <canvas id="myLineChartRevenue"></canvas>
-             </div>
-		</div> -->
 	</main>
 </body>
 
