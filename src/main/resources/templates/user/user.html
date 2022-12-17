@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="shadow-lg p-3 m-5 bg-white rounded" ng-controller="user_ctrl">
+			<h1 class="mb-4">Thông tin người dùng</h1>
+			<div class="row">
+				<div class="col-3">
+					<img class="" style="width: 100%;border-radius: 20px;" alt="" src="/img/anhtheuser.jpg">
+				</div>
+				<div class="col-6">
+					<form name="myForm" style="color: gray !important;">
+					  <div class="form-group">
+					    <label for="usernameUser">Tài khoản</label>
+						<input ng-model="form.user_username" type="text" name="user" class="form-control" id="usernameUser" required>
+					  </div>
+					  <div class="form-group">
+					    <label for="fullnameUser">Họ và tên</label>
+						<input ng-model="form.user_fullname" type="text" name="fullname" class="form-control" id="fullnameUser" required>
+					  </div>
+					  <div class="form-group">
+					    <label for="passwordUser">Mật khẩu</label>
+						<input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
+					  </div>
+					  <div>
+						</div>
+					  <div class="form-group">
+					    <div class="form-group">
+						    <label for="exampleFormControlFile1">Hình   ({{form.user_img}})</label>		  
+						    <input ng-model="form.user_img" type="file" accept="image/*" class="form-control-file" 
+						    id="exampleFormControlFile1" onchange="angular.element(this).scope().imageChanged(this.files)">
+						  </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="emailUser">Email</label>
+						<input ng-model="form.user_mail" type="email" name="email" class="form-control" id="emailUser" required>
+					  </div>
+					  <div class="form-group">
+					    <label for="phoneUser">Số điện thoại</label>
+						<input ng-model="form.user_phone" type="text" name="sdt" class="form-control" id="phoneUser" required>
+					  </div>
+					  <input type="hidden" ng-model="form.user_roleId">
+					  <button type="submit" ng-click="create()"  class="btn btn-primary mt-2">Chỉnh sửa</button>
+					  <button ng-click="reset()" class="btn btn-primary mt-2">Reset</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	
+	
+	</main>
+
+</body>

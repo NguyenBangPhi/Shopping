@@ -1,5 +1,9 @@
 package com.shop.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +16,12 @@ import com.shop.service.UsersService;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	HttpServletRequest req;
+	
+	@Autowired
+	HttpServletResponse res;
 	
 	@Autowired
 	Product_BrandsService proBrandService;
@@ -49,5 +59,15 @@ public class IndexController {
 	@RequestMapping("/voucher")
 	public String voucher(Model model) {
 		return "voucher/voucher";
+	}
+	
+	@RequestMapping("/user")
+	public String userTemp(Model model) {
+		if(req.getRemoteUser() != null) {
+			Cookie cookie = new Cookie("user",req.getRemoteUser());
+			cookie.setMaxAge(60 * 60 * 24); 
+			res.addCookie(cookie);
+		}
+		return "user/user";
 	}
 }

@@ -15,7 +15,7 @@ public class AdminController {
 		return "admin/indexView";
 	}
 	
-	@RequestMapping("/adminThongke")
+	@RequestMapping("/adminThongKe")
 	public String adminThongke() {
 		return "adminCRUD/Thongke";
 	}

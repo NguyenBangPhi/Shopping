@@ -97,7 +97,7 @@
                   <h2 th:text="${'Giá: ' + #numbers.formatInteger(x.product_price,3,'POINT')}" style="font-size: 15px;">$[[${x.product_price}]]</h2>
                 </div>
                 <div>
-                	<button class="btn primaryBTN" th:attr="ng-click=@{cart.muaHangNhanh(${x.product_id})}">Mua hàng</button>
+                	<button class="btn primaryBTN" th:attr="ng-click=@{|cart.muaHangNhanh(${x.product_id})|}">Mua hàng</button>
                     <button class="btn btn-warning" style="border-radius: 5px;" th:attr="ng-click=@{|cart.add(${x.product_id})|}">Thêm vào giỏ</button>
                 </div>
               </div>
@@ -108,7 +108,7 @@
         </div>
       </div>
       <hr/>
-      <div>
+      <div class="mb-4">
         <img src="img/Banner1.jpg" width="100%" alt="">
       </div>
     </div>

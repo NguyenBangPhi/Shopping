@@ -24,6 +24,14 @@
 				</div>
 			</form>
 		</div>
+		<div class="col-lg-4 text-right">
+			<th:block th:if="${#request.remoteUser}">
+				<button class="custom-btn btn-12" ng-click="userURL()"><span>Xem thông tin</span><span>[[${#request.remoteUser}]]</span></button>
+			</th:block>
+			<th:block th:unless="${#request.remoteUser}">
+				<button class="custom-btn btn-12"><span>Chưa đăng nhập</span><span>Chưa đăng nhập</span></button>
+			</th:block>
+		</div>
 	</div>
 </div>
 <!-- Topbar End -->

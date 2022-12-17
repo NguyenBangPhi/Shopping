@@ -8,7 +8,9 @@ myApp.config(function (paginationTemplateProvider) {
 
 myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
   
-
+	$scope.userURL = function () {
+		location.href= `http://localhost:8080/user`;
+	}
   $scope.cart = {
     items: [],
     moneyBill: 0,

@@ -75,7 +75,7 @@ for(var i = 0; i<200; i++){
     let widthSnow = Math.floor(Math.random() * 50);
     let timeSnow = Math.floor((Math.random() * 5) + 5);
     let blurSnow = Math.floor(Math.random() * 10);
-    console.log(leftSnow);
+    //console.log(leftSnow);
     let div = document.createElement('div');
     div.classList.add('snow');
     div.style.left = leftSnow + 'px';
