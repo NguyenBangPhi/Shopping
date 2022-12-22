@@ -54,7 +54,7 @@ public class RestController_VourcherData {
 	}
 	
 	@GetMapping("/name/{nameid}")
-	public List<String> getName(@PathVariable("nameid") String nameid) {
+	public List<Voucher_Data> getName(@PathVariable("nameid") String nameid) {
 		return dao.selectName(nameid);
 	}
 }

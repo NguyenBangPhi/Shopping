@@ -1,4 +1,4 @@
-myApp.controller("user_ctrl", function($scope, $http){
+myApp.controller("user_ctrl2", function($scope, $http){
     $scope.form = {};
 	$scope.form.role = {role_id: '003'};
 	$scope.form.user_isdelete = false;

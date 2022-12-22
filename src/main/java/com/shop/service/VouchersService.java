@@ -17,5 +17,5 @@ public interface VouchersService {
 
 	List<Voucher> findBySearch(String search);
 
-	List<Voucher> findAll2();
+	List<Object[]> findAll2();
 }

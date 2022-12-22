@@ -583,34 +583,86 @@ myApp.controller("OtherController", function ($scope) {
   };
 });
 myApp.controller("voucher", function ($scope,$http) {
+	$scope.tempDate;
 	$scope.itemm = [];
-	$scope.loadAll = function () {
-		$http.get(`${host}/voucher`)
+	displayHello = setInterval(function () {
+			console.log("interval")
+			for(let i = 0; i < $scope.itemm.length; i++) {
+				let datetemp = new Date($scope.itemm[i].voucher_createdate);
+				//console.log(datetemp);
+				let date2 = new Date();
+				let ms = datetemp.getTime() - date2.getTime();
+				console.log(ms,i);
+				let seconds = (ms / 1000).toFixed(1);
+				  let minutes = (ms / (1000 * 60)).toFixed(1);
+				  let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+				  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+				  if (seconds < 60) return seconds + " Sec";
+				  else if (minutes < 60) return minutes + " Min";
+				  else if (hours < 24) return hours + " Hrs";
+				document.getElementById("abc"+i).innerHTML = days + " Days";
+			}
+		}, 1000);
+	 $scope.loadAll = async function () {
+		await $http.get(`${host}/voucher_data`)
 		.then(resp => {
 			$scope.itemm = resp.data;
-			console.log(resp.data)
-		})
-		.catch(err => {
-			console.log(err)
-		})
-	}
-	
-	$scope.gift = function (voucher) {
-		voucher.voucher_isdelete = true;
-		var tempList = [];
-		$http.get(`${host}/voucher_data/name/${voucher.voucher_name}`)
-		.then(resp => {
-			tempList = resp.data;
-			console.log(resp.data)
+			console.log(resp.data);
+			//await setInterval(displayHello, 1000);
+			
+			
+			
 		})
 		.catch(err => {
 			console.log(err)
 		})
 		
-		$http.post(`${host}/voucher`,voucher)
+		setInterval(displayHello, 1000);
+		/*for(let i = 0; i < $scope.itemm.length; i++) {
+				let datetemp = new Date($scope.itemm[i].voucher_createdate);
+				//onsole.log(datetemp);
+				let date2 = new Date();
+				let datee = datetemp.getTime() - date2.getTime();
+				console.log(datee,i);
+				document.getElementById("abc"+i).innerHTML = datee;
+				//msToTime(datee)
+			}*/
+	}
+	
+		
+	$scope.runDate = function (date) {
+		var datetemp = new Date(date);
+		console.log(datetemp);
+		var date2 = new Date();
+		var datee = datetemp.getTime() - date2.getTime();
+		console.log(datee);
+		$scope.tempDate = 0;
+	}
+	  $scope.gift = async function (voucher_name,product_id) {
+		//voucher.voucher_isdelete = true;
+		var tempList = [];
+		var item = {};
+		await $http.get(`${host}/voucher_data/name/${voucher_name}`)
+		.then(resp => {
+			tempList = resp.data;
+			console.log(resp.data)
+			for(let i = 0; i < tempList.length;i++ ){
+				if(tempList[i].voucher.voucher_name == voucher_name && tempList[i].product.product_id == product_id) {
+					item = tempList[i];
+					item.voucher_isdelete = true;
+					console.log(item, "ITEM");
+				}
+			}
+		})
+		.catch(err => {
+			console.log(err)
+		})
+		
+		await $http.post(`${host}/voucher_data`,item)
 		.then(resp => {
 			$scope.loadAll();
-			alert("Mã voucher là: " + voucher.voucher_name + ";\nSẽ áp dụng cho các sản phẩm: " + tempList.join(', '));
+			alert("Mã voucher là: " + item.voucher.voucher_name + ";\nSẽ áp dụng cho sản phẩm: " + item.product.product_name);
+			//tempList.join(', ')
 		})
 		.catch(err => {
 			console.log(err)
@@ -630,4 +682,16 @@ function makeid(l)
   text += char_list.charAt(Math.floor(Math.random() * char_list.length));
   }
   return text;
+}
+function msToTime(duration) {
+  var milliseconds = Math.floor((duration % 1000) / 100),
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }

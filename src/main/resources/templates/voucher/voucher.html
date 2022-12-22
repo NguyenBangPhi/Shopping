@@ -14,7 +14,8 @@
 						<div class="card" style="border-radius: 10px;margin-bottom: 10px;">
 						  <img src="/img/voucher.jpg" class="card-img-top" alt="..." style="border-radius: 10px;">
 						  <div class="card-body" style="text-align: right;">
-						    <button type="button" class="btn btn-primary" ng-click="gift(p)">Nhận voucher</button>
+						  	<span class="badge badge-secondary p-2" style="text-align: left;border-radius: 10px;" id="abc{{$index}}">{{$index}}</span>
+						    <button type="button" class="btn btn-primary" ng-click="gift(p.voucher.voucher_name,p.product.product_id)">Nhận voucher</button>
 						  </div>
 						</div>
 					</div>

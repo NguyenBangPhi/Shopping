@@ -56,7 +56,7 @@ public class VouchersServiceImpl implements VouchersService{
 	}
 
 	@Override
-	public List<Voucher> findAll2() {
+	public List<Object[]> findAll2() {
 		// TODO Auto-generated method stub
 		return dao.findAll2();
 	}

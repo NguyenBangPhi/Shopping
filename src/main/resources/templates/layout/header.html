@@ -15,7 +15,7 @@
 			<form action="">
 				<div class="input-group">
 					<input ng-model="q" id="search" type="text" class="form-control"
-						placeholder="Search for products">
+						placeholder="Tìm kiếm">
 					<div class="input-group-append">
 						<span class="input-group-text bg-transparent text-primary">
 							<i class="fa fa-search"></i>
@@ -75,14 +75,14 @@
 					<div class="navbar-nav mr-auto py-0">
 						<a href="/index" class="nav-item nav-link active">Trang chủ</a> <a
 							href="/product" class="nav-item nav-link">Sản phẩm</a> <a
-							href="detail.html" class="nav-item nav-link">Trending</a>
+							href="detail.html" class="nav-item nav-link">Xu hướng</a>
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link dropdown-toggle"
 								data-toggle="dropdown">Khuyến mãi <i
 								class="fa fa-angle-down mt-1"></i></a>
 							<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 								<a href="cart.html" class="dropdown-item">Giờ vàng</a> <a
-									href="/voucher" class="dropdown-item">Voucher</a>
+									href="/voucher" class="dropdown-item">Mã giảm giá</a>
 							</div>
 						</div>
 						<a href="/contact" class="nav-item nav-link">Liên hệ</a>
@@ -94,7 +94,7 @@
 							<a th:href="@{/security/logoff}" class="nav-item nav-link">Đăng xuất</a>
 							<a th:href="@{/order/show}" class="nav-item nav-link">Đơn hàng</a>
 							<a th:href="@{/admin}" class="nav-item nav-link" 
-								th:if="${#request.isUserInRole('admin') or #request.isUserInRole('sale')}">Admin</a>
+								th:if="${#request.isUserInRole('admin') or #request.isUserInRole('sale')}">Quản lí</a>
 						</th:block>
 						
 					</div>

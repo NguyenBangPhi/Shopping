@@ -22,5 +22,5 @@ public interface Vouchers_DatasService {
 
 	List<Voucher_Data> findAll2();
 	
-	List<String> selectName(String name);
+	List<Voucher_Data> selectName(String name);
 }

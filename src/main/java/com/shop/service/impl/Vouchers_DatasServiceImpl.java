@@ -63,7 +63,7 @@ public class Vouchers_DatasServiceImpl implements Vouchers_DatasService{
 	}
 
 	@Override
-	public List<String> selectName(String name) {
+	public List<Voucher_Data> selectName(String name) {
 		// TODO Auto-generated method stub
 		return dao.selectNameByIdVoucher(name);
 	}

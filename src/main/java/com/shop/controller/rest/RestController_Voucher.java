@@ -53,7 +53,7 @@ public class RestController_Voucher {
 	
 	
 	@GetMapping
-	public List<Voucher>getorder(){
+	public List<Object[]>getorder(){
 		return dao.findAll2();
 	}
 	
