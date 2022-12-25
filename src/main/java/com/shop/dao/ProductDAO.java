@@ -25,7 +25,9 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 			+ "inner join Product p on c.ProBrand_id = p.ProBrand_id "
 			+ "inner join Order_Details odt on p.Product_id = odt.OrDetail_productid "
 			+ "inner join [Order] o on odt.OrDetail_orderid = o.Order_id "
-			+ "Where cast(o.Order_createDate as date) >= DateAdd(day,-365,cast(getdate() as date)) "
+			+ "Where o.Order_createDate Between ?1 and ?2 "
 			+ "group by c.ProBrand_name",nativeQuery = true)
-	List<Object[]> numberOfProductSoldByType();
+	List<Object[]> numberOfProductSoldByType(String ngay1, String ngay2);
+	
+	
 }

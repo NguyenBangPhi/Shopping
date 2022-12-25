@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="shadow-lg m-auto p-3 bg-white rounded" style="width: 500px;margin-bottom: 35px !important;">
+			<h2 style="text-align: center;">Kiểm tra đơn hàng</h2>
+			<div class="form-group">
+			    <label for="exampleInputPassword1">Nhập mã đơn hàng</label>
+			    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="checkOr">
+			  </div>
+			  <button type="submit" class="btn btn-primary" ng-click="checkOr2(checkOr)">Check</button>
+		
+		</div>
+	</main>
+</body>

@@ -167,6 +167,7 @@ app.controller("brand_ctrl", function($scope, $http){
         $scope.form = {probrand_isdelete: false};
         $scope.load_all();
         $scope.loadtrang();
+        $scope.end(1);
     }
     
     $scope.validate = function(){

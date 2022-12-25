@@ -16,6 +16,7 @@
 		      <th scope="col">Tên người nhận</th>
 		      <th scope="col">Địa chỉ</th>
 		      <th scope="col">Ngày Đặt Hàng</th>
+		      <th scope="col">Trạng thái</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -25,6 +26,7 @@
 		      <td th:text="*{order_fullname}"></td>
 		      <td th:text="*{order_address}"></td>
 		      <td th:text="*{order_createdate}"></td>
+		      <td th:text="*{order_status}"></td>
 		    </tr>
 		  </tbody>
 		</table>
@@ -37,6 +39,7 @@
 		      <th scope="col">Tên sản phẩm</th>
 		      <th scope="col">Số lượng</th>
 		      <th scope="col">Giá</th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -46,6 +49,7 @@
 		      <td>[[${detail.product_.product_name}]]</td>
 		      <td>[[${detail.ordetail_quantity}]]</td>
 		      <td th:text="${#numbers.formatInteger(detail.ordetail_price,3,'POINT')}">[[${detail.ordetail_price}]]</td>
+		      <td> <button style="border-radius: 10px;" class="btn btn-primary" th:attr="ng-click=@{|cart.add(${detail.product_.product_id})|}">Thêm vào giỏ</button> </td>
 		    </tr>
 		  </tbody>
 		</table>

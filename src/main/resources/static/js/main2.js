@@ -7,7 +7,10 @@ myApp.config(function (paginationTemplateProvider) {
 });
 
 myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
-  
+  $scope.checkOr;
+	$scope.checkOr2 = function (temp) {
+		location.href = `http://localhost:8080/order/detail/${temp}`;
+	}
 	$scope.userURL = function () {
 		location.href= `http://localhost:8080/user`;
 	}
@@ -15,19 +18,43 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
     items: [],
     moneyBill: 0,
 
+	changeQTY(id) {
+		var item = this.items.find((item) => item.product_id == id);
+		console.log("Thành công")
+		if(item.qty < 0) {
+			alert("Chọn sai số lượng !");
+			item.qty = 1;
+			this.saveToLocalStorage();
+		}else if(item.qty > item.product_quantity){
+			item.qty = item.product_quantity;
+			alert("Sản phẩm không còn đủ hàng !");
+			this.saveToLocalStorage();
+		}
+		this.saveToLocalStorage();
+	},
+
     //Thêm sản phẩm vào giỏ hàng
     add(id) {
       var item = this.items.find((item) => item.product_id == id);
       if (item) {
-        item.qty++;
-        this.saveToLocalStorage();
+		if(item.product_quantity == 0 || (item.qty+1) > item.product_quantity) {
+			alert("Sản phẩm đã hết hàng !");
+		}else {
+			item.qty++;
+        	this.saveToLocalStorage();
+		}
       } else {
+		
         $http
           .get(`/rest/product/${id}`)
           .then((resp) => {
-            resp.data.qty = 1;
-            this.items.push(resp.data);
-            this.saveToLocalStorage();
+			if(resp.data.product_quantity == 0) {
+				alert("Sản phẩm đã hết hàng !");
+			}else {
+				resp.data.qty = 1;
+	            this.items.push(resp.data);
+	            this.saveToLocalStorage();
+			}
           })
           .catch((error) => {
             console.log("Error", error);
@@ -257,7 +284,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
               idtemp = resp.data.order_id;
               console.log(idtemp);
               alert("Đặt hàng thành công !");
-              
+              alert("Mã đơn hàng của bạn là: " + idtemp +"\nHãy lưu lại để tra cứu");
               
               //$scope.cart.ghn(ordertemp,$scope.cart);
               //$scope.cart.clear();
@@ -299,6 +326,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
                   alert("Đặt hàng thành công !");
                   $scope.cart.clear();
                   idtemp = resp.data.order_id;
+				  alert("Mã đơn hàng của bạn là: " + idtemp +"\nHãy lưu lại để tra cứu");
                   //location.href= "/order/detail/" + resp.data.order_id;
                 }).catch(error => {
                   alert("Đặt hàng lỗi !");
@@ -661,7 +689,7 @@ myApp.controller("voucher", function ($scope,$http) {
 		await $http.post(`${host}/voucher_data`,item)
 		.then(resp => {
 			$scope.loadAll();
-			alert("Mã voucher là: " + item.voucher.voucher_name + ";\nSẽ áp dụng cho sản phẩm: " + item.product.product_name);
+			alert("Mã voucher là: " + item.voucher.voucher_name + ";\nGiảm: "+ item.voucher.voucher_desc + "%" + ";\nSẽ áp dụng cho sản phẩm: " + item.product.product_name);
 			//tempList.join(', ')
 		})
 		.catch(err => {

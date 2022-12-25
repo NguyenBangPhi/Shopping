@@ -51,9 +51,11 @@ app.controller("voucherdata_ctrl", function($scope, $http){
 				$scope.trang -= 1;
             	$scope.bachgroup();
 			}
-		}else{
-			if($scope.trang == 1 && $scope.start == $scope.pt){
+		}else{if($scope.trang == 1 && $scope.start == $scope.pt){
         		$scope.bachgroup();
+			}else if($scope.items.length <= $scope.pt){
+        		$scope.bachgroup();
+				$scope.end(1);
 			}else if($scope.trang+2 == $scope.sizetrang){
 				document.getElementById("trang3").classList.add('bg-primary');
 				document.getElementById("trang1").classList.remove('bg-primary');
@@ -181,22 +183,36 @@ app.controller("voucherdata_ctrl", function($scope, $http){
     $scope.reset = function(){
 		var today = new Date();
 		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        $scope.form = {voucher_isdelete: false, voucher_createdate: date};
+        $scope.form = {voucher_isdelete: false, voucher_createdate: date,voucher: {voucher_name: "712GIAM5PT"}};
         $scope.load_all();
+        $scope.end(1);
     }
+    $scope.check = 0;
+    $scope.tsp = function(a){
+		$scope.check = a;
+		if($scope.check==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
     
     $scope.create = function(){
         var item = angular.copy($scope.form);
         item.voucher_createdate = document.querySelector('input[type="date"]').value;
-        var url = `${host}/voucher_data`;
-        $http.post(url, item).then(resp => {
-            $scope.items.push(item);
-            $scope.reset();
-            console.log("Success", resp)
-            $scope.load_all();
-        }).catch(error => {
-            console.log("Error", error)
-        });
+        if(item.product != undefined){
+	        var url = `${host}/voucher_data`;
+	        $http.post(url, item).then(resp => {
+	            $scope.items.push(item);
+	            $scope.reset();
+	            console.log("Success", resp)
+	            $scope.load_all();
+	        }).catch(error => {
+	            console.log("Error", error)
+	        });
+		}else{
+			alert("Vui lòng chọn sản phẩm")
+		}
     }
     
     $scope.update = function(){

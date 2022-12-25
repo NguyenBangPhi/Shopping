@@ -58,20 +58,25 @@
 				     
 				  </tbody>
 				</table>
-				</div>
 				<div class="m-auto col-sm-4">
-		         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
-			            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
-			            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
-			            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
-			            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
-			           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
-			           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
-			       </div>
+	         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+		            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
+		            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
+		            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
+		            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
+		           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
+		           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+		       </div>
+				</div>
 		  </div>
-		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+		  <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				<form name="myForm">
-				  <div class="form-group">
+				<div class="d-flex">
+					<div>
+						<img alt="" src="assets/avatar/{{form.user_img}}" style="width: 300px;height: 100%;">
+					</div>
+					<div class="flex-column col-9">
+				  <div class="form-group ">
 				    <label for="usernameUser">Tài khoản</label>
 					<input ng-model="form.user_username" type="text" name="user" class="form-control" id="usernameUser" required>
 				  </div>
@@ -81,16 +86,19 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="passwordUser">Mật khẩu</label>
-					<input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
+				    <div class="input-group">
+						<input ng-model="form.user_password" minlength="6" type="password" name="pass"  class="form-control" id="passwordUser" required>
+						<a class="btn btn-outline-secondary" ng-click="show()"><i class="fa-solid fa-eye-slash" id="eye" ng-click="eye(eyea+1)"></i></a>
+				    </div>
 				  </div>
-				  <div>
-					</div>
 				  <div class="form-group">
 				    <div class="form-group">
 					    <label for="exampleFormControlFile1">Hình   ({{form.user_img}})</label>		  
 					    <input ng-model="form.user_img" type="file" accept="image/*" class="form-control-file" 
 					    id="exampleFormControlFile1" onchange="angular.element(this).scope().imageChanged(this.files)">
 					  </div>
+				  </div>
+				  </div>
 				  </div>
 				  <div class="form-group">
 				    <label for="emailUser">Email</label>
@@ -102,8 +110,8 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="roleid">Quyền</label>
-				    <select ng-model="form.role.role_id" class="form-control" name="quyen" id="roleid" required>				      
-				      <option ng-repeat="r in role" value="{{r.role_id}}">{{r.role_name}}</option>
+				    <select ng-model="form.role.role_id" class="form-control" id="roleid">				      
+				      <option ng-repeat="r in role" ng-value="{{r.role_id}}">{{r.role_name}}</option>
 				    </select>
 				  </div>
 				  <button type="submit" ng-click="create()"  class="btn btn-primary mt-2">Submit</button>
@@ -113,9 +121,7 @@
 		  </div>
 		</div>
 		</div>
-		
-	<Script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"> </script>
-   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+			
    
 	</main>
 </body>

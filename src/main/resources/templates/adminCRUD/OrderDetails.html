@@ -37,8 +37,8 @@
 				      <th scope="col">Mã sản phẩm</th>
 				      <th scope="col">Tên sản phẩm</th>
 				      <th scope="col">Số lượng</th>
-				      <th scope="col">Giảm giá</th>
 				      <th scope="col">Giá</th>
+				      <th scope="col">Giảm giá</th>
 				      <th scope="col">Ngày</th>
 				      <th scope="col">Trạng thái</th>
 				      <th scope="col">Tổng tiền</th>
@@ -52,12 +52,11 @@
 			            <td>{{stu.product_.product_id}}</td>
 			            <td>{{stu.product_.product_name}}</td>
 			            <td>{{stu.ordetail_quantity}}</td>
-			            <td>{{stu.voucher_.voucher_desc ?stu.voucher_.voucher_desc:'0'}}%</td>
 			            <td>{{stu.ordetail_price | currency:'':0}}</td>
+			            <td>{{stu.voucher_.voucher_desc ?stu.voucher_.voucher_desc:'0'}}%</td>
 			            <td>{{stu.ordetail_createdate | date : "dd/MM/yyyy"}}</td>
 			            <td>{{stu.ordetail_status}}</td>
-			            <td>{{(tongtien + 
-			            (stu.ordetail_price * stu.ordetail_quantity)*(1-(stu.voucher_.voucher_desc?stu.voucher_.voucher_desc:'0')/100)) | currency:'':0 }} VNĐ</td>			            
+			            <td>{{(stu.ordetail_price*(1-(stu.voucher_.voucher_desc?stu.voucher_.voucher_desc:'0')/100)*stu.ordetail_quantity) | currency:'':0 }} VNĐ</td>			            
 			            <td>
 							<button class="btn btn-sm btn-warning" ng-click="edit(stu.ordetail_id)"><i class="fa-solid fa-square-pen"></i></button>
 			                <button class="btn btn-sm btn-danger" ng-click="delete(stu.ordetail_id)"><i class="fa-solid fa-trash-can"></i></button>
@@ -65,7 +64,6 @@
         </tr>
 				  </tbody>
 				</table>
-			</div>
 			<div class="m-auto col-sm-4">
 		         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
 			            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
@@ -75,6 +73,7 @@
 			           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
 			           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
 			       </div>
+			</div>
 		  </div> 
 		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				<form name="myForm">
@@ -84,14 +83,14 @@
 				  </div>
 				  <div class="form-group">
 					<label for="odetailoder">Mã hoá đơn</label>
-					<select class="form-control" ng-model="form.order.order_id" ng-value="form.order.order_id" name="mahd" id="odetailoder">
-						<option ng-repeat="o in or" value="{{o.order_id}}" >{{o.order_id}}</option>
+					<select class="form-control" ng-model="form.order.order_id"  name="mahd" id="odetailoder">
+						<option ng-repeat="o in or" ng-value="{{o.order_id}}" >{{o.order_id}}</option>
 					</select>
 				  </div>
 				  <div class="form-group">
-					<label for="exampleFormControlSelect2">Mã sản phẩm</label>
-					<select class="form-control" ng-model="form.product_.product_id" ng-value="form.product_.product_id"  ng-click="loadgia()" name="masp" id="exampleFormControlSelect2">
-						<option ng-repeat="u in pro" value="{{u.product_id}}" >{{u.product_name}}</option>
+					<label for="exampleFormControlSelect2">Sản phẩm</label>
+					<select class="form-control" ng-model="form.product_.product_id"  ng-change="loadgia()" name="masp" id="exampleFormControlSelect2">
+						<option ng-repeat="u in pro" ng-value="{{u.product_id}}" >{{u.product_name}}</option>
 					</select>
 				  </div>
 				  <div class="form-group">

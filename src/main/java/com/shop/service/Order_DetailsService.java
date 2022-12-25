@@ -30,4 +30,12 @@ public interface Order_DetailsService {
 	Object gettong7ngay(String ngay1, String ngay2);
 	
 	List<Order_Details> getOrderByOrderId(Integer orderID);
+	
+	List<Object[]> tkproduct(Integer id);
+
+	List<Object[]> tkctproduct(Integer id);
+
+	List<Object[]> tkctorder(Integer id);
+
+	List<Object[]> tkorder(Integer id);
 }

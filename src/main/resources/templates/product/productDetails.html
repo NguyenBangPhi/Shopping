@@ -9,11 +9,11 @@
         <div class="shadow p-3 mb-5 mx-5 bg-body rounded">Home / Shop / Details</div>
         
         <div class="shadow p-3 mb-5 mx-5 bg-body rounded">
-            <div class="row">
-                <div class="col-md-4">
-                    <img th:src="@{|/img/product/${item.product_img}|}" alt="" style="width: 100%;padding: 5px;">
+            <div class="row p-5" >
+                <div class="col-md-4" style="background: white;padding: 15px 0 15px 15px;border-radius: 15px 0 0 15px" >
+                    <img th:src="@{|/img/product/${item.product_img}|}" alt="" style="width: 100%;padding: 30px;border-radius: 30px;">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" style="background: white;padding: 50px 100px 15px 10px;border-radius: 0 15px 15px 0;">
                     <div class="item__item">
                     	<span>Tên sản phẩm: </span><span style="font-weight: 700;" th:text="${item.product_name}"></span>
                     </div>

@@ -69,7 +69,7 @@ function OtherController($scope) {
 
 let container = document.getElementById('container');
 let count = 50;
-for(var i = 0; i<200; i++){
+for(var i = 0; i<50; i++){
     let leftSnow = Math.floor(Math.random() * container.clientWidth);
     let topSnow = Math.floor(Math.random() * container.clientHeight);
     let widthSnow = Math.floor(Math.random() * 50);

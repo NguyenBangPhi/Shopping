@@ -38,7 +38,7 @@ public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 			+ "where od.ordetail_createdate between ?1 and ?2", nativeQuery = true)
 	Long gettong7ngay(String ngay1, String ngay2);
 
-	@Query(value= "SELECT TOP 1 COUNT(od.OrDetail_voucherName),od.OrDetail_voucherName  "
+	@Query(value= "SELECT COUNT(od.OrDetail_voucherName),od.OrDetail_voucherName  "
 			+ "FROM order_details od INNER JOIN voucher v ON v.voucher_name = od.ordetail_vouchername "
 			+ "where od.ordetail_createdate between ?1 and ?2 "
 			+ "group by od.ordetail_vouchername "
@@ -48,4 +48,42 @@ public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 	
 	@Query(value = "SELECT * FROM order_details WHERE OrDetail_orderid=?1 and OrDetail_isDelete='false'", nativeQuery = true)
 	List<Order_Details> getOrderByOrderId(Integer orderID);
+	
+	@Query(value= "select p.Product_id,p.Product_name,  p.Product_price, COUNT(od.OrDetail_orderid) as 'oid', sum(od.OrDetail_quantity) as 'sl', "
+			+ "COUNT(od.OrDetail_voucherName) as 'vname', "
+			+ "SUM((p.Product_price - (p.Product_price/100*ISNULL(v.Voucher_desc,0)))*od.OrDetail_quantity) "
+			+ "from Order_Details od  "
+			+ "inner join Product p on p.Product_id = od.OrDetail_productid "
+			+ "LEFT join Voucher v on v.Voucher_name = od.OrDetail_voucherName "
+			+ "where p.Product_id = ?1 "
+			+ "group by p.Product_id,p.Product_name, p.Product_price ", nativeQuery = true)
+	List<Object[]> tkproduct(Integer id);
+	
+	@Query(value= "select od.OrDetail_orderid, sum(od.OrDetail_quantity) as 'sl', "
+			+ "ISNULL(v.Voucher_desc,0) as 'vname', od.OrDetail_createDate, "
+			+ "SUM((p.Product_price - (p.Product_price/100*ISNULL(v.Voucher_desc,0)))*od.OrDetail_quantity) as 'tong' "
+			+ "from Order_Details od "
+			+ "inner join Product p on p.Product_id = od.OrDetail_productid "
+			+ "LEFT join Voucher v on v.Voucher_name = od.OrDetail_voucherName "
+			+ "where p.Product_id = ?1 "
+			+ "group by od.OrDetail_createDate, v.Voucher_desc,od.OrDetail_id,od.OrDetail_orderid ", nativeQuery = true)
+	List<Object[]> tkctproduct(Integer id);
+	
+	@Query(value= "select o.Order_id, o.Order_usernameid,COUNT(od.OrDetail_id)  "
+			+ "as 'sloder',COUNT(od.OrDetail_voucherName) as 'slv' "
+			+ "from Order_Details od LEFT join [Order] o on o.Order_id = od.OrDetail_orderid "
+			+ "where o.Order_id = ?1 "
+			+ "group by o.Order_id, o.Order_usernameid ", nativeQuery = true)
+	List<Object[]> tkorder(Integer id);
+	
+	@Query(value= "select od.OrDetail_id,p.Product_name, od.OrDetail_quantity, od.OrDetail_price,   "
+			+ "ISNULL(v.Voucher_desc,0) as 'v' ,od.OrDetail_status,od.OrDetail_createDate, "
+			+ "SUM((p.Product_price - (p.Product_price/100*ISNULL(v.Voucher_desc,0)))*od.OrDetail_quantity) as 'tong' "
+			+ "from Order_Details od inner join [Order] o on o.Order_id = od.OrDetail_orderid "
+			+ "inner join Product p on p.Product_id = od.OrDetail_productid "
+			+ "left join Voucher v on v.Voucher_name = od.OrDetail_voucherName "
+			+ "where o.Order_id = ?1 "
+			+ "group by od.OrDetail_id,od.OrDetail_status,od.OrDetail_createDate,  "
+			+ "p.Product_name,od.OrDetail_price, od.OrDetail_quantity,v.Voucher_desc", nativeQuery = true)
+	List<Object[]> tkctorder(Integer id);
 }

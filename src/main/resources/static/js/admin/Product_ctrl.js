@@ -164,6 +164,7 @@ app.controller("product_ctrl", function($scope, $http){
         $scope.form = {product_isdelete: false};
         document.getElementById("exampleFormControlFile1").value = "";
         $scope.load_all();
+        $scope.end(1);
     }
     
     $scope.validate = function(){
@@ -181,7 +182,7 @@ app.controller("product_ctrl", function($scope, $http){
 		if($scope.validate()==true){
 		console.log(item);
 	        var item = angular.copy($scope.form);
-	        var url = `${host}/product/list`;
+	        var url = `${host}/product`;
 	        console.log(item)
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
@@ -214,7 +215,7 @@ app.controller("product_ctrl", function($scope, $http){
         	resp.data.product_isdelete = 'true';
             $scope.itemdelete = resp.data;
             //delete
-            var url2 = `${host}/product/list`;
+            var url2 = `${host}/product`;
 			if(confirm("Bạn chắc chắn muốn xoá không?")){
 		        $http.post(url2, $scope.itemdelete).then(resp => {
 		            $scope.items.push($scope.itemdelete);

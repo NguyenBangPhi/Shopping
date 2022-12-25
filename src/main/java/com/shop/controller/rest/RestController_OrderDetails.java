@@ -57,4 +57,23 @@ public class RestController_OrderDetails {
 	public Order_Details update(@RequestBody Order_Details order_details,@PathVariable("ordetail_id")Integer ordetail_id) {
 		return dao.update(order_details);
 	}
+	
+	@GetMapping("tk/pro/{id}")
+	public List<Object[]> tkproduct(@PathVariable("id") Integer id) {
+		return dao.tkproduct(id);
+	}
+	@GetMapping("tk/order/{id}")
+	public List<Object[]> tkorder(@PathVariable("id") Integer id) {
+		return dao.tkorder(id);
+	}
+	
+	@GetMapping("tk/ctpro/{id}")
+	public List<Object[]> tkctproduct(@PathVariable("id") Integer id) {
+		return dao.tkctproduct(id);
+	}
+	
+	@GetMapping("tk/ctorder/{id}")
+	public List<Object[]> tkctorder(@PathVariable("id") Integer id) {
+		return dao.tkctorder(id);
+	}
 }

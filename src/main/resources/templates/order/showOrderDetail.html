@@ -14,6 +14,7 @@
 		      <th scope="col">Tên sản phẩm</th>
 		      <th scope="col">Số lượng</th>
 		      <th scope="col">Giá</th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -22,6 +23,7 @@
 		      <td>[[${detail.product_.product_name}]]</td>
 		      <td>[[${detail.ordetail_quantity}]]</td>
 		      <td th:text="${#numbers.formatInteger(detail.ordetail_price,3,'POINT')}">[[${detail.ordetail_price}]]</td>
+		      <td><button style="border-radius: 10px;" class="btn btn-primary" th:attr="ng-click=@{|cart.add(${detail.product_.product_id})|}">Thêm vào giỏ</button></td>
 		    </tr>
 		  </tbody>
 		</table>

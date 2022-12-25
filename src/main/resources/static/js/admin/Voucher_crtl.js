@@ -162,6 +162,7 @@ app.controller("voucher_ctrl", function($scope, $http){
     $scope.reset = function(){
         $scope.form = {voucher_isdelete: false};
         $scope.load_all();
+        $scope.end(1);
     }
     
     $scope.validate = function(){

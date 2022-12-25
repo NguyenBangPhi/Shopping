@@ -218,10 +218,12 @@ app.controller("order_ctrl", function($scope, $http){
 	}
 	
     $scope.reset = function(){
-		var a = new Date();
-        $scope.form = {order_isdelete: false,'user_username': 'vanhoai', order_status: 'Đang xác nhận', 'order_createdate': a};
+		var today = new Date();
+		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        $scope.form = {order_isdelete: false,'user_username': 'vanhoai', order_status: 'Đang xác nhận', order_createdate: date};
         $scope.load_all();
         $scope.loadtrang();
+        $scope.end(1);
 		
     }
     
@@ -230,7 +232,7 @@ app.controller("order_ctrl", function($scope, $http){
 	        var item = angular.copy($scope.form);
 	        item.order_createdate = document.querySelector('input[type="date"]').value;
 	        console.log("check",item)
-	        var url = `${host}/order`;
+	        var url = `${host}/order/create`;
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
 	            $scope.reset();
@@ -263,7 +265,7 @@ app.controller("order_ctrl", function($scope, $http){
         	resp.data.order_isdelete = 'true';
             $scope.itemdelete = resp.data;
             //delete
-            var url2 = `${host}/order`;
+            var url2 = `${host}/order/create`;
 			if(confirm("Bạn chắc chắn muốn xoá không?")){
 		        $http.post(url2, $scope.itemdelete).then(resp => {
 		            $scope.items.push($scope.itemdelete);

@@ -32,7 +32,7 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 	@Query(value= "SELECT count(*) FROM [order] WHERE order_createdate BETWEEN  ?1  and ?2", nativeQuery = true)
 	Long get7day(String ngay1, String ngay2);
 	
-	@Query(value= "SELECT TOP 1 order_usernameid , COUNT(order_usernameid) as 'topuser' from [order] "
+	@Query(value= "SELECT order_usernameid , COUNT(order_usernameid) as 'topuser' from [order] "
 			+ "WHERE order_createdate BETWEEN ?1  and ?2 "
 			+ "GROUP BY order_usernameid "
 			+ "ORDER BY COUNT(order_usernameid) DESC", nativeQuery = true)
@@ -68,6 +68,6 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 			"FROM Order_Details od " + 
 			"left join Voucher v on v.Voucher_name = od.OrDetail_voucherName	" + 
 			"GROUP BY OrDetail_orderid ) a on a.OrID = ord.Order_id "
-			+ "WHERE ord.Order_usernameid=?1", nativeQuery = true)
+			+ "WHERE ord.Order_usernameid=?1 and ord.Order_isDelete='false' ", nativeQuery = true)
 	List<Object[]> getAllOrderByUsername(String username);
 }

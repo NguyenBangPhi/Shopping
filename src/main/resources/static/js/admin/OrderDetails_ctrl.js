@@ -177,7 +177,6 @@ app.controller("details_ctrl", function($scope, $http){
 			 tr=1;
 		 }
 		 $scope.start = $scope.pt * (tr -1);
-		 console.log($scope.start)
 	 }
     
     $scope.setedit = function(){
@@ -207,11 +206,12 @@ app.controller("details_ctrl", function($scope, $http){
     }
     
     $scope.reset = function(){
-		var a = new Date();
-        $scope.form = {ordetail_isdelete: false, ordetail_status: 'Đang xác nhận', 'ordetail_createdate': a};
+		var today = new Date();
+		let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        $scope.form = {ordetail_isdelete: false, ordetail_status: 'Đang xác nhận', ordetail_createdate: date,order:{order_id: 100}};
         $scope.load_all();
         $scope.loadtrang();
-        
+        $scope.end(1);
     }
     
     $scope.loadgia = function(){
@@ -254,6 +254,7 @@ app.controller("details_ctrl", function($scope, $http){
        var item = angular.copy($scope.form);
 	   let mahd = document.forms["myForm"]["mahd"].value.length;
        console.log(mahd)
+       console.log(item)
 		if($scope.validate()==true){
 	        item.ordetail_createdate = document.querySelector('input[type="date"]').value;
 	        var url = `${host}/order_details`;
@@ -264,7 +265,9 @@ app.controller("details_ctrl", function($scope, $http){
 	        }).catch(error => {
 	            console.log("Error", error)
 	        });
-	    }
+	    }else{
+			alert("Vui lòng chọn sản phẩm và nhập số lượng")
+		}
     }
     
 

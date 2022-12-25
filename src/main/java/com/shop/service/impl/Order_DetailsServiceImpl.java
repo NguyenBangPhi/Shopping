@@ -90,4 +90,27 @@ public class Order_DetailsServiceImpl implements Order_DetailsService{
 		return dao.getOrderByOrderId(orderID);
 	}
 
+	@Override
+	public List<Object[]> tkproduct(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.tkproduct(id);
+	}
+
+	@Override
+	public List<Object[]> tkctproduct(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.tkctproduct(id);
+	}
+
+	@Override
+	public List<Object[]> tkctorder(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.tkctorder(id);
+	}
+
+	@Override
+	public List<Object[]> tkorder(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.tkorder(id);
+	}
 }

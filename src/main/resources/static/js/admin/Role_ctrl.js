@@ -175,6 +175,7 @@ app.controller("role_ctrl", function($scope, $http){
         $scope.form = {role_isdelete: false};
         $scope.load_all();
         $scope.loadtrang();
+        $scope.end(1);
     }
     
 	$scope.validate = function(){
@@ -189,7 +190,7 @@ app.controller("role_ctrl", function($scope, $http){
     $scope.create = function(){
 		if($scope.validate()==true){
 	        var item = angular.copy($scope.form);
-	        var url = `${host}/role/list`;
+	        var url = `${host}/role`;
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
 	            $scope.reset();
@@ -225,7 +226,7 @@ app.controller("role_ctrl", function($scope, $http){
         	resp.data.role_isdelete = 'true';
             $scope.itemdelete = resp.data;
             //delete
-            var url2 = `${host}/role/list`;
+            var url2 = `${host}/role`;
 			if(confirm("Bạn chắc chắn muốn xoá không?")){
 		        $http.post(url2, $scope.itemdelete).then(resp => {
 		            $scope.items.push($scope.itemdelete);

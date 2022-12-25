@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index :: dynamic(~{::main},'Thống kê')}">
-
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-
 <body>
 	<main>
 		<div ng-controller="thongke-ctrl">
+		<p class=" text-uppercase font-weight-bold" style="font-size: 25px;">Thống kê theo thời gian</p>
 			<div class="form-group">
 				<label>Ngày bắt đầu</label>
 				<input type="date" ng-model="ngay1" value="{{ngay1}}" ng-change="load_all()" id="ngay1" class="mr-3"
@@ -16,7 +15,7 @@
 				<label>Ngày kết thúc</label>
 				<input type="date" ng-model="ngay2" value="{{ngay2}}" ng-change="load_all()" id="ngay2" required>
 			</div>
-			 <h3 class="mb-2 color-Primary">Doanh Thu: {{items.ordetailtong?items.ordetailtong:'0' | currency:'':0}} VNĐ</h3>
+			<h4 class="mr-2 color-Primary font-weight-bold d-flex justify-content-end">Doanh Thu: {{items.ordetailtong?items.ordetailtong:'0' | currency:'':0}} VNĐ</h4>
 			<div class="d-flex justify-content-between" style="max-height: 300px">
 				<table class="table table-hover col-4 mr-2 ">
 					<thead class="thead-dark">
@@ -60,7 +59,128 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+			<div class="d-flex justify-content-around">
+				<div class="col-6 mt-5" id="addcanva">
+					<canvas id="myChart"></canvas>
+					<p class="text-center fw-bolder">Người dùng</p>
+				 </div>
+				 
+				 <div class="col-4" id="addcanva2">
+					<canvas id="myChart2"></canvas>
+				 </div>
+			 </div>
+			 <div class="col-10 m-auto" id="addcanva3">
+				<p class="text-center">Sản phẩm</p>
+				<canvas id="myChart3"></canvas>
+			 </div>
+			<hr>
+			
+			<div>
+			<p class=" text-uppercase font-weight-bold" style="font-size: 25px;">Thống kê theo sản phẩm</p>
+				<div class="form-group">
+					<label for="exampleFormControlSelect2">Chọn sản phẩm</label>
+					<select class="form-control col-4" ng-model="proid" id="tkpro" ng-change="locpro()">
+						<option ng-repeat="p in pro" ng-value="{{p.product_id}}" >{{p.product_name}}</option>
+					</select>
+				</div>
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Mã sản phẩm</th>
+							<th scope="col">Tên sản phẩm</th>
+							<th scope="col">Giá</th>
+							<th scope="col">SL người mua</th>
+							<th scope="col">SL sản phẩm</th>
+							<th scope="col">SL mã giảm giá</th>
+							<th scope="col">Doanh thu</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in tkpro">
+							<td>{{u[0]}} </td>
+							<td>{{u[1]}} </td>
+							<td>{{u[2]| currency:'':0 }} VNĐ </td>
+							<td>{{u[3]}} </td>
+							<td>{{u[4]}} </td>
+							<td>{{u[5]}}</td>
+							<td>{{u[6]| currency:'':0 }} VNĐ</td>
+					</tbody>
+				</table>
+				
+				
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Mã hoá đơn</th>
+							<th scope="col">SL sản phẩm</th>
+							<th scope="col">Giảm giá</th>
+							<th scope="col">Ngày</th>
+							<th scope="col">Doanh thu</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="p in tkctpro">
+							<td>{{p[0]}} </td>
+							<td>{{p[1]}} </td>
+							<td>{{p[2]}}% </td>
+							<td>{{p[3]| date : "dd/MM/yyyy"}} </td>
+							<td>{{p[4]| currency:'':0 }} VNĐ </td>
+					</tbody>
+				</table>
+			</div>
+			<hr>
+			<p class=" text-uppercase font-weight-bold" style="font-size: 25px;">Thống kê theo mã hoá đơn</p>
+			<div class="form-group">
+				<label for="exampleFormControlSelect2">Chọn mã hoá đơn</label>
+				<select class="form-control col-4" ng-model="orid" id="tkpro" ng-change="locor()">
+					<option ng-repeat="o in or" ng-value="{{o.order_id}}" >{{o.order_id}}</option>
+				</select>
+			</div>
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Mã hoá đơn</th>
+							<th scope="col">Tên khách hàng</th>
+							<th scope="col">SL Loại SP</th>
+							<th scope="col">SL Mã giảm giá</th>
+							<th scope="col">Chi phí</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in tkor">
+							<td>{{u[0]}} </td>
+							<td>{{u[1]}} </td>
+							<td>{{u[2]}} </td>
+							<td>{{u[3]}} </td>
+							<td>{{tongor| currency:'':0 }} VNĐ</td>
+					</tbody>
+				</table>
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Mã hoá đơn chi tiết</th>
+							<th scope="col">Tên SP</th>
+							<th scope="col">Số lượng</th>
+							<th scope="col">Giá</th>
+							<th scope="col">Giảm giá</th>
+							<th scope="col">Trạng thái</th>
+							<th scope="col">Ngày</th>
+							<th scope="col">Tổng giá</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="o in tkctor">
+							<td>{{o[0]}} </td>
+							<td>{{o[1]}} </td>
+							<td>{{o[2]}} </td>
+							<td>{{o[3]| currency:'':0 }} VNĐ </td>
+							<td>{{o[4]}}% </td>
+							<td>{{o[5]}} </td>
+							<td>{{o[6]| date : "dd/MM/yyyy"}} </td>
+							<td>{{o[7]| currency:'':0 }} VNĐ </td>
+					</tbody>
+				</table>
+			</div>
 	</main>
 </body>
 

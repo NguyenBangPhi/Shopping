@@ -56,19 +56,24 @@
 			        </tr>				     
 				  </tbody>
 				</table>
-			</div>
 			<div class="m-auto col-sm-4">
-		         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
-			            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
-			            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
-			            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
-			            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
-			           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
-			           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
-			       </div>
+         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+	            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
+	            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
+	            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
+	            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
+	           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
+	           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+	       </div>
+			</div>
 		  </div>
 		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				<form name="myForm">
+				<div class="d-flex">
+					<div>
+						<img alt="" src="assets/product/{{form.product_img}}" style="width: 300px;height: 100%;">
+					</div>
+					<div class="flex-column col-9">
 				  <div class="form-group">
 				    <label for="idProduct">ID</label>
 				    <input ng-model="form.product_id" type="text" class="form-control" id="idUser" readonly="readonly">
@@ -89,6 +94,8 @@
 					    <input ng-model="form.product_img" type="file" accept="image/*" class="form-control-file" 
 					    id="exampleFormControlFile1" onchange="angular.element(this).scope().imageChanged(this.files)">
 					  </div>
+				  </div>
+				  </div>
 				  </div>
 				  <div class="form-group">
 				    <label for="descProduct">Mô tả</label>

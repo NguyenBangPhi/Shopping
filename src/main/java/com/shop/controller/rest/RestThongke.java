@@ -46,14 +46,9 @@ public class RestThongke {
 		map.put("ordetailtong", ordetaildao.gettong7ngay(ngay1,ngay2));
 		map.put("ordertopuser", orderdao.gettopuser(ngay1,ngay2));
 		map.put("ordetailvoucher", ordetaildao.getodvoucher(ngay1,ngay2));
+		map.put("productSoldByCate", prodao.numberOfProductSoldByType(ngay1,ngay2));
 		return map;
 	}
 	
-	@GetMapping("secondRow")
-	public Map<String,List<Object[]>> showSecond(){
-		Map<String,List<Object[]>> map = new HashMap<>();
-		map.put("revenueLast7Days", orderdao.getRevenueLast7Days());
-		map.put("productSoldByCate", prodao.numberOfProductSoldByType());
-		return map;
-	}
+	
 }

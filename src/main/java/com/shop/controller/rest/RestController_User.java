@@ -56,7 +56,7 @@ public class RestController_User {
 	}
 	
 	@PutMapping("{id}")
-	public Users update(@RequestBody Users user,@PathVariable("id")Integer id) {
+	public Users update(@RequestBody Users user,@PathVariable("id")String id) {
 		return dao.update(user);
 	}
 }

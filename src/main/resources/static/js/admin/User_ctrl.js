@@ -194,27 +194,47 @@ app.controller("user_ctrl", function($scope, $http){
         var url = `${host}/user/${user_username}`;
         $http.get(url).then(resp => {
            $scope.form = resp.data;
+           $scope.form.role.role_id = Number($scope.form.role.role_id);
            console.log("Success", resp)
            $scope.setedit();
         }).catch(error => {
            console.log("Error", error)
         });
     }
+	$scope.show = function(){
+		let pass = document.getElementById("passwordUser");
+		pass.type = pass.type == 'password' ? 'text' : 'password'
+	}
+	$scope.eyea = 0;
+	$scope.eye = function(a){
+		let eye = document.getElementById("eye");
+		if(a%2 ==0){
+			eye.classList.add('fa-eye-slash')
+		  	eye.classList.remove('fa-eye');
+		}else{
+			eye.classList.add('fa-eye')
+		  	eye.classList.remove('fa-eye-slash');
+		}
+		$scope.eyea = a;
+	}
     
     $scope.reset = function(){
-		$scope.form = {user_isdelete: false, role_id: '003'};
+		$scope.form = {user_isdelete: false, role: {role_id: 103}};
+		//let a = document.getElementById("roleid").value;
+		//console.log("a", a);
 		document.getElementById("exampleFormControlFile1").value = "";
         $scope.load_all();
         $scope.loadtrang();
+        $scope.end(1);
         
     }
     
     
     $scope.create = function(){
-		if($scope.validate()==true){
             //create
             var item = angular.copy($scope.form);
 	        console.log(item)
+		if($scope.validate()==true){
 	        var url = `${host}/user`;
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);

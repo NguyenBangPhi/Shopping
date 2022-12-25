@@ -70,8 +70,8 @@ public class ProductsServiceImpl implements ProductsService{
 	}
 
 	@Override
-	public List<Object[]> numberOfProductSoldByType() {
+	public List<Object[]> numberOfProductSoldByType(String ngay1, String ngay2) {
 		// TODO Auto-generated method stub
-		return pdao.numberOfProductSoldByType();
+		return pdao.numberOfProductSoldByType(ngay1, ngay2);
 	}
 }

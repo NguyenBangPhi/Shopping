@@ -61,4 +61,9 @@ public class OrderController {
 		return "order/showOrderDetail";
 	}
 	
+	@RequestMapping("/checkOr")
+	public String checkOr(Model model) {
+		return "order/check";
+	}
+	
 }

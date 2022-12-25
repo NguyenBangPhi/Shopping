@@ -89,6 +89,7 @@
 						<th:block th:unless="${#request.remoteUser}">
 							<a th:href="@{/security/login/form}" class="nav-item nav-link">Đăng nhập</a>
 							<a th:href="@{/regis}" class="nav-item nav-link">Đăng Kí</a>
+							<a th:href="@{/checkOr}" class="nav-item nav-link">Check Order</a>
 						</th:block>
 						<th:block th:if="${#request.remoteUser}">
 							<a th:href="@{/security/logoff}" class="nav-item nav-link">Đăng xuất</a>
@@ -148,7 +149,7 @@
 														</td>
 														<td data-th="Price">{{item.product_price | number : 0}}</td>
 														<td data-th="Quantity"><input s class="form-control"
-															ng-model="item.qty" type="number" style="width: 65px;"></td>
+															ng-model="item.qty" type="number" style="width: 65px;" ng-change="cart.changeQTY(item.product_id)"/></td>
 														<td data-th="Subtotal" class="text-center">{{item.product_price * item.qty | number : 0}} đ</td>
 														<td class="actions" data-th="">
 															<button class="btn btn-danger btn-sm" style="border-radius: 50%;" ng-click="cart.remove(item.product_id)">
