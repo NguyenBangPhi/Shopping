@@ -60,5 +60,11 @@ public class VouchersServiceImpl implements VouchersService{
 		// TODO Auto-generated method stub
 		return dao.findAll2();
 	}
+
+	@Override
+	public List<Voucher> findAll3() {
+		// TODO Auto-generated method stub
+		return dao.findAll3();
+	}
 	
 }

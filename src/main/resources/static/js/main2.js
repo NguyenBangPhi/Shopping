@@ -279,9 +279,10 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
                      
                  ]
             };
-            
+            var ordertempp = {};
             await $http.post("/rest/order",ordertemp).then(resp => {
               idtemp = resp.data.order_id;
+              ordertempp = resp.data;
               console.log(idtemp);
               alert("Đặt hàng thành công !");
               alert("Mã đơn hàng của bạn là: " + idtemp +"\nHãy lưu lại để tra cứu");
@@ -306,13 +307,22 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
               alert("Đặt hàng lỗi GHN!");
               console.log(error);
             })
+            let mailtemp = {"mail":ordertempp.order_email, "name":ordertempp.order_fullname,"id_order":ordertempp.order_id};
+            await $http.post("http://localhost:8080/rest/mail",mailtemp).then(resp => {
+              alert("Hãy kiểm tra mail để kiểm tra mã đơn hàng !");
+              console.log(resp.data);
+            }).catch(error => {
+              alert("Lỗi Mail !");
+              console.log(error);
+            })
             //window.location = "http://localhost:8080/order/detail/" + idtemp;
             location.href= "/order/detail/" + idtemp ;
         }else {
+          let ordertempp = {};
           var textRandom = "CUS" + makeid(4);
           usertemp = {user_username: textRandom, user_fullname: order.order_fullname, 
             user_password: "123456", user_img: "temp.png", user_mail: order.order_email,
-             user_phone: order.order_sdt, role: {role_id: "003"}, user_isdelete: false};
+             user_phone: order.order_sdt, role: {role_id: "103"}, user_isdelete: false};
             console.log(usertemp);
             
             await $http.post("/rest/user", usertemp).then(resp => {
@@ -326,7 +336,8 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
                   alert("Đặt hàng thành công !");
                   $scope.cart.clear();
                   idtemp = resp.data.order_id;
-				  alert("Mã đơn hàng của bạn là: " + idtemp +"\nHãy lưu lại để tra cứu");
+                  ordertempp = resp.data;
+				          alert("Mã đơn hàng của bạn là: " + idtemp +"\nHãy lưu lại để tra cứu");
                   //location.href= "/order/detail/" + resp.data.order_id;
                 }).catch(error => {
                   alert("Đặt hàng lỗi !");
@@ -390,6 +401,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
                    
                ]
           };
+          
           await $http.post(urlGHN,datas ,{
             headers: {'Content-Type': 'application/json'},
             headers: {'ShopId': '120960'},
@@ -402,6 +414,14 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
             alert("Đặt hàng lỗi GHN!");
             console.log(error);
           })
+          let mailtemp = {"mail":ordertempp.order_email, "name":ordertempp.order_fullname,"id_order":ordertempp.order_id}
+          await $http.post("http://localhost:8080/rest/mail",mailtemp).then(resp => {
+              alert("Hãy kiểm tra mail để kiểm tra mã đơn hàng !");
+              console.log(resp.data);
+            }).catch(error => {
+              alert("Lỗi Mail !");
+              console.log(error);
+            })
           //window.location = "http://localhost:8080/order/detail/" + idtemp;
           location.href= "/order/detail/" + idtemp ;
         }
@@ -722,4 +742,61 @@ function msToTime(duration) {
   seconds = (seconds < 10) ? "0" + seconds : seconds;
 
   return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+}
+
+
+function imageZoom(imgID, resultID) {
+  var img, lens, result, cx, cy;
+  img = document.getElementById(imgID);
+  result = document.getElementById(resultID);
+  /* Create lens: */
+  lens = document.createElement("DIV");
+  lens.setAttribute("class", "img-zoom-lens");
+  /* Insert lens: */
+  img.parentElement.insertBefore(lens, img);
+  /* Calculate the ratio between result DIV and lens: */
+  cx = result.offsetWidth / lens.offsetWidth;
+  cy = result.offsetHeight / lens.offsetHeight;
+  /* Set background properties for the result DIV */
+  result.style.backgroundImage = "url('" + img.src + "')";
+  result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+  /* Execute a function when someone moves the cursor over the image, or the lens: */
+  lens.addEventListener("mousemove", moveLens);
+  img.addEventListener("mousemove", moveLens);
+  /* And also for touch screens: */
+  lens.addEventListener("touchmove", moveLens);
+  img.addEventListener("touchmove", moveLens);
+  function moveLens(e) {
+    var pos, x, y;
+    /* Prevent any other actions that may occur when moving over the image */
+    e.preventDefault();
+    /* Get the cursor's x and y positions: */
+    pos = getCursorPos(e);
+    /* Calculate the position of the lens: */
+    x = pos.x - (lens.offsetWidth / 2);
+    y = pos.y - (lens.offsetHeight / 2);
+    /* Prevent the lens from being positioned outside the image: */
+    if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+    if (x < 0) {x = 0;}
+    if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+    if (y < 0) {y = 0;}
+    /* Set the position of the lens: */
+    lens.style.left = x + "px";
+    lens.style.top = y + "px";
+    /* Display what the lens "sees": */
+    result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+  }
+  function getCursorPos(e) {
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /* Get the x and y positions of the image: */
+    a = img.getBoundingClientRect();
+    /* Calculate the cursor's x and y coordinates, relative to the image: */
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /* Consider any page scrolling: */
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+  }
 }

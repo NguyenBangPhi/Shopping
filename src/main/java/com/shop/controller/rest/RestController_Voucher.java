@@ -57,6 +57,11 @@ public class RestController_Voucher {
 		return dao.findAll2();
 	}
 	
+	@GetMapping("/list")
+	public List<Voucher> getListALl(){
+		return dao.findAll3();
+	}
+	
 	@GetMapping("search/{Search}")
 	public List<Voucher> loadfullname(@PathVariable("Search") String Search) {
 		return dao.findBySearch(Search);

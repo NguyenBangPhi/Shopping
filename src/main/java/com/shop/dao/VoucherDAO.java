@@ -18,4 +18,7 @@ public interface VoucherDAO extends JpaRepository<Voucher, String>{
 			"JOIN Voucher_Data d on d.Voucher_name = v.Voucher_name " + 
 			"WHERE d.voucher_isdelete = 'false' and d.Voucher_createDate >= CONVERT(date,GETDATE())", nativeQuery = true)
 	List<Object[]> findAll2();
+	
+	@Query(value= "SELECT * FROM Voucher WHERE voucher_isdelete = 'false'", nativeQuery = true)
+	List<Voucher> findAll3();
 }

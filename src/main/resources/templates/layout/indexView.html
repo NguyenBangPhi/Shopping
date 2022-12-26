@@ -89,8 +89,8 @@
           <div class="row">
             <div class="col-4" th:each="x: ${listSP}">
               <div class="shadow p-3 mb-5 bg-body rounded text-center">
-              	<a th:href="@{|/product/${x.product_id}|}" style="background: white;padding: 5px;display: block;">
-              		<img th:src="@{|img/product/${x.product_img}|}" alt="" class="" style="width: 100%;border-radius: 10px;">
+              	<a th:href="@{|/product/${x.product_id}|}" style="background: white;padding: 5px;display: block;border-radius: 10px;margin-bottom: 10px;">
+              		<img th:src="@{|img/product/${x.product_img}|}" alt="" class="" style="width: 100%;border-radius: 10px;padding: 10px;background: white;">
               	</a>
                 <div>
                   <h2 th:text="${x.product_name}" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 22px;" class="text"></h2>

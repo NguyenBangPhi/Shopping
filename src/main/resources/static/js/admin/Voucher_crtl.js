@@ -7,7 +7,7 @@ app.controller("voucher_ctrl", function($scope, $http){
     $scope.sizetrang = 0;
     
     $scope.load_all = function(){
-        var url = `${host}/voucher`;
+        var url = `${host}/voucher/list`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
             let a = $scope.items.length / $scope.pt;
@@ -17,6 +17,7 @@ app.controller("voucher_ctrl", function($scope, $http){
 			   document.getElementById("trang2").classList.remove('bg-primary');
 			   document.getElementById("trang3").classList.remove('bg-primary');
 			}
+			console.log($scope.items, "234241")
             console.log("Success", resp)
         }).catch(error => {
             console.log("Error", error)
@@ -53,6 +54,9 @@ app.controller("voucher_ctrl", function($scope, $http){
 		}else{
 			if($scope.trang == 1 && $scope.start == $scope.pt){
         		$scope.bachgroup();
+			}else if($scope.items.length <= $scope.pt){
+        		$scope.bachgroup();
+				$scope.end(1);
 			}else if($scope.trang+2 == $scope.sizetrang){
 				document.getElementById("trang3").classList.add('bg-primary');
 				document.getElementById("trang2").classList.remove('bg-primary');
@@ -226,18 +230,9 @@ app.controller("voucher_ctrl", function($scope, $http){
         });
     }
     
-    $scope.load_all2 = function(){
-        var url = `${host}/voucher_datas`;
-        $http.get(url).then(resp => {
-            $scope.userid = resp.data;
-            console.log("Success", resp)
-        }).catch(error => {
-            console.log("Error", error)
-        });
-    }
+    
    
     // Thực hiện tải toàn bộ students
     $scope.load_all();
-    $scope.load_all2();
     $scope.reset();
 });

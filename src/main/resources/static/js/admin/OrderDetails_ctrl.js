@@ -45,6 +45,9 @@ app.controller("details_ctrl", function($scope, $http){
 		if(t==1){
 			if($scope.trang == $scope.sizetrang-2 && $scope.trang*$scope.pt == $scope.start){
             	$scope.bachgroup();
+			}else if($scope.items.length <= $scope.pt){
+        		$scope.bachgroup();
+				$scope.end(1);
 			}else if($scope.trang == 1){
 				console.log("Start")
 				document.getElementById("trang1").classList.add('bg-primary');

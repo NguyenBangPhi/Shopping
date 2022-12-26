@@ -18,4 +18,6 @@ public interface VouchersService {
 	List<Voucher> findBySearch(String search);
 
 	List<Object[]> findAll2();
+	
+	List<Voucher> findAll3();
 }

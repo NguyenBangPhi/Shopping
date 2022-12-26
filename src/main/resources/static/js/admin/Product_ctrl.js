@@ -68,6 +68,9 @@ app.controller("product_ctrl", function($scope, $http){
 		}else{
 			if($scope.trang == 1 && $scope.start == $scope.pt){
         		$scope.bachgroup();
+			}else if($scope.items.length <= $scope.pt){
+        		$scope.bachgroup();
+				$scope.end(1);
 			}else if($scope.trang+2 == $scope.sizetrang){
 				document.getElementById("trang3").classList.add('bg-primary');
 				document.getElementById("trang2").classList.remove('bg-primary');
