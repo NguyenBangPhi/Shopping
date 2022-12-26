@@ -19,4 +19,5 @@ public interface ProductsService {
 	List<Product> findBySearch(String search);
 	List<Product> findAll2();
 	List<Object[]> numberOfProductSoldByType(String ngay1, String ngay2);
+	List<Product> findThinhHanh(Integer id);
 }

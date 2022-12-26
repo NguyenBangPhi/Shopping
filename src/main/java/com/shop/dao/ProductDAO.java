@@ -34,5 +34,12 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 			+ "group by c.ProBrand_name",nativeQuery = true)
 	List<Object[]> numberOfProductSoldByType(String ngay1, String ngay2);
 	
-	
+	@Query(value="select TOP 6 p.* " + 
+			"from Product p " + 
+			"left JOIN order_details od on p.Product_id = od.OrDetail_productid  " + 
+			"where p.ProBrand_id=?1 " + 
+			"group by p.Product_id, p.Product_name, p.Product_price, p.Product_img,  " + 
+			"p.Product_desc, p.Product_quantity, p.ProBrand_id, p.Product_isDelete " + 
+			"ORDER BY sum(od.OrDetail_quantity) desc ",nativeQuery = true)
+	List<Product> findThinhHanh(Integer probrandid);
 }

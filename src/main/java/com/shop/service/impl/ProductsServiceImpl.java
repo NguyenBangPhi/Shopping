@@ -74,4 +74,10 @@ public class ProductsServiceImpl implements ProductsService{
 		// TODO Auto-generated method stub
 		return pdao.numberOfProductSoldByType(ngay1, ngay2);
 	}
+
+	@Override
+	public List<Product> findThinhHanh(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.findThinhHanh(id);
+	}
 }

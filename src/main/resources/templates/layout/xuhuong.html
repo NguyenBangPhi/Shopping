@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+  <meta charset="UTF-8" />
+  <title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="sign" >
+	      <span class="fast-flicker">Xu </span> <span class="flicker">Hướng</span>
+	    </div>
+		<nav class="navv" style="margin: 50px auto;">
+			<a class="aa" th:each="pb : ${listBrand}" th:href="@{|/xuhuong/${pb.probrand_id}|}" th:text="${pb.probrand_name}">Home</a>
+			<!--  <a class="aa" href="#">About</a>
+			<a class="aa" href="#">Blog</a>
+			<a class="aa" href="#">Portefolio</a>
+			<a class="aa" href="#">Contact</a>-->
+			<div class="animation start-home"></div>
+		</nav>
+		
+		<div class="shadow p-3 mb-5 bg-white rounded container">
+			<div class="row">
+				<div th:each="p: ${listTH}" class="col-md-4 mb-2">
+					<div class="card">
+						<img th:src="@{|/img/product/${p.product_img}|}" class="card-img-top p-2" alt="..." style="width: 100%;">
+						<div class="card-body">
+							<a th:href="@{|/product/${p.product_id}|}"><h5 class="card-title" th:text="${p.product_name}" style="font-size: 15px;"></h5></a>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item" th:text="'Giá' + ': ' + ${#numbers.formatInteger(p.product_price,3,'POINT')}"></li>
+							<li class="list-group-item" th:text="'Danh mục: ' + ${p.product_brand.probrand_name}"></li>
+						</ul>
+						<div class="card-body text-right">
+							<a href="#" class="btn btn-primary" style="border-radius: 10px;font-size: 12px;font-weight: 900;">Mua Hàng</a> <button href="#"
+								class="btn btn-secondary" style="border-radius: 10px;font-size: 12px;font-weight: 900;" th:attr="ng-click=@{|cart.add(${p.product_id})|}">Thêm vào giỏ</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</main>
+</body>
