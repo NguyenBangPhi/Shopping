@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<h1 class="text-center" style="font-weight:700;background: -webkit-linear-gradient(#eee, #333);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">Quên mật khẩu </h1>
+		<form style="margin-bottom: 30px;" th:action="@{/otpcheck}" method="post">
+		  <div class="form-group" style="color: black;">
+		    <label for="user">Tài khoản</label>
+		    <input type="text" class="form-control" id="user" name="username" style="width: 98%;margin: 0 auto;">
+		  </div>
+		  <div class="form-group" style="color: black;">
+		    <label for="pass">Email</label>
+		    <input type="email" class="form-control" id="pass" name="email" style="width: 98%;margin: 0 auto;">
+		  </div>
+		  <span class="badge badge-primary" style="border-radius: 7px;margin-bottom: 5px;">[[${mess}]]</span>
+		  <button type="submit" class="btn btn-primary" style="width: 100%;border-radius: 10px;">Kiểm tra</button>
+		</form>
+		
+	</main>
+</body>

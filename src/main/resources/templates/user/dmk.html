@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="shadow p-3 mb-5 bg-white rounded">
+			<form action="/doipass">
+			  <div class="form-group">
+			    <label for="exampleInputPassword1" style="color:black;">Mật khẩu mới</label>
+			    <input type="password" name="pass1" class="form-control" id="exampleInputPassword1">
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputPassword2" style="color:black;">Nhập lại mật khẩu</label>
+			    <input type="password" name="pass2" class="form-control" id="exampleInputPassword2">
+			  </div>
+			  <span class="badge badge-primary" style="border-radius: 7px;margin-bottom: 5px;">[[${mess}]]</span>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		
+	</main>
+
+</body>

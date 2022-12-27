@@ -20,4 +20,5 @@ public interface ProductsService {
 	List<Product> findAll2();
 	List<Object[]> numberOfProductSoldByType(String ngay1, String ngay2);
 	List<Product> findThinhHanh(Integer id);
+	List<Product> findGioVang();
 }

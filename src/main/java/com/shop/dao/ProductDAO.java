@@ -42,4 +42,8 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 			"p.Product_desc, p.Product_quantity, p.ProBrand_id, p.Product_isDelete " + 
 			"ORDER BY sum(od.OrDetail_quantity) desc ",nativeQuery = true)
 	List<Product> findThinhHanh(Integer probrandid);
+	
+	@Query(value="select TOP 6 * from Product where product_quantity >= 1 " + 
+			"ORDER BY NEWID() ",nativeQuery = true)
+	List<Product> findGioVang();
 }

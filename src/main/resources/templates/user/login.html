@@ -16,13 +16,18 @@
 		    <label for="pass">Mật khẩu</label>
 		    <input type="password" class="form-control" id="pass" name="password" style="width: 98%;margin: 0 auto;">
 		  </div>
-		  <div class="form-group form-check" style="color: black;"> 
-		    <input type="checkbox" class="form-check-input" name="remember-me" id="re">
-		    <label class="form-check-label" for="re">Nhớ mật khẩu ?</label>
-	  	  </div>
+		  <div>
+		  	<div class="form-group form-check" style="color: black;float: left;width: 50%;text-align: left;"> 
+			    <input type="checkbox" class="form-check-input" name="remember-me" id="re">
+			    <label class="form-check-label" for="re">Nhớ mật khẩu ?</label>
+		  	  </div>
+		  	  <div class="form-group form-check" style="color: black;float: right;width: 50%;text-align: right;"> 
+			    <a href="/quenmatkhau">Quên mật khẩu ?</a> 
+		  	  </div>
+		  </div>
+		  
 	  	  <span class="badge badge-primary" style="border-radius: 7px;margin-bottom: 5px;">[[${message}]]</span>
 		  <button type="submit" class="btn btn-primary" style="width: 100%;border-radius: 10px;">Đăng nhập</button>
 		</form>
-		
 	</main>
 </body>

@@ -80,4 +80,10 @@ public class ProductsServiceImpl implements ProductsService{
 		// TODO Auto-generated method stub
 		return pdao.findThinhHanh(id);
 	}
+
+	@Override
+	public List<Product> findGioVang() {
+		// TODO Auto-generated method stub
+		return pdao.findGioVang();
+	}
 }

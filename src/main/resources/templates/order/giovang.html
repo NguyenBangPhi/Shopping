@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main>
+		<div class="shadow p-3 mb-5 bg-white rounded container">
+			<h1 style="font-weight:700;background: -webkit-linear-gradient(#eee, #333);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">Siêu ưu đãi</h1>
+			<div class="row" id="giovang">
+				<div ng-repeat="p in cart.items2" class="col-md-4 mb-2">
+					<div class="card">
+						<img ng-src="/img/product/{{p.product_img}}" class="card-img-top p-2" alt="..." style="width: 100%;">
+						<div class="card-body">
+							<a ng-href="/product/{{p.product_id}}"><h5 class="card-title" style="font-size: 15px;">{{p.product_name}}</h5></a>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item" >Giá: {{p.product_price | number : 0}}</li>
+							<li class="list-group-item" >Danh mục: {{p.product_brand.probrand_name}}</li>
+						</ul>
+						<div class="card-body text-right">
+							<button href="#" class="btn btn-primary" style="border-radius: 10px;font-size: 12px;font-weight: 900;" ng-click="cart.muaHangNhanh(p.product_id)">Mua Hàng</button>
+							 <button href="#"
+								class="btn btn-secondary" style="border-radius: 10px;font-size: 12px;font-weight: 900;" ng-click="cart.add(p.product_id)">Thêm vào giỏ</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+		</div>
+	</main>
+</body>

@@ -81,8 +81,10 @@
 								data-toggle="dropdown">Khuyến mãi <i
 								class="fa fa-angle-down mt-1"></i></a>
 							<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-								<a href="cart.html" class="dropdown-item">Giờ vàng</a> <a
-									href="/voucher" class="dropdown-item">Mã giảm giá</a>
+								<th:block th:if="${#request.remoteUser}">
+									<a href="/giovang" class="dropdown-item">Giờ vàng</a> 
+								</th:block>
+								<a href="/voucher" class="dropdown-item">Mã giảm giá</a>
 							</div>
 						</div>
 						<a href="/contact" class="nav-item nav-link">Liên hệ</a>
@@ -160,7 +162,7 @@
 												</tbody>
 												<tfoot>
 													<tr>
-														<td><button data-dismiss="modal" href="http://hocwebgiare.com/"
+														<td><button data-dismiss="modal" href=""
 															class="btn btn-warning" style="border-radius: 10px;"><i class="fa fa-angle-left"></i>
 																Tiếp tục mua hàng</button></td>
 														<td colspan="2" class="hidden-xs"></td>

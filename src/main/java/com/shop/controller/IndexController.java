@@ -1,5 +1,8 @@
 package com.shop.controller;
 
+import java.text.DecimalFormat;
+import java.util.Random;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.entity.Users;
+import com.shop.service.MailerService;
 import com.shop.service.Product_BrandsService;
 import com.shop.service.ProductsService;
 import com.shop.service.UsersService;
@@ -32,6 +37,12 @@ public class IndexController {
 	
 	@Autowired
 	UsersService uSer;
+	
+	@Autowired
+	MailerService mailer;
+	
+	String otp = "";
+	Users entityTemp= null;
 	
 	@RequestMapping("/index")
 	public String index(Model model) {
@@ -79,4 +90,60 @@ public class IndexController {
 		return "layout/xuhuong";
 	}
 	
+	@RequestMapping("/giovang")
+	public String giovang(Model model) {
+		model.addAttribute("listGV", proService.findGioVang());
+		return "order/giovang";
+	}
+	
+	@RequestMapping("/quenmatkhau")
+	public String qmk(Model model ) {
+		
+		return "user/qmk";
+	}
+	
+	@RequestMapping("/otpcheck")
+	public String otp(Model model, @RequestParam("username") String username, @RequestParam("email") String email) {
+		otp= new DecimalFormat("000000").format(new Random().nextInt(999999));
+		Users en = uSer.findById(username);
+		if(en == null) {
+			model.addAttribute("mess", "Tài khoản không tồn tại !");
+			otp = "";
+			return "user/qmk";
+		}else {
+			if(email.equals(en.getUser_mail())) {
+				entityTemp = en;
+				mailer.queue(email, "POLY SHOP hỗ trợ", "Khách hàng: "+ en.getUser_fullname() + "\n - OTP của bạn là: " + otp);
+				model.addAttribute("mess", "OTP đã gửi vào email của bạn !");
+			}else {
+				model.addAttribute("mess", "Email không khớp email đã đăng kí !");
+				return "user/qmk";
+			}
+			
+		}
+		return "user/otpcheck";
+	}
+	
+	@RequestMapping("/check") 
+	public String check(Model model,@RequestParam("otp") String otpp) {
+		if(otp.equals(otpp)) {
+			return "user/dmk";
+		}else {
+			model.addAttribute("mess", "Sai OTP !");
+			return "user/otpcheck";
+		}
+		
+	}
+	
+	@RequestMapping("/doipass")
+	public String doipass(Model model,@RequestParam("pass1") String pass1, @RequestParam("pass2") String pass2) {
+		if(pass1.equals(pass2)) {
+			entityTemp.setUser_password(pass1);
+			uSer.create(entityTemp);
+			model.addAttribute("mess", "Đã cập nhật lại mật khẩu !");
+		}else {
+			model.addAttribute("mess", "Mật khẩu nhập không trùng");
+		}
+		return "user/dmk";
+	}
 }

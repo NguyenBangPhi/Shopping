@@ -31,7 +31,7 @@
 							<li class="list-group-item" th:text="'Danh mục: ' + ${p.product_brand.probrand_name}"></li>
 						</ul>
 						<div class="card-body text-right">
-							<a href="#" class="btn btn-primary" style="border-radius: 10px;font-size: 12px;font-weight: 900;">Mua Hàng</a> <button href="#"
+							<button href="#" class="btn btn-primary" style="border-radius: 10px;font-size: 12px;font-weight: 900;" th:attr="ng-click=@{|cart.muaHangNhanh(${p.product_id})|}">Mua Hàng</button> <button href="#"
 								class="btn btn-secondary" style="border-radius: 10px;font-size: 12px;font-weight: 900;" th:attr="ng-click=@{|cart.add(${p.product_id})|}">Thêm vào giỏ</button>
 						</div>
 					</div>

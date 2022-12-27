@@ -67,4 +67,10 @@ public class RestController_Product {
 		return dao.update(product);
 	}
 	
+	@GetMapping("/listGV")
+	public List<Product> getGV(){
+		
+		return dao.findGioVang();
+	}
+	
 }

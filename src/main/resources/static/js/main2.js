@@ -14,13 +14,65 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
 	$scope.userURL = function () {
 		location.href= `http://localhost:8080/user`;
 	}
+	displayHello2 = setInterval(function () {
+		let curDate = new Date();
+		let hours = curDate.getHours();
+		console.log(hours);
+		if(hours >= 0) {
+			document.getElementById("giovang").style.visibility = 'visible';
+			console.log("Thành công! GV");
+			
+		}else{
+			document.getElementById("giovang").style.visibility = 'hidden';
+			console.log("Thành công! GV 2");
+			localStorage.removeItem("giovang");
+		}
+	}, 1000);
+	setInterval(displayHello2, 1000);
+	$scope.muaHangGV = function () {
+		
+	}
+	var checktempp = 0;
+	var checkindex = 0;
   $scope.cart = {
     items: [],
     moneyBill: 0,
+	items2: [],
+	
+	callGV() {
+		var json1 = localStorage.getItem("giovang");
+		if(json1) {
+			this.items2 = json1 ? JSON.parse(json1) : [];
+			console.log(this.items2);
+			return;
+		} else {
+			this.items2 = json1 ? JSON.parse(json1) : [];
+			console.log(this.items2);
+		}
+      	
+		
+		$http.get(`${host}/product/listGV`).then(resp => {
+			if(this.items2) {
+				this.items2 = resp.data;
+				var json = JSON.stringify(angular.copy(this.items2));
+	      		localStorage.setItem("giovang", json);
+				console.log(this.items2);
+			}
+		}).catch(error => {
+			console.log(error);
+		})
+	},
 
 	changeQTY(id) {
 		var item = this.items.find((item) => item.product_id == id);
-		console.log("Thành công")
+		let json = localStorage.getItem("check");
+		if(json == id) {
+			item.qty = 1;
+			this.saveToLocalStorage();
+			return;
+		};
+		
+		console.log(item)
 		if(item.qty < 0) {
 			alert("Chọn sai số lượng !");
 			item.qty = 1;
@@ -34,7 +86,34 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
 	},
 
     //Thêm sản phẩm vào giỏ hàng
+	
     add(id) {
+		var json1 = localStorage.getItem("giovang");
+		
+		if(json1){
+			for(var i = 0; i < this.items2.length; i++) {
+				if(this.items2[i].product_id === id){
+					
+					if(checktempp != 0) {
+						alert("Chỉ được mua tối đa 1 sản phẩm GIỜ VÀNG !")
+						return;
+					}
+					checktempp = id;
+					var json3 = JSON.stringify(angular.copy(checktempp));
+      				localStorage.setItem("check", json3);
+					for(var j = 0 ; j < this.items.length; j++){
+						if(this.items[j].product_id == id) {
+							if(this.items[j].qty == 1) {
+								alert("Chỉ được mua tối đa 1 sản phẩm GIỜ VÀNG !");
+								return;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
       var item = this.items.find((item) => item.product_id == id);
       if (item) {
 		if(item.product_quantity == 0 || (item.qty+1) > item.product_quantity) {
@@ -51,6 +130,9 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
 			if(resp.data.product_quantity == 0) {
 				alert("Sản phẩm đã hết hàng !");
 			}else {
+				if(id == checktempp){
+					resp.data.product_price = resp.data.product_price - 1000000;
+				}
 				resp.data.qty = 1;
 	            this.items.push(resp.data);
 	            this.saveToLocalStorage();
@@ -70,6 +152,11 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
     //Xoá sản phẩm khỏi giỏ hàng
     remove(id) {
       var index = this.items.findIndex((item) => item.product_id == id);
+		var json3 = JSON.stringify(0);
+      				localStorage.setItem("check", json3);
+		if(id == checktempp) {
+			checktempp = 0;
+		}
       this.items.splice(index, 1);
       this.saveToLocalStorage();
     },
@@ -181,6 +268,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
   };
   //$scope.cart.clear();
   $scope.cart.loadFromLocalStorage();
+	$scope.cart.callGV();
 
   var tempProductID = '';
   var tempVoucherName = '';
@@ -452,6 +540,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
                   console.log($scope.cart.items[i].product_price);
                   document.getElementById("button-addon2").setAttribute("disabled","disabled");
                   console.log($scope.order.order_details);
+				  $scope.cart.saveToLocalStorage();
                   // for (let x = 0; x < $scope.order.order_details().length; x++) {
                   //   $scope.order.order_details[x].voucher_
                     

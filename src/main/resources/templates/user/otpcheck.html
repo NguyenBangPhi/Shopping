@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="shadow p-3 mb-5 bg-white rounded container" style="width: 50%;">
+			<h2 class="text-center">Nhập OTP</h2>
+			<form action="/check">
+			
+			
+				<div class="input-group mb-3">
+				  <input type="text" class="form-control" name="otp" placeholder="Hãy kiểm tra Email để nhập OTP" aria-label="Recipient's username" aria-describedby="button-addon2">
+				  <div class="input-group-append">
+				    <button class="btn btn-outline-primary" type="submit" id="button-addon2">Xác nhận</button>
+				  </div>
+				</div>
+				<span class="badge badge-primary" style="border-radius: 7px;margin-bottom: 5px;">[[${mess}]]</span>
+			</form>
+		</div>
+	</main>
+</body>
