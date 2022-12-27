@@ -308,6 +308,7 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
       let urlGHN = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create";
       		console.log(order)
         if(order.user.user_username != '') {
+          if($scope.validate(1)==true){
           var ordertemp = {order_address: order.order_address, 
             order_createdate: order.order_createdate, order_isdelete: false, 
             order_status: "Đang xác nhận",order_fullname: $("#hoten").text(), order_email: $("#emaill").text(), order_phone: order.order_phone,
@@ -405,7 +406,11 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
             })
             //window.location = "http://localhost:8080/order/detail/" + idtemp;
             location.href= "/order/detail/" + idtemp ;
+          }else{
+            console.log("validate1")
+          }
         }else {
+          if($scope.validate(2)==true){
           let ordertempp = {};
           var textRandom = "CUS" + makeid(4);
           usertemp = {user_username: textRandom, user_fullname: order.order_fullname, 
@@ -512,6 +517,9 @@ myApp.controller("shopping-cart-ctrl", function ($scope, $http) {
             })
           //window.location = "http://localhost:8080/order/detail/" + idtemp;
           location.href= "/order/detail/" + idtemp ;
+          }else{
+            console.log("validate2");
+          }
         }
         //location.href= "/order/detail/" + idtemp ;
 
@@ -845,7 +853,7 @@ function imageZoom(imgID, resultID) {
   img.parentElement.insertBefore(lens, img);
   /* Calculate the ratio between result DIV and lens: */
   cx = result.offsetWidth / lens.offsetWidth;
-  cy = result.offsetHeight / lens.offsetHeight;
+  cy = result.offsetHeight / lens.offsetHeight; 
   /* Set background properties for the result DIV */
   result.style.backgroundImage = "url('" + img.src + "')";
   result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";

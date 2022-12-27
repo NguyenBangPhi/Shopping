@@ -1,5 +1,8 @@
 package com.shop.controller.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,10 @@ public class RestController_Mail {
 	MailerService mailer;
 	
 	@PostMapping("")
-	public String sendMail(@RequestBody Mail obj) {
+	public List<Object> sendMail(@RequestBody Mail obj) {
 		mailer.queue(obj.getMail(), "POLY SHOP hỗ trợ", "Khách hàng: "+ obj.getName() + "\n - Mã đơn hàng gửi bạn là: " + obj.getId_order() + "\n - Vui lòng giữ lại mã này để tra cứu !");
-		return "Hãy kiểm tra mail của bạn !";
-		
+		List<Object> a = new ArrayList<Object>();
+		a.add("Thành công !");
+		return a;
 	}
 }

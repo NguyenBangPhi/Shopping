@@ -31,13 +31,13 @@
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Tên</th>
+				      <th scope="col" ng-click="sapxep1(sxtk1)">ID</th>
+				      <th scope="col" ng-click="sapxep2(sxtk2)">Tên</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr ng-repeat="stu in items | orderBy:'probrand_id'|limitTo:pt:start">
+				    <tr ng-repeat="stu in items | orderBy: sx|limitTo:pt:start">
 			            <td>{{stu.probrand_id}}</td>
 			            <td>{{stu.probrand_name}}</td>
 			            <td>

@@ -76,4 +76,9 @@ public class RestController_OrderDetails {
 	public List<Object[]> tkctorder(@PathVariable("id") Integer id) {
 		return dao.tkctorder(id);
 	}
+	
+	@GetMapping("order/{oderid}")
+	public List<Order_Details> oderid(@PathVariable("oderid") Integer oderid) {
+		return dao.oderid(oderid);
+	}
 }

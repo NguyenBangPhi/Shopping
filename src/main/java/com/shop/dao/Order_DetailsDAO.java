@@ -9,11 +9,13 @@ import com.shop.entity.Order_Details;
 
 public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 	@Query(value= "SELECT od.*, p.product_name,  v.Voucher_desc FROM order_details od "
-			+ "INNER JOIN product p ON od.OrDetail_productid = p.Product_id "
-			+ "INNER JOIN Voucher v ON od.OrDetail_voucherName = v.Voucher_name "
-			+ "WHERE ((ordetail_id like %?1%) or (ordetail_quantity like %?1%) "
-			+ "or (ordetail_price like %?1%) or (ordetail_status like %?1%) "
-			+ "or (p.Product_name like %?1%) or (v.Voucher_desc like %?1%)) ",nativeQuery = true)
+			+ "left JOIN product p ON od.OrDetail_productid = p.Product_id "
+			+ "left JOIN Voucher v ON od.OrDetail_voucherName = v.Voucher_name "
+			+ "left JOIN [Order] o on o.Order_id = od.OrDetail_orderid "
+			+ "WHERE ((od.ordetail_id like %?1%) or (od.ordetail_quantity like %?1%) "
+			+ "or (od.ordetail_price like %?1%) or (od.ordetail_status like %?1%) "
+			+ "or (p.Product_name like %?1%) or (p.product_id like %?1%) "
+			+ "or (v.Voucher_desc like %?1%) or (o.order_id like %?1%)) ",nativeQuery = true)
     List<Order_Details> findBySearch(String Search);
     
     @Query(value= "SELECT * FROM order_details WHERE OrDetail_createDate = ?1",nativeQuery = true)
@@ -86,4 +88,7 @@ public interface Order_DetailsDAO extends JpaRepository<Order_Details, Integer>{
 			+ "group by od.OrDetail_id,od.OrDetail_status,od.OrDetail_createDate,  "
 			+ "p.Product_name,od.OrDetail_price, od.OrDetail_quantity,v.Voucher_desc", nativeQuery = true)
 	List<Object[]> tkctorder(Integer id);
+	
+	@Query(value= "SELECT * FROM Order_Details WHERE OrDetail_orderid = ?1", nativeQuery = true)
+	List<Order_Details> oderid(Integer id);
 }

@@ -7,32 +7,34 @@
 <body>
 	<main>
 		<div class="shadow-lg p-3 m-auto bg-white rounded" style="width: 50%;margin-bottom: 30px !important;" ng-controller="user_ctrl2">
-			<h1 style="font-weight:700;background: -webkit-linear-gradient(#eee, #333);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">Đăng kí</h1>
-			  <div class="form-group">
-			    <label for="example">Tài khoản</label>
-			    <input ng-model="form.user_username" type="text" class="form-control" id="example">
-			  </div>
-			  <div class="form-group">
-			    <label for="example1">Mật khẩu</label>
-			    <input ng-model="form.user_password" type="password" class="form-control" id="example1">
-			  </div>
-			  <div class="form-group">
-			    <label for="example2">Họ tên</label>
-			    <input ng-model="form.user_fullname" type="text" class="form-control" id="example2">
-			  </div>
-			  <div class="custom-file">
-				  <input ng-model="form.user_img" type="file" accept="image/*"  class="custom-file-input" id="customFile" onchange="angular.element(this).scope().imageChanged(this.files)">
-				  <label class="custom-file-label" for="customFile">Chọn ảnh: ({{form.user_img}})</label>
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail1">Email</label>
-			    <input ng-model="form.user_mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-			  </div>
-			  <div class="form-group">
-			    <label for="example4">Số điện thoại</label>
-			    <input ng-model="form.user_phone" type="text" class="form-control" id="example4">
-			  </div>
-			  <button type="submit" class="btn btn-primary" style="border-radius: 10px;width: 100%;" ng-click="create()">Đăng kí</button>
+			<form action="">
+				<h1 style="font-weight:700;background: -webkit-linear-gradient(#eee, #333);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">Đăng kí</h1>
+				  <div class="form-group">
+				    <label for="example" style="color: black;">Tài khoản</label>
+				    <input ng-model="form.user_username" type="text" class="form-control" id="example" required>
+				  </div>
+				  <div class="form-group">
+				    <label for="example1" style="color: black;">Mật khẩu</label>
+				    <input ng-model="form.user_password" type="password" class="form-control" id="example1" minlength="6" required> 
+				  </div>
+				  <div class="form-group">
+				    <label for="example2" style="color: black;">Họ tên</label>
+				    <input ng-model="form.user_fullname" type="text" class="form-control" id="example2" required>
+				  </div>
+				  <div class="custom-file">
+					  <input ng-model="form.user_img" style="color: black;" type="file" accept="image/*"  class="custom-file-input" id="customFile" onchange="angular.element(this).scope().imageChanged(this.files)">
+					  <label class="custom-file-label" for="customFile">Chọn ảnh: ({{form.user_img}})</label>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputEmail1" style="color: black;">Email</label>
+				    <input ng-model="form.user_mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+				  </div>
+				  <div class="form-group">
+				    <label for="example4" style="color: black;">Số điện thoại</label>
+				    <input ng-model="form.user_phone" type="text" class="form-control" id="example4" required>
+				  </div>
+				  <button type="submit" class="btn btn-primary" style="border-radius: 10px;width: 100%;" ng-click="create()">Đăng kí</button>
+			  </form>
 		</div>
 	
 	

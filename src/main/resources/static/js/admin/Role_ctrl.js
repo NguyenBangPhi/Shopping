@@ -242,10 +242,38 @@ app.controller("role_ctrl", function($scope, $http){
             console.log("Error1", error)
         });
     }
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "role_id";
+			}else{
+				$scope.sx = "-role_id";
+			}
+		}else{
+			if(y % 2 ==0){
+				$scope.sx = "role_name";
+			}else{
+				$scope.sx = "-role_name";
+			}
+		}
+	}
+	
+	$scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
     
     
   
     // Thực hiện tải toàn bộ students
     $scope.load_all();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

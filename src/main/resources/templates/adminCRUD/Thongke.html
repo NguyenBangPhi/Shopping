@@ -119,7 +119,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="p in tkctpro">
+						<tr ng-repeat="p in tkctpro |limitTo:pt:start">
 							<td>{{p[0]}} </td>
 							<td>{{p[1]}} </td>
 							<td>{{p[2]}}% </td>
@@ -127,6 +127,15 @@
 							<td>{{p[4]| currency:'':0 }} VNĐ </td>
 					</tbody>
 				</table>
+				<div class="m-auto col-sm-4">
+		         		 <button ng-click="end(1)" class="btn btn-outline-primary border-1"> << </button>
+			            <button ng-click="truoc(); test(1)" class="btn btn-outline-primary border-1 me-2"> < </button>
+			            <button ng-click="loadtrang(trang); test(1) " class="btn btn-outline-primary numberPage" id="trang1">{{trang}}</button>
+			            <button ng-click="loadtrang(trang+1); test(2)" class="btn btn-outline-primary numberPage" ng-show="showtrang1()" id="trang2">{{trang+1}}</button>
+			            <button ng-click="loadtrang(trang+2); test(3)" class="btn btn-outline-primary numberPage" ng-show="showtrang2()" id="trang3">{{trang+2}}</button>
+			           <button ng-click="tiep(); test(3)" class="btn btn-outline-primary border-1"> > </button>
+			           <button ng-click="end(2)" class="btn btn-outline-primary border-1"> >> </button>
+			       </div>
 			</div>
 			<hr>
 			<p class=" text-uppercase font-weight-bold" style="font-size: 25px;">Thống kê theo mã hoá đơn</p>

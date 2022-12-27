@@ -249,8 +249,71 @@ app.controller("voucherdata_ctrl", function($scope, $http){
         });
     }
     
+    
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sxtk3 = 1;
+    $scope.sxtk4 = 1;
+    $scope.sxtk5 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "vdata_id";
+			}else{
+				$scope.sx = "-vdata_id";
+			}
+		}else if(x == 2){
+			if(y % 2 ==0){
+				$scope.sx = "product.product_name";
+			}else{
+				$scope.sx = "-product.product_name";
+			}
+		}else if(x == 3){
+			if(y % 2 ==0){
+				$scope.sx = "voucher.voucher_name";
+			}else{
+				$scope.sx = "-voucher.voucher_name";
+			}
+		}else if(x == 4){
+			if(y % 2 ==0){
+				$scope.sx = "voucher.voucher_desc";
+			}else{
+				$scope.sx = "-voucher.voucher_desc";
+			}
+		}else{
+			if(y % 2 ==0){
+				$scope.sx = "voucher_createdate";
+			}else{
+				$scope.sx = "-voucher_createdate";
+			}
+		}
+		
+	}
+    $scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
+	$scope.sapxep3 = function(a){
+			$scope.sxtk3 += 1;
+			$scope.loadsx(3,$scope.sxtk3)
+	}
+	$scope.sapxep4 = function(a){
+			$scope.sxtk4 += 1;
+			$scope.loadsx(4,$scope.sxtk4)
+	}
+	$scope.sapxep5 = function(a){
+			$scope.sxtk5 += 1;
+			$scope.loadsx(5,$scope.sxtk5)
+	}
+    
     $scope.load_all();
     $scope.load_all2();
     $scope.load_all3();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

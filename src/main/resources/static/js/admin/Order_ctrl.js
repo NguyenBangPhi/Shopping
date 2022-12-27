@@ -213,7 +213,7 @@ app.controller("order_ctrl", function($scope, $http){
 		 let b = document.forms["myForm"]["createdate"].value.length;
 		 let c = document.forms["myForm"]["fullname"].value.length;
 		 let d = document.forms["myForm"]["email"].value.length;
-		if (a > 0 && b > 0 && c >0 && d > 0) {
+		if (a > 0 && b > 0 && c >0 && d > 3) {
 		 	return true;
         }else{
 			return false;
@@ -231,11 +231,45 @@ app.controller("order_ctrl", function($scope, $http){
     }
     
     $scope.create = function(){
+	 	let x = document.getElementById("exampleFormControlSelect2").value.length;
+	 	if(x == 23){
+	 		alert("Vui lòng chọn khách hàng")
+		}
 		if($scope.validate()==true){
 	        var item = angular.copy($scope.form);
 	        item.order_createdate = document.querySelector('input[type="date"]').value;
-	        console.log("check",item)
 	        var url = `${host}/order/create`;
+	        var url2 = `${host}/order_details`;
+	        //lay ma id neu update
+	        var oid = 0;
+	        var status;
+	        for(var i = 0; i<$scope.items.length; i++){
+				if(item.order_id == $scope.items[i].order_id){
+					oid = item.order_id;
+					status = item.order_status;
+					console.log(oid)
+					console.log(status)
+				}
+			}
+			//load list ordetail/id
+			if(oid != 0){
+				$scope.listnew = {}
+				 $http.get(url2+ '/order/'+oid).then(resp => {
+	            	$scope.listnew = resp.data;
+	            	for(var i = 0; i<$scope.listnew.length; i++){
+						$scope.listnew[i].ordetail_status = status;
+						$http.post(url2, $scope.listnew[i]).then(resp => {
+				            console.log("order detail", resp)
+				        }).catch(error => {
+				            console.log("Error", error)
+				        });
+					}
+	        	}).catch(error => {
+		            console.log("Error", error)
+		        });
+			}
+			
+			
 	        $http.post(url, item).then(resp => {
 	            $scope.items.push(item);
 	            $scope.reset();
@@ -244,6 +278,8 @@ app.controller("order_ctrl", function($scope, $http){
 	            console.log("Error", error)
 	        });
         }
+        
+        
     }
     
     $scope.update = function(){
@@ -281,10 +317,106 @@ app.controller("order_ctrl", function($scope, $http){
             console.log("Error1", error)
         });
     }
+    
+    
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sxtk3 = 1;
+    $scope.sxtk4 = 1;
+    $scope.sxtk5 = 1;
+    $scope.sxtk6 = 1;
+    $scope.sxtk7 = 1;
+    $scope.sxtk8 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "order_id";
+			}else{
+				$scope.sx = "-order_id";
+			}
+		}else if(x == 2){
+			if(y % 2 ==0){
+				$scope.sx = "user.user_username";
+			}else{
+				$scope.sx = "-user.user_username";
+			}
+		}else if(x == 3){
+			if(y % 2 ==0){
+				$scope.sx = "order_fullname";
+			}else{
+				$scope.sx = "-order_fullname";
+			}
+		}else if(x == 4){
+			if(y % 2 ==0){
+				$scope.sx = "order_email";
+			}else{
+				$scope.sx = "-order_email";
+			}
+		}else if(x == 5){
+			if(y % 2 ==0){
+				$scope.sx = "order_phone";
+			}else{
+				$scope.sx = "-order_phone";
+			}
+		}else if(x == 6){
+			if(y % 2 ==0){
+				$scope.sx = "order_address";
+			}else{
+				$scope.sx = "-order_address";
+			}
+		}else if(x == 7){
+			if(y % 2 ==0){
+				$scope.sx = "order_status";
+			}else{
+				$scope.sx = "-order_status";
+			}
+		}else{
+			if(y % 2 ==0){
+				$scope.sx = "order_createdate";
+			}else{
+				$scope.sx = "-order_createdate";
+			}
+		}
+		
+	}
+    $scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
+	$scope.sapxep3 = function(a){
+			$scope.sxtk3 += 1;
+			$scope.loadsx(3,$scope.sxtk3)
+	}
+	$scope.sapxep4 = function(a){
+			$scope.sxtk4 += 1;
+			$scope.loadsx(4,$scope.sxtk4)
+	}
+	$scope.sapxep5 = function(a){
+			$scope.sxtk5 += 1;
+			$scope.loadsx(5,$scope.sxtk5)
+	}
+	$scope.sapxep6 = function(a){
+			$scope.sxtk6 += 1;
+			$scope.loadsx(6,$scope.sxtk6)
+	}
+	$scope.sapxep7 = function(a){
+			$scope.sxtk7 += 1;
+			$scope.loadsx(7,$scope.sxtk7)
+	}
+	$scope.sapxep8 = function(a){
+			$scope.sxtk8 += 1;
+			$scope.loadsx(8,$scope.sxtk8)
+	}
   
 	
     // Thực hiện tải toàn bộ students
     $scope.load_all();
     $scope.load_all2();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

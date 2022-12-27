@@ -36,19 +36,19 @@
 						<table class="table table-hover">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">Tài khoản</th>
-									<th scope="col">Họ và tên</th>
-									<th scope="col">Email</th>
-									<th scope="col">SĐT</th>
-									<th scope="col">Địa chỉ</th>
-									<th scope="col">Trạng thái</th>
-									<th scope="col">Ngày</th>
+									<th scope="col" ng-click="sapxep1(sxtk1)">ID</th>
+									<th scope="col" ng-click="sapxep2(sxtk2)">Tài khoản</th>
+									<th scope="col" ng-click="sapxep3(sxtk3)">Họ và tên</th>
+									<th scope="col" ng-click="sapxep4(sxtk4)">Email</th>
+									<th scope="col" ng-click="sapxep5(sxtk5)">SĐT</th>
+									<th scope="col" ng-click="sapxep6(sxtk6)">Địa chỉ</th>
+									<th scope="col" ng-click="sapxep7(sxtk7)">Trạng thái</th>
+									<th scope="col" ng-click="sapxep8(sxtk8)">Ngày</th>
 									<th scope="col">Chỉnh sửa</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="stu in items | orderBy:'order_id'|limitTo:pt:start">
+								<tr ng-repeat="stu in items | orderBy:sx|limitTo:pt:start">
 									<td>{{stu.order_id}}</td>
 									<td>{{stu.user.user_username}}</td>
 									<td>{{stu.order_fullname}}</td>
@@ -82,7 +82,7 @@
 							<input ng-model="form.order_id" type="text" class="form-control" id="idOrder" readonly="readonly">
 						</div>
 						<div class="form-group">
-							<label for="exampleFormControlSelect2">Người dùng</label>
+							<label for="exampleFormControlSelect2">Khách hàng</label>
 							<select class="form-control" ng-model="form.user.user_username" id="exampleFormControlSelect2" ng-change="loadfullname()">
 								<option ng-repeat="u in user2" value="{{u.user_username}}">{{u.user_username}}</option>
 							</select>
@@ -100,7 +100,7 @@
 						<div class="form-group">
 							<label for="Address">SĐT</label>
 							<input ng-model="form.order_phone" name="phone" type="text" class="form-control" id="phone"
-								required>
+								minlength="10" required>
 						</div>
 						<div class="form-group">
 							<label for="Address">Địa chỉ</label>

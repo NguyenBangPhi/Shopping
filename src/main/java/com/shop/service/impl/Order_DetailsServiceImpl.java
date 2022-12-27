@@ -113,4 +113,10 @@ public class Order_DetailsServiceImpl implements Order_DetailsService{
 		// TODO Auto-generated method stub
 		return dao.tkorder(id);
 	}
+	
+	@Override
+	public List<Order_Details> oderid(Integer oderid) {
+		// TODO Auto-generated method stub
+		return dao.oderid(oderid);
+	}
 }

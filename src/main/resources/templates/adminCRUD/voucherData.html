@@ -32,16 +32,16 @@
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Tên sản phẩm</th>
-				      <th scope="col">Mã giảm giá</th>
-				      <th scope="col">Giảm giá</th>
-				      <th scope="col">Ngày hết hạn</th>
+				      <th scope="col" ng-click="sapxep1(sxtk1)">ID</th>
+				      <th scope="col" ng-click="sapxep2(sxtk2)">Tên sản phẩm</th>
+				      <th scope="col" ng-click="sapxep3(sxtk3)">Mã giảm giá</th>
+				      <th scope="col" ng-click="sapxep4(sxtk4)">Giảm giá</th>
+				      <th scope="col" ng-click="sapxep5(sxtk5)">Ngày hết hạn</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				     <tr ng-repeat="stu in items | orderBy:'vdata_id'|limitTo:pt:start">
+				     <tr ng-repeat="stu in items | orderBy:sx|limitTo:pt:start">
 			            <td>{{stu.vdata_id}}</td>
 			            <td>{{stu.product.product_name}}</td>
 			            <td>{{stu.voucher.voucher_name}}</td>

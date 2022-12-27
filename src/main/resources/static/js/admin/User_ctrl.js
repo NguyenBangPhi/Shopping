@@ -124,7 +124,7 @@ app.controller("user_ctrl", function($scope, $http){
 		 let b = document.forms["myForm"]["pass"].value.length;
 		 let c = document.forms["myForm"]["email"].value.length;
 		 let d = document.forms["myForm"]["sdt"].value.length;
-		if (x > 0 && a > 0 && b > 5 && c > 0 && d > 0) {
+		if (x > 0 && a > 0 && b > 5 && c > 0 && d > 9) {
 		 	return true;
         }else{
 			return false;
@@ -208,6 +208,7 @@ app.controller("user_ctrl", function($scope, $http){
 		let pass = document.getElementById("passwordUser");
 		pass.type = pass.type == 'password' ? 'text' : 'password'
 	}
+	
 	$scope.eyea = 0;
 	$scope.eye = function(a){
 		let eye = document.getElementById("eye");
@@ -358,10 +359,83 @@ app.controller("user_ctrl", function($scope, $http){
 			console.log("Error ",err)
 		})
     }
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sxtk3 = 1;
+    $scope.sxtk4 = 1;
+    $scope.sxtk5 = 1;
+    $scope.sxtk6 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "user_username";
+			}else{
+				$scope.sx = "-user_username";
+			}
+		}else if(x == 2){
+			if(y % 2 ==0){
+				$scope.sx = "user_fullname";
+			}else{
+				$scope.sx = "-user_fullname";
+			}
+		}else if(x == 3){
+			if(y % 2 ==0){
+				$scope.sx = "user_img";
+			}else{
+				$scope.sx = "-user_img";
+			}
+		}else if(x == 4){
+			if(y % 2 ==0){
+				$scope.sx = "user_mail";
+			}else{
+				$scope.sx = "-user_mail";
+			}
+		}else if(x == 5){
+			if(y % 2 ==0){
+				$scope.sx = "user_phone";
+			}else{
+				$scope.sx = "-user_phone";
+			}
+		}else {
+			if(y % 2 ==0){
+				$scope.sx = "role.role_name";
+			}else{
+				$scope.sx = "-role.role_name";
+			}
+		}
+		
+	}
+    $scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
+	$scope.sapxep3 = function(a){
+			$scope.sxtk3 += 1;
+			$scope.loadsx(3,$scope.sxtk3)
+	}
+	$scope.sapxep4 = function(a){
+			$scope.sxtk4 += 1;
+			$scope.loadsx(4,$scope.sxtk4)
+	}
+	$scope.sapxep5 = function(a){
+			$scope.sxtk5 += 1;
+			$scope.loadsx(5,$scope.sxtk5)
+	}
+	$scope.sapxep6 = function(a){
+			$scope.sxtk6 += 1;
+			$scope.loadsx(6,$scope.sxtk6)
+	}
+	
   
     // Thực hiện tải toàn bộ students
     $scope.load_all();
     $scope.load_all2();
     $scope.load_all3();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

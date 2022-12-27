@@ -130,7 +130,7 @@ app.controller("details_ctrl", function($scope, $http){
 	 }
     
     $scope.load_all2 = function(){
-        var url = `${host}/voucher`;
+        var url = `${host}/voucher/list`;
         $http.get(url).then(resp => {
             $scope.voucherr = resp.data;
         }).catch(error => {
@@ -268,8 +268,10 @@ app.controller("details_ctrl", function($scope, $http){
 	        }).catch(error => {
 	            console.log("Error", error)
 	        });
-	    }else{
-			alert("Vui lòng chọn sản phẩm và nhập số lượng")
+	    }
+		let b = document.forms["myForm"]["price"].value.length;
+	    if(b==0){
+			alert("Vui lòng chọn sản phẩm")
 		}
     }
     
@@ -294,10 +296,118 @@ app.controller("details_ctrl", function($scope, $http){
 	            console.log("Error1", error)
 	        });
 	    }
+	    
+	    
+	    
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sxtk3 = 1;
+    $scope.sxtk4 = 1;
+    $scope.sxtk5 = 1;
+    $scope.sxtk6 = 1;
+    $scope.sxtk7 = 1;
+    $scope.sxtk8 = 1;
+    $scope.sxtk9 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "ordetail_id";
+			}else{
+				$scope.sx = "-ordetail_id";
+			}
+		}else if(x == 2){
+			if(y % 2 ==0){
+				$scope.sx = "order.order_id";
+			}else{
+				$scope.sx = "-order.order_id";
+			}
+		}else if(x == 3){
+			if(y % 2 ==0){
+				$scope.sx = "product_.product_id";
+			}else{
+				$scope.sx = "-product_.product_id";
+			}
+		}else if(x == 4){
+			if(y % 2 ==0){
+				$scope.sx = "product_.product_name";
+			}else{
+				$scope.sx = "-product_.product_name";
+			}
+		}else if(x == 5){
+			if(y % 2 ==0){
+				$scope.sx = "ordetail_quantity";
+			}else{
+				$scope.sx = "-ordetail_quantity";
+			}
+		}else if(x == 6){
+			if(y % 2 ==0){
+				$scope.sx = "ordetail_price";
+			}else{
+				$scope.sx = "-ordetail_price";
+			}
+		}else if(x == 7){
+			if(y % 2 ==0){
+				$scope.sx = "voucher_.voucher_desc";
+			}else{
+				$scope.sx = "-voucher_.voucher_desc";
+			}
+		}else if(x == 8){
+			if(y % 2 ==0){
+				$scope.sx = "ordetail_createdate";
+			}else{
+				$scope.sx = "-ordetail_createdate";
+			}
+		}else{
+			if(y % 2 ==0){
+				$scope.sx = "ordetail_status";
+			}else{
+				$scope.sx = "-ordetail_status";
+			}
+		}
+		
+	}
+    $scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
+	$scope.sapxep3 = function(a){
+			$scope.sxtk3 += 1;
+			$scope.loadsx(3,$scope.sxtk3)
+	}
+	$scope.sapxep4 = function(a){
+			$scope.sxtk4 += 1;
+			$scope.loadsx(4,$scope.sxtk4)
+	}
+	$scope.sapxep5 = function(a){
+			$scope.sxtk5 += 1;
+			$scope.loadsx(5,$scope.sxtk5)
+	}
+	$scope.sapxep6 = function(a){
+			$scope.sxtk6 += 1;
+			$scope.loadsx(6,$scope.sxtk6)
+	}
+	$scope.sapxep7 = function(a){
+			$scope.sxtk7 += 1;
+			$scope.loadsx(7,$scope.sxtk7)
+	}
+	$scope.sapxep8 = function(a){
+			$scope.sxtk8 += 1;
+			$scope.loadsx(8,$scope.sxtk8)
+	}
+	$scope.sapxep9 = function(a){
+			$scope.sxtk9 += 1;
+			$scope.loadsx(9,$scope.sxtk9)
+	}
 
     $scope.load_all();
     $scope.load_all2();
     $scope.load_all3();
     $scope.load_all4();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

@@ -32,13 +32,13 @@
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">Tên</th>
-				      <th scope="col">Mô tả</th>
+				      <th scope="col" ng-click="sapxep1(sxtk1)">Tên</th>
+				      <th scope="col" ng-click="sapxep2(sxtk2)">Mô tả</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				   <tr ng-repeat="stu in items | orderBy:'voucher_name'|limitTo:pt:start">
+				   <tr ng-repeat="stu in items | orderBy:sx|limitTo:pt:start">
 			            <td>{{stu.voucher_name}}</td>
 			            <td>{{stu.voucher_desc}}%</td>
 			            <td>

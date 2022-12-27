@@ -32,21 +32,21 @@
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Mã hoá đơn</th>
-				      <th scope="col">Mã sản phẩm</th>
-				      <th scope="col">Tên sản phẩm</th>
-				      <th scope="col">Số lượng</th>
-				      <th scope="col">Giá</th>
-				      <th scope="col">Giảm giá</th>
-				      <th scope="col">Ngày</th>
-				      <th scope="col">Trạng thái</th>
+				      <th scope="col" ng-click="sapxep1(sxtk1)">ID</th>
+				      <th scope="col" ng-click="sapxep2(sxtk2)">Mã hoá đơn</th>
+				      <th scope="col" ng-click="sapxep3(sxtk3)">Mã sản phẩm</th>
+				      <th scope="col" ng-click="sapxep4(sxtk4)">Tên sản phẩm</th>
+				      <th scope="col" ng-click="sapxep5(sxtk5)">Số lượng</th>
+				      <th scope="col" ng-click="sapxep6(sxtk6)">Giá</th>
+				      <th scope="col" ng-click="sapxep7(sxtk7)">Giảm giá</th>
+				      <th scope="col" ng-click="sapxep8(sxtk8)">Ngày</th>
+				      <th scope="col" ng-click="sapxep9(sxtk9)">Trạng thái</th>
 				      <th scope="col">Tổng tiền</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				     <tr ng-repeat="stu in items | orderBy:'ordetail_id'|limitTo:pt:start">
+				     <tr ng-repeat="stu in items | orderBy:sx|limitTo:pt:start">
 			            <td>{{stu.ordetail_id}}</td>
 			            <td>{{stu.order.order_id}}</td>
 			            <td>{{stu.product_.product_id}}</td>
@@ -104,7 +104,7 @@
 				  <div class="form-group">
 					<label for="magiamgia">Mã giảm giá</label>
 					<select class="form-control" ng-model="form.voucher_.voucher_name" ng-value="form.voucher_.voucher_name" id="magiamgia">
-						<option ng-repeat="v in voucherr" value="{{v.voucher_name}}" >{{v.voucher_desc}}</option>
+						<option ng-repeat="v in voucherr" value="{{v.voucher_name}}" >{{v.voucher_desc}}%</option>
 					</select>
 				  </div>
 				  <div class="form-group">

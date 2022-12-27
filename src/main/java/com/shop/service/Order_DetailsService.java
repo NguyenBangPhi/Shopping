@@ -38,4 +38,6 @@ public interface Order_DetailsService {
 	List<Object[]> tkctorder(Integer id);
 
 	List<Object[]> tkorder(Integer id);
+	
+	List<Order_Details> oderid(Integer oderid);
 }

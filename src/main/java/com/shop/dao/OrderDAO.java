@@ -12,8 +12,9 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 	@Query(value = "SELECT * FROM [Order] WHERE Order_id=?1",nativeQuery = true)
 	Order findByOrderId(Integer id);
 	
-	@Query(value= "SELECT * FROM [order] WHERE ((order_address like %?1%) or (order_id like %?1%)"
-			+ "or (order_fullname like %?1%) or (order_email like %?1%) or (order_usernameid like %?1%))",nativeQuery = true)
+	@Query(value= "SELECT * FROM [order] WHERE ((order_address like %?1%) or (order_id like %?1%) "
+			+ "or (order_fullname like %?1%) or (order_email like %?1%) or (order_usernameid like %?1%) "
+			+ "or (order_phone like %?1%) or (order_status like %?1%) )",nativeQuery = true)
     List<Order> findByAddress(String address);
 	
 	@Query(value= "SELECT * FROM [order] WHERE order_createdate = ?1",nativeQuery = true)
@@ -68,6 +69,6 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 			"FROM Order_Details od " + 
 			"left join Voucher v on v.Voucher_name = od.OrDetail_voucherName	" + 
 			"GROUP BY OrDetail_orderid ) a on a.OrID = ord.Order_id "
-			+ "WHERE ord.Order_usernameid=?1 and ord.Order_isDelete='false' ", nativeQuery = true)
+			+ "WHERE ord.Order_usernameid=?1 and ord.Order_isDelete='false' order by ord.Order_id desc", nativeQuery = true)
 	List<Object[]> getAllOrderByUsername(String username);
 }

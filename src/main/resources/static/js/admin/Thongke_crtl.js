@@ -5,6 +5,10 @@ app.controller("thongke-ctrl", function($scope, $http){
    $scope.pro = []
    $scope.or = []
    $scope.x = 1;
+   $scope.start = 0;
+   $scope.pt = 5;
+   $scope.trang = 1;
+   $scope.sizetrang = 0;
    $scope.load_all = function(){
 	   var today = new Date();
 	   var date = today.getFullYear() +'-'+(today.getMonth()+1)+'-'+ today.getDate();
@@ -188,6 +192,17 @@ app.controller("thongke-ctrl", function($scope, $http){
         //ctpro
         $http.get(url2).then(resp => {
             $scope.tkctpro = resp.data;
+            //pt
+            let a = $scope.tkctpro.length / $scope.pt;
+            for (let i = 0; i <a; i++) {
+			  $scope.sizetrang = i+1;
+			  console.log("size", $scope.sizetrang)
+			  console.log("a", a)
+			  console.log("length", $scope.tkctpro)
+			  document.getElementById("trang1").classList.add('bg-primary');
+			   document.getElementById("trang2").classList.remove('bg-primary');
+			   document.getElementById("trang3").classList.remove('bg-primary');
+			}
             console.log("tkctpro", $scope.tkctpro)
         }).catch(error => {
             console.log("Error", error)
@@ -242,6 +257,107 @@ app.controller("thongke-ctrl", function($scope, $http){
         
     }
     
+    //pt -----------------------------------------
+    $scope.showtrang1 = function(){
+		if($scope.sizetrang>1){
+			return true;
+		}
+		return false;
+	}
+	$scope.showtrang2 = function(){
+		if($scope.sizetrang>2){
+			return true;
+		}
+		return false;
+	}
+	
+	$scope.test = function(t){
+		if(t==1){
+			if($scope.trang == $scope.sizetrang-2 && $scope.trang*$scope.pt == $scope.start){
+            	$scope.bachgroup();
+			}else if($scope.trang == 1){
+				console.log("Start")
+				document.getElementById("trang1").classList.add('bg-primary');
+				document.getElementById("trang2").classList.remove('bg-primary');
+				document.getElementById("trang3").classList.remove('bg-primary');
+			}else {
+				$scope.trang -= 1;
+            	$scope.bachgroup();
+			}
+		}else{
+			if($scope.trang == 1 && $scope.start == $scope.pt){
+        		$scope.bachgroup();
+			}else if($scope.tkctpro.length <= $scope.pt){
+        		$scope.bachgroup();
+				$scope.end(1);
+			}else if($scope.trang+2 == $scope.sizetrang){
+				document.getElementById("trang3").classList.add('bg-primary');
+				document.getElementById("trang2").classList.remove('bg-primary');
+				document.getElementById("trang1").classList.remove('bg-primary');
+				console.log("End")
+			}else{
+				$scope.trang += 1;
+            	$scope.bachgroup();
+			}
+		}
+	}
+    
+    $scope.end = function (t) {
+        if (t==1) {
+           $scope.start = 0;
+           $scope.trang = 1;
+		   document.getElementById("trang1").classList.add('bg-primary');
+		   document.getElementById("trang2").classList.remove('bg-primary');
+		   document.getElementById("trang3").classList.remove('bg-primary');
+        } else {
+		   var a = $scope.tkctpro.length % $scope.pt;
+		   if(a == 0){
+			   a = $scope.pt;
+		   }
+           $scope.start = $scope.tkctpro.length -a;
+           if($scope.sizetrang>2){
+           		$scope.trang = $scope.sizetrang-2;
+			    document.getElementById("trang3").classList.add('bg-primary');
+			    document.getElementById("trang2").classList.remove('bg-primary');
+		   }else{
+			   	$scope.trang = 1;
+		   		document.getElementById("trang2").classList.add('bg-primary');
+		   		document.getElementById("trang3").classList.remove('bg-primary');
+		   }
+		   document.getElementById("trang1").classList.remove('bg-primary');
+        }
+     }
+     
+     $scope.bachgroup = function(){
+		document.getElementById("trang2").classList.add('bg-primary');
+		document.getElementById("trang1").classList.remove('bg-primary');
+		document.getElementById("trang3").classList.remove('bg-primary');
+	 }
+     
+     $scope.tiep = function () {
+        if (($scope.start+$scope.pt) > $scope.tkctpro.length-1) {
+           //$scope.start = 0;
+        } else {
+           $scope.start += $scope.pt;
+        }
+        console.log($scope.start)
+     }
+     $scope.truoc = function () {
+		var a = $scope.tkctpro.length % $scope.pt;
+        if ($scope.start == 0) {
+			
+        } else {
+           	$scope.start -= $scope.pt;
+        }
+     }
+     $scope.loadtrang = function(tr){
+		 if(tr==null){
+			 tr=1;
+		 }
+		 $scope.start = $scope.pt * (tr -1);
+		 console.log($scope.start)
+	 }
+    
 	
 	
    
@@ -252,4 +368,6 @@ app.controller("thongke-ctrl", function($scope, $http){
    $scope.load_all3();
    $scope.locpro();
    $scope.locor();
+   $scope.loadtrang();
+   $scope.end(1);
 });

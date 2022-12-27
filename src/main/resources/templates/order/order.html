@@ -23,7 +23,7 @@
 								<div class="mb-3">
 									<label for="hoten" class="form-label" style="color: black;">Họ tên</label>
 									<input type="text" class="form-control" id="hoten" aria-describedby="emailHelp"
-										ng-model="order.order_fullname">
+										ng-model="order.order_fullname" required>
 								</div>
 							</th:block>
 							<th:block th:if="${#request.remoteUser}">
@@ -34,12 +34,12 @@
 							</th:block>
 							<div class="mb-3">
 								<label for="sdt" class="form-label" style="color: black;">Số điện thoại</label>
-								<input type="text" class="form-control" id="sdt" ng-model="order.order_phone">
+								<input type="text" class="form-control" id="sdt" ng-model="order.order_phone" required>
 							</div>
 							<div class="mb-3">
 								<label for="email" class="form-label" style="color: black;">Email</label>
 								<th:block th:unless="${#request.remoteUser}">
-									<input type="email" class="form-control" id="emaill" ng-model="order.order_email">
+									<input type="email" class="form-control" id="emaill" ng-model="order.order_email" required>
 								</th:block>
 								<th:block th:if="${#request.remoteUser}">
 									<div id="emaill" class="form-control" th:text="${userLogin.user_mail}"></div>
@@ -47,9 +47,9 @@
 							</div>
 							<div class="mb-3">
 								<label for="diachi" class="form-label" style="color: black;">Địa chỉ</label>
-								<input type="text" class="form-control" id="diachi" ng-model="order.order_address">
+								<input type="text" class="form-control" id="diachi" ng-model="order.order_address" required>
 							</div>
-						</form>
+						
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" placeholder="Nhập vào đây mã giảm giá (Nếu có)"
 								aria-label="Recipient's username" aria-describedby="button-addon2"
@@ -65,6 +65,7 @@
 							<button ng-click="order.ghn()" class="btn btn-primary rounded-pill m-auto"
 								style="width: 70%;display: none;" id="test">Test GHN</button>
 						</div>
+						</form>
 					</div>
 				</div>
 				<div class="col-md-6">

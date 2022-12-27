@@ -246,7 +246,81 @@ app.controller("product_ctrl", function($scope, $http){
 			console.log("Error ",err)
 		})
     }
+    
+    
+    $scope.sxtk1 = 1;
+    $scope.sxtk2 = 1;
+    $scope.sxtk3 = 1;
+    $scope.sxtk4 = 1;
+    $scope.sxtk5 = 1;
+    $scope.sxtk6 = 1;
+    $scope.sx;
+	$scope.loadsx = function(x,y){
+		if(x == 1){
+			if(y % 2 ==0){
+				$scope.sx = "product_id";
+			}else{
+				$scope.sx = "-product_id";
+			}
+		}else if(x == 2){
+			if(y % 2 ==0){
+				$scope.sx = "product_name";
+			}else{
+				$scope.sx = "-product_name";
+			}
+		}else if(x == 3){
+			if(y % 2 ==0){
+				$scope.sx = "product_price";
+			}else{
+				$scope.sx = "-product_price";
+			}
+		}else if(x == 4){
+			if(y % 2 ==0){
+				$scope.sx = "product_img";
+			}else{
+				$scope.sx = "-product_img";
+			}
+		}else if(x == 5){
+			if(y % 2 ==0){
+				$scope.sx = "product_desc";
+			}else{
+				$scope.sx = "-product_desc";
+			}
+		}else{
+			if(y % 2 ==0){
+				$scope.sx = "product_quantity";
+			}else{
+				$scope.sx = "-product_quantity";
+			}
+		}
+		
+	}
+    $scope.sapxep1 = function(a){
+			$scope.sxtk1 += 1;
+			$scope.loadsx(1,$scope.sxtk1)
+	}
+	$scope.sapxep2 = function(a){
+			$scope.sxtk2 += 1;
+			$scope.loadsx(2,$scope.sxtk2)
+	}
+	$scope.sapxep3 = function(a){
+			$scope.sxtk3 += 1;
+			$scope.loadsx(3,$scope.sxtk3)
+	}
+	$scope.sapxep4 = function(a){
+			$scope.sxtk4 += 1;
+			$scope.loadsx(4,$scope.sxtk4)
+	}
+	$scope.sapxep5 = function(a){
+			$scope.sxtk5 += 1;
+			$scope.loadsx(5,$scope.sxtk5)
+	}
+	$scope.sapxep6 = function(a){
+			$scope.sxtk6 += 1;
+			$scope.loadsx(6,$scope.sxtk6)
+	}
  
     $scope.load_all();
     $scope.reset();
+    $scope.loadsx(1,1);
 });

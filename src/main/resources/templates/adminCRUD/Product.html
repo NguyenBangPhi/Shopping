@@ -32,17 +32,17 @@
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Tên </th>
-				      <th scope="col">Giá</th>
-				      <th scope="col">Ảnh</th>
-				      <th scope="col">Mô tả</th>
-				      <th scope="col">Số lượng</th>
+				      <th scope="col" ng-click="sapxep1(sxtk1)">ID</th>
+				      <th scope="col" ng-click="sapxep2(sxtk2)">Tên </th>
+				      <th scope="col" ng-click="sapxep3(sxtk3)">Giá</th>
+				      <th scope="col" ng-click="sapxep4(sxtk4)">Ảnh</th>
+				      <th scope="col" ng-click="sapxep5(sxtk5)">Mô tả</th>
+				      <th scope="col" ng-click="sapxep6(sxtk6)">Số lượng</th>
 				      <th scope="col">Chỉnh sửa</th>
 				    </tr>
 				  </thead>
 				  <tbody>			
-				     <tr ng-repeat="stu in items | orderBy:'product_id'|limitTo:pt:start">
+				     <tr ng-repeat="stu in items | orderBy:sx|limitTo:pt:start">
 			            <td>{{stu.product_id}}</td>
 			            <td>{{stu.product_name}}</td>
 			            <td>{{stu.product_price | currency:'':0}}</td>
